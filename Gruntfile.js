@@ -29,13 +29,13 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            js: {
-                options: {
-                    spawn: false
-                },
-                files: ['{server,client}/**/*.js'],
-                tasks: [ 'karma', 'test']
-            },
+            //js: {
+            //    options: {
+            //        spawn: false
+            //    },
+            //    files: ['{server,client}/**/*.js'],
+            //    tasks: [ 'karma', 'test']
+            //},
             wiredep: {
                 files: ['client/bower_components/**'],
                 tasks: ['wiredep']

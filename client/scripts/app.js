@@ -1,3 +1,3 @@
 (function() {
-    angular.module('live', []);
+    angular.module('simplejobs', []);
 })();

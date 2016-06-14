@@ -1,12 +1,12 @@
 {
-  "name": "954back",
-  "description": "Backend to 954live",
+  "name": "simplejobs",
+  "description": "Why does getting a job on a yacht have to be so damn complicated?",
   "main": "server.js",
   "authors": [
     "Adam S"
   ],
   "license": "GPL-3.0",
-  "homepage": "https://github.com/adam-s/954back",
+  "homepage": "https://github.com/adam-s/simplejobs",
   "moduleType": [],
   "private": true,
   "ignore": [

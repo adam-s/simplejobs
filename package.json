@@ -1,7 +1,7 @@
 {
-  "name": "954back",
+  "name": "simplejobs",
   "version": "1.0.0",
-  "description": "Backend to 954live",
+  "description": "Why does getting a job on a yacht have to be so damn complicated?",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adam-s/954back.git"
+    "url": "git+https://github.com/adam-s/simplejobs.git"
   },
   "author": "Adam S",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/adam-s/954back/issues"
+    "url": "https://github.com/adam-s/simplejobs/issues"
   },
-  "homepage": "https://github.com/adam-s/954back#readme",
+  "homepage": "https://github.com/adam-s/simplejobs#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "bower": "^1.7.7",
