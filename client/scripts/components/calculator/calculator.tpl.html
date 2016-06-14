@@ -1,0 +1,21 @@
+<div class="calculator">
+    <div class="display">{{vm.displayValue}}</div>
+    <div class="digitsKeyboard">
+        <div class="digitKey"
+             ng-click="vm.digitClicked(key.value)"
+             ng-repeat="key in vm.digitKeys">
+            {{ key.label }}
+        </div>
+        <div class="equalSignKey"
+             ng-click="vm.compute()">
+            {{ vm.equalSignKey.label }}
+        </div>
+    </div>
+    <div class="operationKeyboard">
+        <div class="operationKey"
+             ng-click="vm.operationClicked(key.operation)"
+             ng-repeat="key in vm.operationKeys">
+            {{ key.label }}
+        </div>
+    </div>
+</div>

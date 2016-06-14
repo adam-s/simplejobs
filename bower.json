@@ -1,0 +1,22 @@
+{
+  "name": "954back",
+  "description": "Backend to 954live",
+  "main": "server.js",
+  "authors": [
+    "Adam S"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/adam-s/954back",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0"
+  }
+}
