@@ -10,9 +10,6 @@ var BaseListing = require('../../models/base.listing.model.js'),
 describe('BaseListing model unit tests:', function() {
     var listing;
 
-    before(connect);
-    after(disconnect);
-
     beforeEach(function(){
         listing = new BaseListing ({
             startDate: Date.now(),
@@ -36,7 +33,6 @@ describe('BaseListing model unit tests:', function() {
 
     it('Should create a new base listing', function(done) {
         listing.save(function(err, result) {
-            console.log(typeof err);
             expect(err).to.be.null;
             done();
         });

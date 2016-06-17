@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     mongooseDelete = require('mongoose-delete'),
-    metadata = require('./plugins/metadata.plugin.js'),
+    metadata = require('./plugins/metadata.js'),
+    pagination = require('./plugins/pagination.js'),
     values = require('../config/values.js');
 
 var options = {
@@ -46,6 +47,7 @@ var BaseListingSchema = new Schema({
 }, options);
 
 BaseListingSchema.plugin(metadata);
+BaseListingSchema.plugin(pagination);
 BaseListingSchema.plugin(mongooseDelete, { overrideMethods: 'all' });
 
 module.exports = mongoose.model('BaseListing', BaseListingSchema);

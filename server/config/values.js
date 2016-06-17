@@ -39,6 +39,6 @@ var popularPorts = [
 module.exports = {
     positions: positions,
     languages: languages,
-    vesselTypes: jobTypes,
+    jobTypes: jobTypes,
     popularPorts: popularPorts
 };

@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    BaseListing = require('./base.listing.model.js');
+    BaseListing = require('./base.listing.model.js'),
+    values = require('../config/values.js');
 
 var options = {
     discriminatorKey: 'kind'
@@ -16,6 +17,10 @@ var JobListingSchema = new Schema({
     reqPapers: {
         type: Boolean,
         default: false
+    },
+    jobTypes: {
+        type: String,
+        enum: values.jobTypes
     },
     flag: String,
     length: Number
