@@ -7,7 +7,6 @@
     var endpoint = '/api/job-listings/';
 
     function jobApi(RestApi) {
-        console.log('jobApi');
         return RestApi(endpoint);
     }
 })();

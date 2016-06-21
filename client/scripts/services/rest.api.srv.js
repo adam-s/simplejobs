@@ -27,8 +27,6 @@
         };
 
         Route.prototype.create = function create(model) {
-            console.log(model);
-            console.log(this);
             return $http
                 .post(this.endpoint, model)
                 .then(getData);

@@ -13,7 +13,6 @@
                 resolve: {
                     crew: ['$stateParams', 'crewApi', function($stateParams, crewApi) {
                         var crew = crewApi.index($stateParams);
-                        console.log(crew);
                         return crew;
                     }]
                 },

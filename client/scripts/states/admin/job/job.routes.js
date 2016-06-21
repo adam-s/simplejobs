@@ -13,7 +13,6 @@
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
                         var job = jobApi.index($stateParams);
-                        console.log(job);
                         return job;
                     }]
                 },

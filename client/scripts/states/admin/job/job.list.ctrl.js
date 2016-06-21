@@ -21,7 +21,6 @@
             vm.promise = jobApi
                 .index(vm.tableState)
                 .then(function(response) {
-                    console.log(response);
                     vm.job = response.records;
                     vm.count = response.metadata.totalCount;
                 });

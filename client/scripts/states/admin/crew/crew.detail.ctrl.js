@@ -10,7 +10,6 @@
         vm.submitDisabled = false;
 
         vm.submit = function() {
-            console.log(crewApi);
             vm.submitDisabled = true;
             var add = (typeof crew === 'undefined');
             var submitFn = add ? crewApi.create.bind(crewApi) : crewApi.update.bind(crewApi);

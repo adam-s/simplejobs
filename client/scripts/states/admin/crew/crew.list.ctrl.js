@@ -21,7 +21,6 @@
             vm.promise = crewApi
                 .index(vm.tableState)
                 .then(function(response) {
-                    console.log(response);
                     vm.crew = response.records;
                     vm.count = response.metadata.totalCount;
                 });
