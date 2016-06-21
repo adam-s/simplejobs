@@ -41,6 +41,7 @@ module.exports = function (db) {
     require('../routes/index.routes.js')(app);
     require('../routes/crew.listings.routes.js')(app);
     require('../routes/job.listings.routes.js')(app);
+    require('../routes/mocks.routes.js')(app);
 
     // This has to go last as a catch all
     require('../routes/app.routes.js')(app);

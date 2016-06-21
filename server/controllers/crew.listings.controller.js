@@ -6,8 +6,10 @@ var mongoose = require('mongoose'),
     app = require('express')();
 
 exports.index = function(req, res, next) {
+    var tableState = req.query.tableState || {};
+    tableState.order = tableState.order || '-updated';
     CrewListing
-        .pagination(req.query.tableState)
+        .pagination(tableState)
         .exec(function(err, results) {
             if(err) return next(err);
             res.json({
