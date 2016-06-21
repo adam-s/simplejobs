@@ -1,0 +1,19 @@
+<md-content>
+    <div layout="row">
+        <md-card md-whitefram="1" flex-gt-md="60" flex>
+            <div layout="column" layout-padding>
+                <form novalidate ng-submit="vm.submit()">
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-input-container flex>
+                            <label>Name</label>
+                            <input ng-model="vm.job.name">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-button ng-disabled="vm.submitDisabled" class="md-primary md-raised" type="submit">Submit</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-card>
+    </div>
+</md-content>
