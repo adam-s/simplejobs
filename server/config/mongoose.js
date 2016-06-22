@@ -14,6 +14,7 @@ module.exports = function () {
     require('../models/base.listing.model.js');
     require('../models/job.listing.model.js');
     require('../models/crew.listing.model.js');
+    require('../models/user.model.js');
 
     return db;
 };

@@ -38,15 +38,3 @@ describe('BaseListing model unit tests:', function() {
         });
     });
 });
-
-function connect(done) {
-    mongoose.connect('mongodb://localhost/yachtjobs-test', done);
-}
-
-function disconnect(done) {
-    mongoose.connect('mongodb://location/yachtjobs-test', function() {
-        mongoose.connection.db.dropDatabase(function() {
-            mongoose.connection.db.close(done);
-        });
-    })
-}

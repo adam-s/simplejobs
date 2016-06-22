@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
     CrewListing = mongoose.model('CrewListing'),
     JobListing = mongoose.model('JobListing'),
+    User = mongoose.model('User'),
     async = require('async'),
     faker = require('faker'),
     values = require('../config/values.js');
@@ -19,6 +20,11 @@ module.exports = function(app) {
                 JobListing.remove({}, function() {
                     callback();
                 })
+            },
+            function(callback) {
+                User.remove({}, function() {
+                    callback();
+                })
             }
         ], function() {
             res.send('all the things deleted');
@@ -26,9 +32,16 @@ module.exports = function(app) {
     });
 
     app.get('/make-all-the-things', function(req, res, next) {
+        var users = usersMaker();
         var crew = crewMaker();
         var jobs = jobsMaker();
         async.parallel([
+            function(callback) {
+                User.create(users, function(err, results) {
+                    if (err) return callback(err);
+                    callback(null, results);
+                })
+            },
             function(callback) {
                 CrewListing.create(crew, function(err, results) {
                     if (err) return callback(err);
@@ -99,4 +112,16 @@ function jobsMaker() {
     }
 
     return jobs;
+}
+
+function usersMaker() {
+    var users = [];
+
+    for (var i = 0; i < 1000; i++) {
+        users.push({
+            name: faker.name.findName(),
+            email: faker.internet.email()
+        });
+    }
+    return users;
 }
