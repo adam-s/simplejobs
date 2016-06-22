@@ -8,6 +8,7 @@
         $stateProvider
             .state('crewList', {
                 url: '/crew/list?limit&page',
+                parent: 'admin',
                 controller: 'crewListCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.list.tpl.html',
                 resolve: {
@@ -24,11 +25,13 @@
             })
             .state('crewDetail', {
                 url: '/crew/:id/view',
+                parent: 'admin',
                 controller: 'crewDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.detail.tpl.html'
             })
             .state('crewEdit', {
                 url: '/crew/:id/edit',
+                parent: 'admin',
                 controller: 'crewDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.edit.tpl.html',
                 resolve: {

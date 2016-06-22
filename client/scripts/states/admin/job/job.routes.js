@@ -8,6 +8,7 @@
         $stateProvider
             .state('jobList', {
                 url: '/job/list?limit&page',
+                parent: 'admin',
                 controller: 'jobListCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.list.tpl.html',
                 resolve: {
@@ -24,11 +25,13 @@
             })
             .state('jobDetail', {
                 url: '/job/:id/view',
+                parent: 'admin',
                 controller: 'jobDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.detail.tpl.html'
             })
             .state('jobEdit', {
                 url: '/job/:id/edit',
+                parent: 'admin',
                 controller: 'jobDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.edit.tpl.html',
                 resolve: {
