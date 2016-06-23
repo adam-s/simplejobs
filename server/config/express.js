@@ -6,7 +6,8 @@ var config = require('./config'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    passport = require('passport');
 
 // Define the Express configuration method
 module.exports = function (db) {
@@ -36,6 +37,10 @@ module.exports = function (db) {
 
     // Configure static file serving
     app.use(express.static('./' + config.dir));
+
+    // Load and initialize passport
+    require('./passport.js');
+    app.use(passport.initialize());
 
     // Load the routing files
     require('../routes/index.routes.js')(app);

@@ -7,7 +7,9 @@ var mongoose = require('mongoose'),
     pagination = require('./plugins/pagination.js'),
     values = require('../config/values.js'),
     _ = require('lodash'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    jwt = require('jsonwebtoken'),
+    config = require('../config/config.js');
 
 /**
  * Validations
@@ -116,7 +118,7 @@ UserSchema.methods.isAdmin = function() {
  * @api public
  */
 UserSchema.methods.authenticate = function(plainText) {
-    return this.hashPassword(plainText) === this.hashed_password;
+    return this.hashPassword(plainText) === this.hashedPassword;
 };
 
 /**
@@ -142,6 +144,31 @@ UserSchema.methods.hashPassword = function(password) {
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
 };
 
+/**
+ * For sake of tutorial at https://www.sitepoint.com/user-authentication-mean-stack/ the
+ * methods will be repeated.
+ */
+UserSchema.methods.setPassword = function(password) {
+    this.salt = crypto.randomBytes(16).toString('hex');
+    this.hashedPassword = crypto.pdkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+};
+
+UserSchema.methods.validPassword = function(password) {
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+    return this.hashPassword === hash;
+};
+
+UserSchema.methods.generateJwt = function() {
+    var expiry = new Date();
+    expiry.setDate(expiry.getDate() + 7);
+
+    return jwt.sign({
+        _id: this._id,
+        email: this.email,
+        name: this.name,
+        exp: parseInt(expiry.getTime() / 1000)
+    }, config.sessionSecret);
+};
 /**
  * Hide security sensitive fields
  *

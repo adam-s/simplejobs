@@ -8,5 +8,6 @@
 module.exports = {
     db: process.env.MONGODB_URI,
     // set this to build
-    dir: 'client'
+    dir: 'client',
+    sessionSecret: process.env.SESSION_SECRET || 'MEAN'
 };

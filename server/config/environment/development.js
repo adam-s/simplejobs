@@ -3,5 +3,6 @@
 // Set the 'development' environment configuration object
 module.exports = {
     db: 'mongodb://localhost/simplejobs-dev',
-    dir: 'client'
+    dir: 'client',
+    sessionSecret: process.env.SESSION_SECRET || 'MEAN'
 };
