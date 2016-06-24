@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="css/sass/app.css">
         <link rel="stylesheet" href="css/scripts/components/header/header.css">
         <link rel="stylesheet" href="css/scripts/components/sidenav/sidenav.css">
+        <link rel="stylesheet" href="css/scripts/states/auth/auth.css">
         <!-- endinjector -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -25,12 +26,8 @@
             display: none !important;
         }</style>
     </head>
-    <body ng-cloak layout="row">
-    <sj-sidenav></sj-sidenav>
-    <div flex layout="column" tabIndex="-1" role="main">
-        <sj-header></sj-header>
-        <div ui-view flex layout="column"></div>
-    </div>
+    <body ng-cloak>
+    <ui-view layout-fill layout="row"></ui-view>
     <!-- build:js js/app.js-->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
@@ -40,6 +37,7 @@
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <!-- endbower -->
     <!-- injector:js -->
     <script src="scripts/app.js"></script>
@@ -62,6 +60,13 @@
     <script src="scripts/states/admin/user/user.detail.ctrl.js"></script>
     <script src="scripts/states/admin/user/user.list.ctrl.js"></script>
     <script src="scripts/states/admin/user/user.routes.js"></script>
+    <script src="scripts/states/auth/auth.routes.js"></script>
+    <script src="scripts/states/auth/auth.srv.js"></script>
+    <script src="scripts/states/auth/labelFloatWorkAround.js"></script>
+    <script src="scripts/states/auth/login/login.ctrl.js"></script>
+    <script src="scripts/states/auth/login/login.routes.js"></script>
+    <script src="scripts/states/auth/password/password.ctrl.js"></script>
+    <script src="scripts/states/auth/password/password.routes.js"></script>
     <!-- endinjector -->
     <!-- endbuild -->
 

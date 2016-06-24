@@ -6,9 +6,9 @@
 
     function routes($stateProvider) {
         $stateProvider
-            .state('admin', {
-                url: '/admin',
-                templateUrl: 'scripts/states/admin/admin.tpl.html',
+            .state('auth', {
+                url: '/auth',
+                templateUrl: 'scripts/states/auth/auth.tpl.html',
                 abstract: true
             });
     }

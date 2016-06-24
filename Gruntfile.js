@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                 tasks: ['sass']
             },
             injector: {
-                files: ['client/scripts/**', 'client/css/**'],
+                files: [['client/scripts/**','!client/srcipts/app.js', 'client/css/**'], ['client/scripts/app.js']],
                 tasks: ['injector']
             }
         },

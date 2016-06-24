@@ -39,6 +39,8 @@ module.exports = function (db) {
     app.use(express.static('./' + config.dir));
 
     // Load and initialize passport
+    // Initializing the session has to come after the statics
+    // @link https://www.airpair.com/express/posts/expressjs-and-passportjs-sessions-deep-dive
     require('./passport.js');
     app.use(passport.initialize());
 

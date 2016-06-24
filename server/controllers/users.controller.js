@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     User = mongoose.model('User'),
     app = require('express')(),
-    passport = requier('passport');
+    passport = require('passport');
 
 exports.index = function(req, res, next) {
     var tableState = req.query.tableState || {};

@@ -1,0 +1,69 @@
+<div layout="column" layout-align="center center" class="login sj-color-white ">
+    <h2 class="title sj-text-center">Sign in</h2>
+    <h1 class="title sj-text-center">Simple Yacht Jobs</h1>
+    <div class="sj-whiteframe-wrap">
+        <div class="md-whiteframe-z1">
+            <md-content flex layout-padding>
+                <h4 class="sj-text-center">Sign in using social accounts</h4>
+                <social-login>
+                    <div layout layout-align="space-around center">
+                        <md-button class="sj-social-login-btn md-raised md-primary" aria-label="Facebook" style="background-color:#3b5998">
+                            <md-icon md-svg-icon="facebook"></md-icon>
+                            <span hide-xs>Facebook</span>
+                        </md-button>
+                        <md-button class="sj-social-login-btn md-raised md-primary" aria-label="Google" style="background-color:#dd4b39">
+                            <md-icon md-svg-icon="google"></md-icon>
+                            <span hide-xs>Google</span>
+                        </md-button>
+                    </div>
+                </social-login>
+                <h4 class="sj-text-center">or via email</h4>
+                <form name="loginForm" novalidate ng-submit="vm.submit()">
+                    <md-input-container class="md-block">
+                        <input type="email"
+                               name="email"
+                               ng-model="vm.form.email"
+                               placeholder="Email"
+                               ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
+                               required
+                               aria-label="Email"
+                               aria-invalid="false"/>
+                        <div ng-messages="loginForm.email.$error"
+                             role="alert"
+                             aria-live="assertive"
+                             ng-show="(!loginForm.email.$untouched || loginForm.$submitted)
+                              && (loginForm.email.$error.email || loginForm.email.$error.required)">
+                            <div ng-message="required"><span>Email field is required</span></div>
+                            <div ng-message="pattern"><span>Email must be a valid e-mail address</span></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input type="password"
+                               name="password"
+                               ng-model="vm.form.password"
+                               placeholder="Password"
+                               required
+                               aria-label="Password"
+                               aria-invalid="false"/>
+                        <div ng-messages="loginForm.password.$error"
+                             role="alert"
+                             aria-live="assertive"
+                             ng-show="(!loginForm.password.$untouched || loginForm.$submitted) && loginForm.password.$error.required">
+                            <div ng-message="required"><span>Password field is required</span></div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="center center">
+                        <md-button class="md-raised md-primary submit"
+                                   type="submit"
+                                   ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                                   disabled="disabled"
+                                   aria-label="Log IN">Log in</md-button>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+    </div>
+    <div class="sj-space-16"></div>
+    <p>Not registered yet?</p>
+    <a class="md-raised md-primary md-button" ui-sref="register">Free sign up</a>
+</div>
