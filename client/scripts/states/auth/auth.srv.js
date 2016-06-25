@@ -2,10 +2,12 @@
     angular.module('simplejobs')
         .factory('Auth', Auth);
 
-    Auth.$inject = [];
+    Auth.$inject = ['$window'];
 
-    function Auth() {
-        return {
+    function Auth($window) {
+        var self
+
+        function UserKlass (){
 
         }
     }

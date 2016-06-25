@@ -28,6 +28,12 @@
     </head>
     <body ng-cloak>
     <ui-view layout-fill layout="row"></ui-view>
+
+    <!--Embedding The User Object-->
+    <script type="text/javascript">
+        var currentUser = {{ user | json | safe }};
+    </script>
+
     <!-- build:js js/app.js-->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>

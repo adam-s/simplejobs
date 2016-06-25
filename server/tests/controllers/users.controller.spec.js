@@ -60,14 +60,14 @@ describe('User listing controller unit tests: ', function() {
     describe('PUT /api/users/:userId', function() {
         it('Should update the first user listing document', function(done) {
             var data = users[0];
-            data.name = 'changed';
+            data.email = 'different@example.com';
 
             request(app)
                 .put('/api/users/' + data._id)
                 .send(data)
                 .expect(200)
                 .end(function(err, response) {
-                    expect(response.body.data.name).to.equal(data.name);
+                    expect(response.body.data.email).to.equal(data.email);
                     done();
                 });
         });

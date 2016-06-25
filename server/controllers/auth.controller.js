@@ -2,23 +2,27 @@
 
 var passport = require('passport'),
     mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    validationErrorHandler = require('../lib/validationErrorHandler.js');
 
-exports.register = function(req, res) {
+exports.register = function(req, res, next) {
+
+    req.assert('password', 'You must enter a password').notEmpty();
+    req.assert('passwordConfirm', 'Passwords must match').equals(req.body.password);
+    req.assert('email', 'You must enter a valid email address').isEmail();
+
+    var errors = req.validationErrors();
+    if (errors) return next(validationErrorHandler(errors));
+
     var user = new User();
-
-    user.name = req.body.name;
     user.email = req.body.email;
-
-    user.setPassword(req.body.password);
+    user.password = req.body.password;
 
     user.save(function(err) {
-        var token;
-        token = user.generateJwt();
+        if (err) return next(validationErrorHandler(err, true));
+
         res.status(200);
-        res.json({
-            'token': token
-        });
+        res.json(user);
     });
 };
 
