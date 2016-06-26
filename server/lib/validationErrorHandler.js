@@ -7,10 +7,10 @@ module.exports = function(errors, format) {
         errors = modelErrorFormatter(errors);
     }
 
-    return createError(400, {
-        msg: 'Validation error',
+    return {
+        message: 'Validation error',
         errors: errors
-    });
+    };
 };
 
 function modelErrorFormatter(err) {

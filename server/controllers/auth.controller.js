@@ -12,41 +12,34 @@ exports.register = function(req, res, next) {
     req.assert('email', 'You must enter a valid email address').isEmail();
 
     var errors = req.validationErrors();
-    if (errors) return next(validationErrorHandler(errors));
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
 
     var user = new User();
     user.email = req.body.email;
     user.password = req.body.password;
 
     user.save(function(err) {
-        if (err) return next(validationErrorHandler(err, true));
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
 
-        res.status(200);
-        res.json(user);
+        user.password = user.passwordConfirm = undefined;
+        user.salt = undefined;
+
+        req.login(user, function(err) {
+            if (err) return res.status(400).send(err);
+            res.json(user);
+        })
     });
 };
 
-exports.login = function(req, res) {
+exports.login = function(req, res, next) {
+
+    req.assert('password', 'You must enter a password').notEmpty();
+    req.assert('email', 'You must enter a valid email address').isEmail();
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
     passport.authenticate('local', function(err, user, info) {
-        var token;
-
-        // If passport throws / catches an error
-        if (err) {
-            res.status(404).json(err);
-            return;
-        }
-
-        // If a user is found
-        if (user) {
-            token = user.generateJwt();
-            res.status(200);
-            res.json({
-                "token" : token
-            });
-        } else {
-            // If user is not found
-            res.status(401).json(info);
-        }
-
-    })(req, res);
+        res.send(user);
+    })(req, res, next);
 };

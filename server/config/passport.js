@@ -16,13 +16,15 @@ module.exports = function(app) {
         User.findOne({
             _id: id
         }, '-salt -hashedPassword', function (err, user) {
+            console.log(id);
             done(err, user);
         });
     });
 
     // Add strategies
     passport.use(new LocalStrategy({
-        usernameField: 'email'
+        usernameField: 'email',
+        passwordField: 'password'
     }, function(username, password, done) {
         User.findOne({ email: username }, function(err, user) {
             // Check if error
@@ -36,17 +38,15 @@ module.exports = function(app) {
             }
 
             // Return if password is wrong
-            if (!user.validPassword(password)) {
+            if (!user.authenticate(password)) {
                 return done(null, false, {
                     message: 'Password is wrong'
                 });
             }
-
             // Everything is A-OK :)
             return done(null, user);
         })
     }));
-
 
     // Add passport's middleware
     app.use(passport.initialize());
