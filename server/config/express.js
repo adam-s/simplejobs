@@ -41,7 +41,10 @@ module.exports = function (db) {
     app.set('views', './server/views');
 
     // Configure static file serving
-    app.use(express.static('./' + config.dir));
+    // @link http://evanhahn.com/express-dot-static-deep-dive/
+    app.use(express.static('./' + config.dir, {
+        index: false
+    }));
 
     // Configure and initialize session
     app.use(cookieParser());
@@ -77,7 +80,6 @@ module.exports = function (db) {
     require('./passport.js')(app);
 
     // Load the routing files
-    require('../routes/index.routes.js')(app);
     require('../routes/crew.listings.routes.js')(app);
     require('../routes/job.listings.routes.js')(app);
     require('../routes/mocks.routes.js')(app);

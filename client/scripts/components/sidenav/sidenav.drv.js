@@ -10,7 +10,9 @@
             replace: true,
             controller: 'SidenavCtrl',
             controllerAs: 'vm',
-            templateUrl: 'scripts/components/sidenav/sidenav.tpl.html'
+            templateUrl: 'scripts/components/sidenav/sidenav.tpl.html',
+            bindToController: true,
+            scope: {}
         };
 
         return directive;

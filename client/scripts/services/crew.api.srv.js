@@ -7,6 +7,6 @@
     var endpoint = '/api/crew-listings/';
 
     function crewApi(RestApi) {
-        return RestApi(endpoint);
+        return new RestApi(endpoint);
     }
 })();

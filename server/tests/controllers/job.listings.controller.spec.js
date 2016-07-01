@@ -23,7 +23,7 @@ describe('Job listing controller unit tests: ', function() {
                 .get('/api/job-listings')
                 .end(function(err, response) {
                     if (err) return done(err);
-                    expect(response.body.data.records.length).to.equal(10);
+                    expect(response.body.records.length).to.equal(10);
                     done();
                 });
         });
@@ -50,7 +50,7 @@ describe('Job listing controller unit tests: ', function() {
                 .expect(200)
                 .end(function(err, response) {
                     if (err) return done(err);
-                    expect(response.body.data.name).to.equal(testJob.name);
+                    expect(response.body.name).to.equal(testJob.name);
                     done();
                 });
         });
@@ -66,7 +66,7 @@ describe('Job listing controller unit tests: ', function() {
                 .send(data)
                 .expect(200)
                 .end(function(err, response) {
-                    expect(response.body.data.name).to.equal(data.name);
+                    expect(response.body.name).to.equal(data.name);
                     done();
                 });
         });
@@ -85,7 +85,7 @@ describe('Job listing controller unit tests: ', function() {
                         .get('/api/job-listings')
                         .end(function(err, response) {
                             if (err) return done(err);
-                            expect(response.body.data.records.length).to.equal(9);
+                            expect(response.body.records.length).to.equal(9);
                             done();
                         });
                 });

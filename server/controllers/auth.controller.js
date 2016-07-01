@@ -40,6 +40,20 @@ exports.login = function(req, res, next) {
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
     passport.authenticate('local', function(err, user, info) {
-        res.send(user);
+        if (err || !user) return res.status(400).send(info);
+
+        user.password = undefined;
+        user.salt = undefined;
+
+        req.login(user, function(err) {
+            if (err) return res.status(400).send(err);
+            res.json(user);
+        });
     })(req, res, next);
+};
+
+exports.logout = function(req, res, next) {
+    console.log('logging out');
+    req.logout();
+    res.redirect('/');
 };

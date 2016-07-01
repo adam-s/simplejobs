@@ -16,5 +16,5 @@ module.exports = function(app) {
             .send('Not found');
     });
 
-    app.all('/*', appDefaultCtrl.index);
+    app.all('*', appDefaultCtrl.index);
 };

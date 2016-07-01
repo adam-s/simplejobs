@@ -7,6 +7,6 @@
     var endpoint = '/api/users/';
 
     function userApi(RestApi) {
-        return RestApi(endpoint);
+        return new RestApi(endpoint);
     }
 })();

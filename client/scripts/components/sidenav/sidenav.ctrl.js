@@ -2,9 +2,15 @@
     angular.module('simplejobs')
         .controller('SidenavCtrl', SidenavCtrl);
 
-    SidenavCtrl = [];
+    SidenavCtrl = ['$mdSidenav'];
 
-    function SidenavCtrl() {
+    function SidenavCtrl($mdSidenav) {
         vm = this;
+
+        vm.toggleSidenav = toggleSidenav;
+
+        function toggleSidenav() {
+            $mdSidenav('left').toggle();
+        }
     }
 })();

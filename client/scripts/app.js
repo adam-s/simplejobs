@@ -1,6 +1,7 @@
 (function() {
     angular.module('simplejobs', [
         'ui.router',
+        'ngSanitize',
         'ngMaterial',
         'ngMessages',
         'ngAnimate',

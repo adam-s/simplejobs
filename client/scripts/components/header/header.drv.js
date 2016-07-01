@@ -10,7 +10,9 @@
             replace: true,
             controller: 'HeaderCtrl',
             controllerAs: 'vm',
-            templateUrl: 'scripts/components/header/header.tpl.html'
+            templateUrl: 'scripts/components/header/header.tpl.html',
+            bindToController: true,
+            scope: {}
         };
 
         return directive;

@@ -17,40 +17,54 @@
                     params: {tableState: tableState},
                     paramSerializer: '$httpParamSerializerJQLike'
                 })
-                .then(getData);
+                .then(function success(response) {
+                    return response.data;
+                }, function error(response) {
+                    return response.data;
+                });
         };
 
         Route.prototype.detail = function detail(id) {
             return $http
                 .get(this.endpoint + id)
-                .then(getData);
+                .then(function success(response) {
+                    return response.data;
+                }, function error(response) {
+                    return response.data;
+                });
         };
 
         Route.prototype.create = function create(model) {
             return $http
                 .post(this.endpoint, model)
-                .then(getData);
+                .then(function success(response) {
+                    return response.data;
+                }, function error(response) {
+                    return response.data;
+                });
         };
 
         Route.prototype.update = function update(model) {
             return $http
                 .put(this.endpoint + model._id, model)
-                .then(getData);
+                .then(function success(response) {
+                    return response.data;
+                }, function error(response) {
+                    return response.data;
+                });
         };
 
         Route.prototype.remove = function remove(id) {
             return $http
                 .delete(this.endpoint + id)
-                .then(getData)
+                .then(function success(response) {
+                    return response.data;
+                }, function error(response) {
+                    return response.data;
+                })
         };
 
-        return function(endpoint) {
-            return new Route(endpoint);
-        };
-
-        function getData(response) {
-            return response.data.data
-        }
+        return Route;
     }
 
 })();

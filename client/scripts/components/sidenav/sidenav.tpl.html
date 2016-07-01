@@ -1,31 +1,34 @@
-<md-sidenav md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')"
-            ng-click="vm.toggleSidenav()"
-            layout="column"
-            class="site-sidenav md-sidenav-left md-whiteframe-z2">
-    <md-toolbar class="md-whiteframe-z1">
-        <div class="md-toolbar-tools">
-            <h3>Menu</h3>
-        </div>
-    </md-toolbar>
-    <md-content flex>
-        <md-list>
-            <md-list-item>
-                <md-icon md-font-icon="home">home</md-icon>
-                <p>Home</p>
-            </md-list-item>
-            <md-list-item ui-sref="jobList">
-                <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
-                <p>Jobs</p>
-            </md-list-item>
-            <md-list-item ui-sref="crewList">
-                <md-icon md-font-icon="group">group</md-icon>
-                <p>Crew</p>
-            </md-list-item>
-            <md-list-item ui-sref="userList">
-                <md-icon md-font-icon="person">person</md-icon>
-                <p>Users</p>
-            </md-list-item>
-        </md-list>
-    </md-content>
-</md-sidenav>
+<div layout="column">
+    <md-sidenav md-component-id="left" flex
+                md-is-locked-open="$mdMedia('gt-sm')"
+                ng-click="vm.toggleSidenav()"
+                layout="column"
+                class="site-sidenav md-sidenav-left md-whiteframe-z2">
+        <md-toolbar class="md-whiteframe-z1">
+            <div class="md-toolbar-tools">
+                <h3>Simple Yacht Jobs</h3>
+            </div>
+        </md-toolbar>
+        <md-content flex>
+            <md-list>
+                <md-list-item ui-sref="home">
+                    <md-icon md-font-icon="home">home</md-icon>
+                    <p>Home</p>
+                </md-list-item>
+                <md-list-item ui-sref="jobList">
+                    <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
+                    <p>Jobs</p>
+                </md-list-item>
+                <md-list-item ui-sref="crewList">
+                    <md-icon md-font-icon="group">group</md-icon>
+                    <p>Crew</p>
+                </md-list-item>
+                <md-list-item ui-sref="userList">
+                    <md-icon md-font-icon="person">person</md-icon>
+                    <p>Users</p>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-sidenav>
+
+</div>

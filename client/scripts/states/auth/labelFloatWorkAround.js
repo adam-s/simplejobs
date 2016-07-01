@@ -20,17 +20,17 @@
                             var count = 0;
 
                             var interval = $interval(function () {
-                                if (count > 10) {
+                                if (ctrl.input && count > 10) {
+                                    ctrl.input.parent().focus();
                                     $interval.cancel(interval);
                                 }
 
-                                if (ctrl.input.parent()[0].querySelector('input:-webkit-autofill')) {
+                                if (ctrl.input && ctrl.input.parent()[0].querySelector('input:-webkit-autofill')) {
                                     ctrl.element.addClass('md-input-has-value');
                                     $interval.cancel(interval);
                                 }
-
                                 count++;
-                            }, 25);
+                            }, 50);
                         }
                     }
                 };

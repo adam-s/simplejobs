@@ -10,6 +10,12 @@ var options = {
 };
 
 var JobListingSchema = new Schema({
+    title: {
+        type: String
+    },
+    description: {
+        type: String
+    },
     smokingAllowed: {
         type: Boolean,
         default: false

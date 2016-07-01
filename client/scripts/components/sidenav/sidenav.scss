@@ -1,3 +1,13 @@
 //md-sidenav > md-toolbar {
 //  height:64px;
 //}
+
+.sj-profile-bg {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-image: url('/images/assets/yacht-bg.jpg');
+  background-repeat: no-repeat;
+  height: 150px !important;
+  min-height: 150px !important;
+}

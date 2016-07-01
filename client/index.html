@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/scripts/components/header/header.css">
         <link rel="stylesheet" href="css/scripts/components/sidenav/sidenav.css">
         <link rel="stylesheet" href="css/scripts/states/auth/auth.css">
+        <link rel="stylesheet" href="css/scripts/states/home/home.css">
         <!-- endinjector -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -26,12 +27,15 @@
             display: none !important;
         }</style>
     </head>
-    <body ng-cloak>
-    <ui-view layout-fill layout="row"></ui-view>
+    <body layout="row" ng-cloak>
+    <ui-view layout="row" flex></ui-view>
 
     <!--Embedding The User Object-->
     <script type="text/javascript">
-        var currentUser = {{ user | json | safe }};
+        var me = {{ user | json | safe }};
+    </script>
+    <script type="text/javascript">
+        var values = {{ values | json | safe }};
     </script>
 
     <!-- build:js js/app.js-->
@@ -44,25 +48,30 @@
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
     <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <!-- endbower -->
     <!-- injector:js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/app.routes.js"></script>
     <script src="scripts/components/header/header.ctrl.js"></script>
     <script src="scripts/components/header/header.drv.js"></script>
+    <script src="scripts/components/locationSearch/locationSearch.ctrl.js"></script>
+    <script src="scripts/components/locationSearch/locationSearch.drv.js"></script>
     <script src="scripts/components/sidenav/sidenav.ctrl.js"></script>
     <script src="scripts/components/sidenav/sidenav.drv.js"></script>
+    <script src="scripts/config/app.colors.js"></script>
+    <script src="scripts/config/app.routes.js"></script>
+    <script src="scripts/filter/orderBySelectedOption.filter.js"></script>
+    <script src="scripts/services/crew.api.srv.js"></script>
+    <script src="scripts/services/job.api.srv.js"></script>
     <script src="scripts/services/rest.api.srv.js"></script>
+    <script src="scripts/services/user.api.srv.js"></script>
     <script src="scripts/states/admin/admin.routes.js"></script>
-    <script src="scripts/states/admin/crew/crew.api.srv.js"></script>
     <script src="scripts/states/admin/crew/crew.detail.ctrl.js"></script>
     <script src="scripts/states/admin/crew/crew.list.ctrl.js"></script>
     <script src="scripts/states/admin/crew/crew.routes.js"></script>
-    <script src="scripts/states/admin/job/job.api.srv.js"></script>
     <script src="scripts/states/admin/job/job.detail.ctrl.js"></script>
     <script src="scripts/states/admin/job/job.list.ctrl.js"></script>
     <script src="scripts/states/admin/job/job.routes.js"></script>
-    <script src="scripts/states/admin/user/user.api.srv.js"></script>
     <script src="scripts/states/admin/user/user.detail.ctrl.js"></script>
     <script src="scripts/states/admin/user/user.list.ctrl.js"></script>
     <script src="scripts/states/admin/user/user.routes.js"></script>
@@ -73,7 +82,10 @@
     <script src="scripts/states/auth/login/login.routes.js"></script>
     <script src="scripts/states/auth/password/password.ctrl.js"></script>
     <script src="scripts/states/auth/password/password.routes.js"></script>
+    <script src="scripts/states/home/home.ctrl.js"></script>
+    <script src="scripts/states/home/home.routes.js"></script>
     <!-- endinjector -->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
     <!-- endbuild -->
 
     </body>

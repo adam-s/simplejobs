@@ -8,7 +8,7 @@ var app = require('../../../server.js'),
 
 var user, data;
 
-describe.only('User auth controller unit tests: ', function() {
+describe('User auth controller unit tests: ', function() {
     beforeEach(function(done) {
         User.remove(function() {
             data = {
@@ -94,9 +94,15 @@ describe.only('User auth controller unit tests: ', function() {
                         .post('/api/auth/login')
                         .send(data)
                         .expect(200)
-                        .end(function(err, response) {
+                        .end(function(err) {
                             if (err) return done(err);
-                            done();
+                            request(app)
+                                .get('/api/auth/logout')
+                                .expect(302)
+                                .end(function(err, reponse) {
+                                    if (err) return done(err);
+                                    done();
+                                })
                         });
                 });
         });

@@ -18,11 +18,11 @@
                     </div>
                 </social-login>
                 <h4 class="sj-text-center">or via email</h4>
-                <form name="loginForm" novalidate ng-submit="vm.submit()">
+                <form name="loginForm" novalidate ng-submit="vm.login()">
                     <md-input-container class="md-block">
                         <input type="email"
                                name="email"
-                               ng-model="vm.form.email"
+                               ng-model="vm.credentials.email"
                                placeholder="Email"
                                ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
                                required
@@ -40,7 +40,7 @@
                     <md-input-container class="md-block">
                         <input type="password"
                                name="password"
-                               ng-model="vm.form.password"
+                               ng-model="vm.credentials.password"
                                placeholder="Password"
                                required
                                aria-label="Password"
@@ -56,8 +56,8 @@
                         <md-button class="md-raised md-primary submit"
                                    type="submit"
                                    ng-disabled="loginForm.$invalid || loginForm.$pristine"
-                                   disabled="disabled"
-                                   aria-label="Log IN">Log in</md-button>
+                                   disabled="disabled || vm.disabledFlag"
+                                   aria-label="Log in">Log in</md-button>
                     </div>
                 </form>
             </md-content>

@@ -107,7 +107,9 @@ function jobsMaker() {
             reqPapers: false,
             jobTypes: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
             flag: 'American',
-            length: faker.random.number({min: 80, max: 300})
+            length: faker.random.number({min: 80, max: 300}),
+            title: faker.lorem.sentence(faker.random.number({min: 3, max:6})),
+            description: faker.lorem.sentences(4, faker.random.number({min: 4, max: 10}))
         });
     }
 

@@ -1,0 +1,41 @@
+.home {
+  .home-job-widget {
+    background-color: #BF9DAF;
+  }
+
+  .home-crew-widget {
+    background-color: #cbab7a;
+  }
+
+  .content{
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .item-card {
+    position: relative;
+    -webkit-transition: box-shadow 0.218s;
+    -moz-transition: box-shadow 0.218s;
+    -o-transition: box-shadow 0.218s;
+    transition: box-shadow 0.218s;
+
+    &:hover {
+      z-index: 1000;
+    }
+
+    .title {
+      h3 { margin-bottom: 5px; }
+    }
+
+  }
+
+  .item-card:hover {
+    z-index: 1000;
+  }
+}
+
+.top-selector-option[selected] {
+  background-color: #fff!important;
+  border-bottom: 1px solid #e0e0e0;
+}

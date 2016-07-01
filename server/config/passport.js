@@ -31,18 +31,12 @@ module.exports = function(app) {
             if (err) return done(err);
 
             // Check user not found
-            if (!user) {
+            if (!user || !user.authenticate(password)) {
                 return done(null, false, {
-                    message: 'User not found'
+                    message: 'Invalid email or password'
                 });
             }
 
-            // Return if password is wrong
-            if (!user.authenticate(password)) {
-                return done(null, false, {
-                    message: 'Password is wrong'
-                });
-            }
             // Everything is A-OK :)
             return done(null, user);
         })

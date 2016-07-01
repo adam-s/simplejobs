@@ -24,6 +24,7 @@
     "angular-material": "^1.0.9",
     "angular-material-data-table": "^0.10.9",
     "angular-messages": "^1.5.7",
-    "angular-validation-match": "^1.9.0"
+    "angular-validation-match": "^1.9.0",
+    "angular-sanitize": "^1.5.7"
   }
 }
