@@ -1,8 +1,13 @@
 <md-toolbar class="md-whiteframe-z1">
     <div class="md-toolbar-tools">
-        <md-button id="main" class="md-icon-button menu" hide-gt-sm ng-click="vm.toggleSidenav()">
-            <md-icon md-font-icon="menu">menu</md-icon>
-        </md-button>
-        <h3>Simple Yacht Jobs</h3>
+        <div layout="row" flex>
+            <md-button id="main" class="md-icon-button menu" hide-gt-sm ng-click="vm.toggleSidenav()">
+                <md-icon md-font-icon="menu">menu</md-icon>
+            </md-button>
+            <h3>Simple Yacht Jobs</h3>
+        </div>
+        <div layout="row">
+            <usermenu></usermenu>
+        </div>
     </div>
 </md-toolbar>

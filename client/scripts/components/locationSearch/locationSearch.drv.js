@@ -13,7 +13,22 @@
                 ngModel: '=',
                 label: '@?'
             },
-            controller: 'locationSearchCtrl'
+            controller: 'locationSearchCtrl',
+            link: link
         };
+
+        function link(scope, element, attrs) {
+
+            scope.$watch('ngModel', function(newVal) {
+                if (newVal && newVal.hasOwnProperty('$$hashKey')) {
+                    var inputElement = element.find('input');
+                    inputElement.val('');
+                    // Hack to set label to initial position
+                    inputElement.focus();
+                    inputElement.blur();
+                }
+            });
+        }
     }
+
 })();

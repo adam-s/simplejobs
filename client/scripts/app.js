@@ -19,7 +19,7 @@
 
     function config($mdIconProvider) {
         $mdIconProvider
-            .icon('facebook', 'images/icons/facebook.svg')
-            .icon('google', 'images/icons/google.svg');
+            .icon('facebook', 'assets/icons/facebook.svg')
+            .icon('google', 'assets/icons/google.svg');
     }
 })();

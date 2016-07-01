@@ -1,0 +1,45 @@
+<div layout="row" layout-align="center center">
+    <div ng-if="!vm.getMe()" layout="row">
+        <md-button ui-sref="login">Login</md-button>
+        <md-button class="md-raised" ui-sref="register">Register</md-button>
+    </div>
+    <md-menu-bar ng-if="vm.getMe()" id="usermenu" role="menubar">
+        <md-menu md-position-mode="left bottom">
+            <md-button class="usermenu-button md-primary"
+                       aria-label="User settings"
+                       ng-click="vm.openMenu($mdOpenMenu, $event)">
+                <div layout="row" layout-align="space-between center">
+                    <img md-menu-align-target class="avatar" ng-src="assets/images/profile.jpg">
+                    <md-icon md-font-icon style="color: white;">arrow_drop_down</md-icon>
+                </div>
+            </md-button>
+            <md-menu-content width="1" md-position-mode="target-right">
+                <md-menu-item class="user-menu-item" layout-align="start start">
+                    <md-button ui-sref="account">
+                        <md-icon md-font-icon="account_circle">account_circle</md-icon>
+                        <span>Account</span>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item class="user-menu-item" layout-align="start start">
+                    <md-button ui-sref="profile">
+                        <md-icon md-font-icon="rowing">rowing</md-icon>
+                        <span>Crew profile</span>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item class="user-menu-item" layout-align="start start">
+                    <md-button ui-sref="profile">
+                        <md-icon md-font-icon="list">list</md-icon>
+                        <span>My job listings</span>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item class="user-menu-item">
+                    <md-button ng-click="vm.logout()">
+                        <md-icon md-font-icon="exit_to_app">exit_to_app</md-icon>
+                        <span>Logout</span>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </md-menu-bar>
+</div>

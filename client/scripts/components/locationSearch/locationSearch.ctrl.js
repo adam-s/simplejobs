@@ -58,7 +58,12 @@
             autocompleteService.getQueryPredictions({
                 input: address
             }, function(data) {
-                deferred.resolve(data);
+                console.log(data);
+                if (data) {
+                    deferred.resolve(data);
+                } else {
+                    deferred.reject();
+                }
             });
             return deferred.promise;
         };

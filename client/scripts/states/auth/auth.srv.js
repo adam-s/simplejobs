@@ -2,16 +2,21 @@
     angular.module('simplejobs')
         .factory('Auth', Auth);
 
-    Auth.$inject = ['$window', '$http', '$q'];
+    Auth.$inject = ['$window', '$http', '$q', '$state'];
 
-    function Auth($window, $http, $q) {
+    function Auth($window, $http, $q, $state) {
         var me = $window.me;
 
         return {
-            me: me,
+            getMe: getMe,
             register: register,
-            login: login
+            login: login,
+            logout: logout
         };
+
+        function getMe() {
+            return me;
+        }
 
         function register(credentials) {
             var deferred = $q.defer();
@@ -45,6 +50,16 @@
             });
 
             return deferred.promise;
+        }
+
+        function logout() {
+            $http({
+                method: 'GET',
+                url: 'api/auth/logout'
+            }).then(function() {
+                me = "";
+                $state.go('home');
+            })
         }
     }
 })();
