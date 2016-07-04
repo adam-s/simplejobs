@@ -6,7 +6,6 @@ var config = require('./config'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
     expressValidator = require('express-validator'),
     consolidate = require('consolidate'),
     cookieParser = require('cookie-parser'),
@@ -33,7 +32,6 @@ module.exports = function (db) {
         extended: true
     }));
     app.use(bodyParser.json());
-    app.use(methodOverride());
 
     // Set the application view engine and 'views' folder
     app.engine('html', consolidate['swig']);
@@ -80,11 +78,11 @@ module.exports = function (db) {
     require('./passport.js')(app);
 
     // Load the routing files
+    require('../routes/auth.routes.js')(app);
     require('../routes/crew.listings.routes.js')(app);
     require('../routes/job.listings.routes.js')(app);
     require('../routes/mocks.routes.js')(app);
     require('../routes/users.routes.js')(app);
-    require('../routes/auth.routes.js')(app);
 
     // This has to go last as a catch all
     require('../routes/app.routes.js')(app);

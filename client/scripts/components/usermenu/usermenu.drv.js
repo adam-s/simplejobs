@@ -10,7 +10,8 @@
             templateUrl: 'scripts/components/usermenu/usermenu.tpl.html',
             bindToController: true,
             controllerAs: 'vm',
-            controller: 'usermenuCtrl'
+            controller: 'usermenuCtrl',
+            scope: {}
         }
     }
 })();

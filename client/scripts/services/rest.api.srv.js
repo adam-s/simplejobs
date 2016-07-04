@@ -2,66 +2,85 @@
     angular.module('simplejobs')
         .factory('RestApi', RestApi);
 
-    RestApi.$inject = ['$http'];
+    RestApi.$inject = ['$http', '$q'];
 
-    function RestApi($http) {
+    function RestApi($http, $q) {
 
         function Route(endpoint) {
             this.endpoint = endpoint;
         }
 
         Route.prototype.index = function index(tableState) {
-            return $http({
-                    url: this.endpoint,
-                    method: 'GET',
-                    params: {tableState: tableState},
-                    paramSerializer: '$httpParamSerializerJQLike'
-                })
-                .then(function success(response) {
-                    return response.data;
-                }, function error(response) {
-                    return response.data;
-                });
+            var deferred = $q.defer();
+
+            $http({
+                url: this.endpoint,
+                method: 'GET',
+                params: {tableState: tableState},
+                paramSerializer: '$httpParamSerializerJQLike'
+            }).then(function success(response) {
+                deferred.resolve(response.data);
+            }, function error(response) {
+                deferred.reject(response.data);
+            });
+
+            return deferred.promise;
         };
 
         Route.prototype.detail = function detail(id) {
-            return $http
+            var deferred = $q.defer();
+
+            $http
                 .get(this.endpoint + id)
                 .then(function success(response) {
-                    return response.data;
+                    deferred.resolve(response.data);
                 }, function error(response) {
-                    return response.data;
+                    deferred.reject(response.data);
                 });
+
+            return deferred.promise;
         };
 
         Route.prototype.create = function create(model) {
-            return $http
+            var deferred = $q.defer();
+
+            $http
                 .post(this.endpoint, model)
                 .then(function success(response) {
-                    return response.data;
+                    deferred.resolve(response.data);
                 }, function error(response) {
-                    return response.data;
+                    deferred.reject(response.data);
                 });
+
+            return deferred.promise;
         };
 
         Route.prototype.update = function update(model) {
-            return $http
+            var deferred = $q.defer();
+
+            $http
                 .put(this.endpoint + model._id, model)
                 .then(function success(response) {
-                    return response.data;
+                    deferred.resolve(response.data);
                 }, function error(response) {
-                    return response.data;
+                    deferred.reject(response.data);
                 });
+
+            return deferred.promise;
         };
 
         Route.prototype.remove = function remove(id) {
-            return $http
+            var deferred = $q.defer();
+
+            $http
                 .delete(this.endpoint + id)
                 .then(function success(response) {
-                    return response.data;
+                    deferred.resolve(response.data);
                 }, function error(response) {
-                    return response.data;
-                })
+                    deferred.reject(response.data);
+                });
+
+            return deferred.promise;
         };
 
         return Route;

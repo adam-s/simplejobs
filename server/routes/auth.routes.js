@@ -4,8 +4,12 @@ var auth = require('../controllers/auth.controller.js');
 
 module.exports = function(app) {
 
-    app.route('/api/auth/register').post(auth.register);
-    app.route('/api/auth/login').post(auth.login);
-    app.route('/api/auth/logout').get(auth.logout);
+    // Heart and soul of authentication
+    app.route('/auth/register').post(auth.register);
+    app.route('/auth/login').post(auth.login);
+    app.route('/auth/logout').get(auth.logout);
 
+    // Changing stuff
+    app.route('/auth/email').post(auth.email);
+    app.route('/auth/change-password').post(auth.passwordChange);
 };

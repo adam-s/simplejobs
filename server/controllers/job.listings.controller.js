@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
     app = require('express')();
 
 exports.index = function(req, res) {
+    console.log(req.session);
+    console.log(req.user);
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
     JobListing

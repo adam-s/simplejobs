@@ -1,0 +1,63 @@
+<md-content>
+    <div layout="row">
+        <md-card flex-gt-md="60" flex>
+            <div layout="column" layout-padding>
+                <!-- Rows for each section -->
+                <div layout="row">
+                    <div layout="column" layout-align="start start" flex="30">
+                        <span class="md-title">Details</span>
+                    </div>
+                    <div layout="column" flex>
+                        <div layout="row" layout-align="space-between start">
+                            <div>email@example.com</div>
+                            <div><a ui-sref="email">Change email</a></div>
+                        </div>
+                        <div layout="row" layout-align="space-between start">
+                            <div>Password: ********</div>
+                            <div><a ui-sref="password">Change password</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div layout="column" layout-align="start start" flex="30">
+                        <span class="md-title">Public profile</span>
+                    </div>
+                    <div layout="column" flex>
+                        <div layout="row" layout-align="space-between start">
+                            <div>You don't have a profile</div>
+                            <a href="#">Create profile</a>
+                        </div>
+                        <div layout="row" layout-align="end start">
+                            <a href="#">Edit profile</a>
+                        </div>
+                        <div layout="row" layout-align="space-between start">
+                            <div>Your profile can be reset in 1 hour 10 minutes</div>
+                            <a href="#">Reset profile</a>
+                        </div>
+                        <div layout="row" layout-align="space-between center">
+                            <div>Your profile is active</div>
+                            <div layout="row" layout-align="start center">
+                                Switch 1: {{ data.cb1 }}
+                                <md-switch ng-model="data.cb1" aria-label="Switch 1"></md-switch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div layout="column" layout-align="start start" flex="30">
+                        <span class="md-title">Job listings</span>
+                    </div>
+                    <div layout="column" flex>
+                        <div layout="row" layout-align="end start">
+                            <a href="#">My listings</a>
+                        </div>
+                        <div layout="row" layout-align="space-between start">
+                            <div>You have 10 listings</div>
+                            <a href="#">Create listing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-card>
+    </div>
+</md-content>

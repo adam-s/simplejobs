@@ -57,3 +57,56 @@ exports.logout = function(req, res, next) {
     req.logout();
     res.redirect('/');
 };
+
+exports.email = function(req, res, next) {
+    req.assert('password', 'You must enter a password').notEmpty();
+    req.assert('email', 'You must enter a valid email address').isEmail();
+    req.assert('newEmail', 'You must enter a valid email address').isEmail();
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+    passport.authenticate('local', function(err, user, info) {
+        if (err || !user) return res.status(400).send(info);
+
+        user.email = req.body.newEmail;
+
+        user.save(function(err) {
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
+
+            user.newEmail = undefined;
+            user.password = undefined;
+            user.salt = undefined;
+
+            res.json(user);
+        });
+
+    })(req, res, next);
+};
+
+exports.passwordChange = function(req, res, next) {
+    console.log(req.body);
+
+    req.assert('password', 'You must enter a password').notEmpty();
+    req.assert('newPassword', 'You must enter a new password').notEmpty();
+    req.assert('newPasswordConfirm', 'Passwords must match').equals(req.body.newPassword);
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+    passport.authenticate('local', function(err, user, info) {
+        if (err || !user) return res.status(400).send(info);
+
+        user.password = req.body.newPassword;
+
+        user.save(function(err) {
+            if (err) return res.status(400).send;
+
+            user.salt = undefined;
+            user.hashedPassword = undefined;
+
+            res.json(user);
+        });
+
+    })(req, res, next);
+};

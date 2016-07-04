@@ -11,7 +11,9 @@
             getMe: getMe,
             register: register,
             login: login,
-            logout: logout
+            logout: logout,
+            email: email,
+            passwordChange: passwordChange
         };
 
         function getMe() {
@@ -23,7 +25,7 @@
 
             $http({
                 method: 'POST',
-                url: 'api/auth/register',
+                url: '/auth/register',
                 data: credentials
             }).success(function(response) {
                 me = response;
@@ -40,7 +42,7 @@
 
             $http({
                 method: 'POST',
-                url: 'api/auth/login',
+                url: '/auth/login',
                 data: credentials
             }).success(function(response) {
                 me = response;
@@ -55,11 +57,44 @@
         function logout() {
             $http({
                 method: 'GET',
-                url: 'api/auth/logout'
+                url: '/auth/logout'
             }).then(function() {
                 me = "";
                 $state.go('home');
             })
+        }
+
+        function email(credentials) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/auth/email',
+                data: credentials
+            }).success(function(response) {
+                //me = response;
+                deferred.resolve();
+            }).error(function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function passwordChange(credentials) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/auth/change-password',
+                data: credentials
+            }).success(function(response) {
+                //me = response;
+                deferred.resolve();
+            }).error(function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
         }
     }
 })();
