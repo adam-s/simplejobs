@@ -6,10 +6,10 @@
 
     function router($stateProvider) {
         $stateProvider
-            .state('jobList', {
+            .state('adminJobList', {
                 url: '/job/list?limit&page',
                 parent: 'admin',
-                controller: 'jobListCtrl as vm',
+                controller: 'adminJobListCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.list.tpl.html',
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
@@ -23,16 +23,16 @@
                 },
                 reloadOnSearch: false
             })
-            .state('jobDetail', {
+            .state('adminJobDetail', {
                 url: '/job/:id/view',
                 parent: 'admin',
-                controller: 'jobDetailCtrl as vm',
+                controller: 'adminJobDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.detail.tpl.html'
             })
             .state('jobEdit', {
                 url: '/job/:id/edit',
                 parent: 'admin',
-                controller: 'jobDetailCtrl as vm',
+                controller: 'adminJobDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.edit.tpl.html',
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {

@@ -1,10 +1,10 @@
 (function() {
     angular.module('simplejobs')
-        .controller('jobDetailCtrl', jobDetailCtrl);
+        .controller('adminJobDetailCtrl', adminJobDetailCtrl);
 
-    jobDetailCtrl.$inject = ['$state', 'jobApi', 'job'];
+    adminJobDetailCtrl.$inject = ['$state', 'jobApi', 'job'];
 
-    function jobDetailCtrl($state, jobApi, job) {
+    function adminJobDetailCtrl($state, jobApi, job) {
         var vm = this;
         vm.job = job;
         vm.submitDisabled = false;

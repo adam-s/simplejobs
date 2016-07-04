@@ -1,10 +1,10 @@
 (function() {
     angular.module('simplejobs')
-        .controller('userListCtrl', userListCtrl);
+        .controller('adminUserListCtrl', adminUserListCtrl);
 
-    userListCtrl.$inject = ['$scope', '$location', '$stateParams', '$state', '$mdDialog', 'userApi', 'user'];
+    adminUserListCtrl.$inject = ['$scope', '$location', '$stateParams', '$state', '$mdDialog', 'userApi', 'user'];
 
-    function userListCtrl($scope, $location, $stateParams, $state, $mdDialog, userApi, user) {
+    function adminUserListCtrl($scope, $location, $stateParams, $state, $mdDialog, userApi, user) {
         var vm = this;
         vm.user = user.records;
         vm.count = user.metadata.totalCount;
@@ -47,7 +47,7 @@
                     userApi
                         .remove(id)
                         .then(function() {
-                            $state.go('userList', {}, {reload: true});
+                            $state.go('adminUserList', {}, {reload: true});
                         }, function cancel(){})
                 });
         };

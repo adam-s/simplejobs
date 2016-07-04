@@ -6,10 +6,10 @@
 
     function router($stateProvider) {
         $stateProvider
-            .state('userList', {
+            .state('adminUserList', {
                 url: '/user/list?limit&page',
                 parent: 'admin',
-                controller: 'userListCtrl as vm',
+                controller: 'adminUserListCtrl as vm',
                 templateUrl: 'scripts/states/admin/user/user.list.tpl.html',
                 resolve: {
                     user: ['$stateParams', 'userApi', function($stateParams, userApi) {
@@ -23,16 +23,16 @@
                 },
                 reloadOnSearch: false
             })
-            .state('userDetail', {
+            .state('adminUserDetail', {
                 url: '/user/:id/view',
                 parent: 'admin',
-                controller: 'userDetailCtrl as vm',
+                controller: 'adminUserDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/user/user.detail.tpl.html'
             })
             .state('userEdit', {
                 url: '/user/:id/edit',
                 parent: 'admin',
-                controller: 'userDetailCtrl as vm',
+                controller: 'adminUserDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/user/user.edit.tpl.html',
                 resolve: {
                     user: ['$stateParams', 'userApi', function($stateParams, userApi) {
