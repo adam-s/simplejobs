@@ -2,8 +2,7 @@
 
 var mongoose = require('mongoose'),
     _ = require('lodash'),
-    User = mongoose.model('User'),
-    app = require('express')();
+    User = mongoose.model('User');
 
 exports.index = function(req, res) {
     var tableState = req.query.tableState || {};
@@ -17,7 +16,7 @@ exports.index = function(req, res) {
 };
 
 exports.detail = function(req, res) {
-    res.json(app.locals.user);
+    res.json(req.app.locals.user);
 };
 
 exports.create = function(req, res) {
@@ -29,17 +28,17 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var data = _.extend(app.locals.user, req.body);
+    var data = _.extend(req.app.locals.user, req.body);
     data = data.toObject();
     delete data._id;
-    app.locals.user.save(function(err, result) {
+    req.app.locals.user.save(function(err, result) {
         if (err) return res.status(400).send(err);
         res.json(result);
     });
 };
 
 exports.remove = function(req, res) {
-    app.locals.user.delete(function(err) {
+    req.app.locals.user.delete(function(err) {
         if (err) return res.status(400).send(err);
         res.json(true);
     })
@@ -50,7 +49,7 @@ exports.userById = function(req, res, next, id) {
         .findById(id)
         .exec(function(err, user) {
             if (err) return res.status(400).send(err);
-            app.locals.user = user;
+            req.app.locals.user = user;
             next();
         });
 };
