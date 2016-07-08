@@ -25,7 +25,7 @@ var JobListingSchema = new Schema({
         default: false
     },
     jobTypes: {
-        type: String,
+        type: [String],
         enum: values.jobTypes
     },
     flag: String,

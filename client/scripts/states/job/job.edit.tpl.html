@@ -1,0 +1,101 @@
+<md-content>
+    <div layout="row">
+        <md-card md-whitefram="1" flex-gt-md="60" flex>
+            <div layout="column" layout-padding>
+                <form novalidate ng-submit="vm.submit()">
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-input-container flex-gt-xs="80" flex>
+                            <label>Name</label>
+                            <input ng-model="vm.job.name"
+                                   md-maxlength="250"
+                                   required>
+                        </md-input-container>
+                        <md-input-container flex="20">
+                            <md-switch layout="row" layout-align="end" ng-model="vm.job.active" aria-label="Active"></md-switch>
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" flex>
+                            <label>Description</label>
+                            <textarea ng-model="vm.job.description"
+                                      md-maxlength="2500"
+                                      required
+                                      md-select-on-focus></textarea>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-input-container class="md-block" flex-gt-xs="50" flex>
+                            <label>Email</label>
+                            <input ng-model="vm.job.email"
+                                   type="email"
+                                    required>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="50" flex>
+                            <label>Phone</label>
+                            <input ng-model="vm.job.phone"
+                                   required>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-input-container class="md-block" flex-gt-xs="50" flex>
+                            <label>Job type</label>
+                            <md-select placeholder="Job type" ng-model="vm.job.jobType" job-types-extend>
+                                <md-option ng-value="opt"
+                                           ng-repeat="opt in jobTypes | orderBySelectedOption:jobType"
+                                           ng-selected="opt === jobType"
+                                           class="top-selector-option">{{opt}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs="50" flex>
+                            <label>Positions</label>
+                            <md-select placeholder="Choose a position" ng-model="vm.job.position" positions-input-extend>
+                                <md-option ng-value="opt"
+                                           ng-repeat="opt in positions | orderBySelectedOption:position"
+                                           ng-selected="opt === position"
+                                           class="top-selector-option">{{opt}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-input-container flex-gt-xs="50" flex>
+                            <label>Location</label>
+                            <md-select placeholder="Select location" ng-model="vm.job.location" ports-input-extend>
+                                <md-option ng-value="opt"
+                                           ng-repeat="opt in ports | orderBySelectedOption:vm.job.location.name"
+                                           ng-selected="opt.name == vm.job.location.name"
+                                           class="top-selector-option">{{opt.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div flex-gt-xs="50" flex id="location-search">
+                            <md-autocomplete ng-model="vm.job.location"
+                                             location-search-extend
+                                             md-no-cache="false"
+                                             md-selected-item="item"
+                                             md-selected-item-change="getLatLng(item)"
+                                             ng-model-options="{debounce: 1000}"
+                                             md-search-text-change="search(searchText)"
+                                             md-search-text="searchText"
+                                             md-items="item in search(searchText)"
+                                             md-item-text="item.description"
+                                             md-min-length="2"
+                                             md-max-length="50"
+                                             placeholder="Type your address"
+                                             md-floating-label="Look up coordinates">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.description}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No matches found.
+                                </md-not-found>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+                    <pre>{{vm.job | json}}</pre>
+                    <div layout-gt-xs="row" layout-xs="column">
+                        <md-button ng-disabled="vm.submitDisabled" class="md-primary md-raised" type="submit">Submit</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-card>
+    </div>
+</md-content>

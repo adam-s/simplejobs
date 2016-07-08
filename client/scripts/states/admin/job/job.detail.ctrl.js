@@ -16,7 +16,7 @@
             submitFn(vm.job)
                 .then(function(response) {
                     vm.submitDisabled = false;
-                    $state.go('jobEdit', {id: response._id});
+                    $state.go('adminJobEdit', {id: response._id});
                 });
         };
     }

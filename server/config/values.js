@@ -30,7 +30,7 @@ var popularPorts = [
             locality: 'Palma',
             district: 'Balearic Islands',
             administrativeArea: 'Balearic Islands',
-            country: 'United States',
+            country: 'Spain',
             coordinates: [2.6501600, 39.5696000]
         }
     }

@@ -21,7 +21,10 @@
                     limit: "10",
                     page: "1"
                 },
-                reloadOnSearch: false
+                reloadOnSearch: false,
+                data: {
+                    title: 'Job list'
+                }
             })
             .state('adminJobDetail', {
                 url: '/job/:id/view',
@@ -29,7 +32,7 @@
                 controller: 'adminJobDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.detail.tpl.html'
             })
-            .state('jobEdit', {
+            .state('adminJobEdit', {
                 url: '/job/:id/edit',
                 parent: 'admin',
                 controller: 'adminJobDetailCtrl as vm',
@@ -41,6 +44,9 @@
                         }
                         return jobApi.detail($stateParams.id);
                     }]
+                },
+                data: {
+                    title: 'Job edit'
                 }
             })
     }

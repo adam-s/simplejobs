@@ -58,7 +58,6 @@
             autocompleteService.getQueryPredictions({
                 input: address
             }, function(data) {
-                console.log(data);
                 if (data) {
                     deferred.resolve(data);
                 } else {
@@ -98,6 +97,14 @@
                 return places;
             });
         };
+
+        var extractFromAddress = function extractFromAddress(components, type){
+            for (var i=0; i<components.length; i++)
+                for (var j=0; j<components[i].types.length; j++)
+                    if (components[i].types[j]==type) return components[i].long_name;
+            return "";
+        };
+
         /**
          * @ngdoc function
          * @name getLatLng
@@ -108,17 +115,21 @@
          * This function is called every time a location is selected from among
          * the suggestions.
          */
-        $scope.getLatLng = function(place) {
-            console.log('changed');
-            if (!place) {
-                $scope.ngModel = {};
+        $scope.getLatLng = function(item) {
+            if (!item) {
+                $scope.place = {};
                 return;
             }
-            getDetails(place).then(function(details) {
-                $scope.ngModel = {
-                    'name': place.description,
-                    'latitude': details.geometry.location.lat(),
-                    'longitude': details.geometry.location.lng(),
+            getDetails(item).then(function(details) {
+                $scope.place = {
+                    name: item.description,
+                    location: {
+                        locality: extractFromAddress(details.address_components, 'locality'),
+                        district: extractFromAddress(details.address_components, 'administrative_area_level_2'),
+                        administrativeArea: extractFromAddress(details.address_components, 'administrative_area_level_1'),
+                        country: extractFromAddress(details.address_components, 'country'),
+                        coordinates: [details.geometry.location.lng(), details.geometry.location.lat()]
+                    }
                 };
             });
         }

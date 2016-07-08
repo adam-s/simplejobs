@@ -1,8 +1,8 @@
-<div id="place-autocomplete">
+<md-input-container id="place-autocomplete">
     <md-autocomplete md-no-cache="false"
-                     md-selected-item="location"
+                     md-selected-item="item"
                      md-selected-item-change="getLatLng(item)"
-                     ng-model-options="{debounce: 600}"
+                     ng-model-options="{debounce: 1000}"
                      md-search-text-change="search(searchText)"
                      md-search-text="searchText"
                      md-items="item in search(searchText)"
@@ -18,4 +18,4 @@
             No matches found.
         </md-not-found>
     </md-autocomplete>
-</div>
+</md-input-container>

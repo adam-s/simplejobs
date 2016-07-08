@@ -21,7 +21,10 @@
                     limit: "10",
                     page: "1"
                 },
-                reloadOnSearch: false
+                reloadOnSearch: false,
+                data: {
+                    title: 'User list'
+                }
             })
             .state('adminUserDetail', {
                 url: '/user/:id/view',
@@ -29,7 +32,7 @@
                 controller: 'adminUserDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/user/user.detail.tpl.html'
             })
-            .state('userEdit', {
+            .state('adminUserEdit', {
                 url: '/user/:id/edit',
                 parent: 'admin',
                 controller: 'adminUserDetailCtrl as vm',
@@ -41,6 +44,9 @@
                         }
                         return userApi.detail($stateParams.id);
                     }]
+                },
+                data: {
+                    title: 'User edit'
                 }
             })
     }

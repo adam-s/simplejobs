@@ -21,7 +21,10 @@
                     limit: "10",
                     page: "1"
                 },
-                reloadOnSearch: false
+                reloadOnSearch: false,
+                data: {
+                    title: 'Crew list'
+                }
             })
             .state('adminCrewDetail', {
                 url: '/crew/:id/view',
@@ -29,7 +32,7 @@
                 controller: 'adminCrewDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.detail.tpl.html'
             })
-            .state('crewEdit', {
+            .state('adminCrewEdit', {
                 url: '/crew/:id/edit',
                 parent: 'admin',
                 controller: 'adminCrewDetailCtrl as vm',
@@ -41,6 +44,9 @@
                         }
                         return crewApi.detail($stateParams.id);
                     }]
+                },
+                data: {
+                    title: 'Crew edit'
                 }
             })
     }

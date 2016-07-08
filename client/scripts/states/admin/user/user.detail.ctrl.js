@@ -16,7 +16,7 @@
             submitFn(vm.user)
                 .then(function(response) {
                     vm.submitDisabled = false;
-                    $state.go('userEdit', {id: response._id});
+                    $state.go('adminUserEdit', {id: response._id});
                 });
         };
     }

@@ -9,25 +9,22 @@
             restrict: 'E',
             replace: true,
             templateUrl: 'scripts/components/locationSearch/locationSearch.tpl.html',
-            scope: {
-                ngModel: '=',
-                label: '@?'
-            },
+            require: 'ngModel',
             controller: 'locationSearchCtrl',
+            scope: {},
             link: link
         };
 
-        function link(scope, element, attrs) {
+        function link(scope, element, attrs, ctrl) {
+            ctrl.$render = function() {
+                scope.place = angular.copy(ctrl.$viewValue);
+            };
 
-            scope.$watch('ngModel', function(newVal) {
-                if (newVal && newVal.hasOwnProperty('$$hashKey')) {
-                    var inputElement = element.find('input');
-                    inputElement.val('');
-                    // Hack to set label to initial position
-                    inputElement.focus();
-                    inputElement.blur();
+            scope.$watch('place', function(newVal, oldVal) {
+                if (scope.place) {
+                    ctrl.$setViewValue(angular.copy(scope.place))
                 }
-            });
+            })
         }
     }
 

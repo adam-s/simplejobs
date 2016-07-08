@@ -16,7 +16,7 @@
             submitFn(vm.crew)
                 .then(function(response) {
                     vm.submitDisabled = false;
-                    $state.go('crewEdit', {id: response._id});
+                    $state.go('adminCrewEdit', {id: response._id});
                 });
         };
     }

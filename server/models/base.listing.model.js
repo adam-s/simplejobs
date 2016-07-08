@@ -16,10 +16,6 @@ var BaseListingSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    name: {
-        type: String,
-        required: true
-    },
     phone: String,
     email: String,
     position: {

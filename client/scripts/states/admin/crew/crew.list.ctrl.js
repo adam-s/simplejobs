@@ -27,11 +27,11 @@
         };
 
         vm.addCrew = function() {
-            $state.go('crewEdit', {id: 'add'})
+            $state.go('adminCrewEdit', {id: 'add'})
         };
 
         vm.editCrew = function(id) {
-            $state.go('crewEdit', {id: id})
+            $state.go('adminCrewEdit', {id: id})
         };
 
         vm.deleteCrew = function(id, $event) {

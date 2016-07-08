@@ -9,6 +9,7 @@ var options = {
 };
 
 var CrewListingSchema = new Schema({
+    name: String,
     resume: String
 }, options);
 
