@@ -1,0 +1,25 @@
+.sj-section-wrapper {
+  background-color: #ebeef0;
+}
+.sj-section {
+  margin: 0 auto 20px;
+  max-width: 1036px;
+
+  .sj-section-annotation {
+//    background-color: red;
+  }
+
+  .sj-section-content {
+//    background-color: yellow;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .sj-section {
+    padding-top:20px
+  }
+
+  .sj-section+.sj-section {
+    border-top: 1px solid #d3dbe2
+  }
+}
