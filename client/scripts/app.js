@@ -6,7 +6,9 @@
         'ngMessages',
         'ngAnimate',
         'md.data.table',
-        'validation.match'
+        'validation.match',
+        'permission',
+        'permission.ui'
     ]);
 })();
 

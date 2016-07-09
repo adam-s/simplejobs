@@ -80,7 +80,6 @@
                 };
 
                 ctrl.$formatters.push(function(modelValue) {
-                    console.log('formatters', modelValue);
                     scope.searchText = '';
                     return modelValue;
                 });
