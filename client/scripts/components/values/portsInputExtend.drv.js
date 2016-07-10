@@ -12,10 +12,10 @@
             link: function(scope, element, attrs, ctrl) {
 
                 scope.ports = angular.copy($window.values.popularPorts);
-                scope.ports.unshift({name: 'All locations'});
+                scope.ports.unshift({name: 'Any location'});
 
                 ctrl.$parsers.push(function(viewValue) {
-                    return viewValue.name === 'All locations' ? null : viewValue;
+                    return viewValue.name === 'Any location' ? null : viewValue;
                 });
 
 

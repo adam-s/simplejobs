@@ -12,14 +12,14 @@
             priority: 1,
             link: function(scope, element, attrs, ctrl) {
                 scope.jobTypes = angular.copy($window.values.jobTypes);
-                scope.jobTypes.unshift('All types');
+                scope.jobTypes.unshift('Any type');
 
                 ctrl.$render = function() {
                     scope.jobType = ctrl.$viewValue;
                 };
 
                 ctrl.$parsers.push(function(viewValue) {
-                    return viewValue === 'All types' ? null : viewValue;
+                    return viewValue === 'Any type' ? null : viewValue;
                 });
             }
         };

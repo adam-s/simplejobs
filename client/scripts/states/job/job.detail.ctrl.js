@@ -2,11 +2,15 @@
     angular.module('simplejobs')
         .controller('jobDetailCtrl', jobDetailCtrl);
 
-    jobDetailCtrl.$inject = ['$window', '$scope', '$state', 'jobApi', 'job'];
+    jobDetailCtrl.$inject = ['$window', '$scope', '$state', 'jobApi', 'job', 'Auth'];
 
-    function jobDetailCtrl($window, $scope, $state, jobApi, job) {
+    function jobDetailCtrl($window, $scope, $state, jobApi, job, Auth) {
         var vm = this;
-        vm.job = job || {};
+        vm.job = job || {
+            active: true,
+            startDate: new Date(),
+            email: angular.copy(Auth.getMe().email)
+        };
         //vm.job = job || {
         //    active: true,
         //    position: 'Captain',
@@ -33,7 +37,7 @@
             submitFn(vm.job)
                 .then(function(response) {
                     vm.submitDisabled = false;
-                    $state.go('jobobEdit', {id: response._id});
+                    $state.go('jobEdit', {id: response._id});
                 }, function(response) {
                     vm.submitDisabled = false;
                 });

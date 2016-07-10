@@ -23,7 +23,6 @@
                     vm.disableFlag = false;
                     $location.path('/');
                 }, function reject(response) {
-                    console.log(response);
                     handleValdationErrors(response);
                     vm.disableFlag = false;
                 })

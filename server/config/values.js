@@ -6,33 +6,27 @@ var jobTypes = ['Motor', 'Sailing', 'Sportfish', 'Commercial', 'Marina', 'Office
 var popularPorts = [
     {
         name: 'Fort Lauderdale',
-        location: {
-            locality: 'Fort Lauderdale',
-            district: 'Broward County',
-            administrativeArea: 'Florida',
-            country: 'United States',
-            coordinates: [-80.1373170, 26.1224390]
-        }
+        locality: 'Fort Lauderdale',
+        district: 'Broward County',
+        administrativeArea: 'Florida',
+        country: 'United States',
+        coordinates: [-80.1373170, 26.1224390]
     },
     {
         name: 'Newport',
-        location: {
-            locality: 'Newport',
-            district: 'Newport County',
-            administrativeArea: 'Rhode Island',
-            country: 'United States',
-            coordinates: [-71.3128290, 41.4901020]
-        }
+        locality: 'Newport',
+        district: 'Newport County',
+        administrativeArea: 'Rhode Island',
+        country: 'United States',
+        coordinates: [-71.3128290, 41.4901020]
     },
     {
         name: 'Palma de Mallorca',
-        location: {
-            locality: 'Palma',
-            district: 'Balearic Islands',
-            administrativeArea: 'Balearic Islands',
-            country: 'Spain',
-            coordinates: [2.6501600, 39.5696000]
-        }
+        locality: 'Palma',
+        district: 'Balearic Islands',
+        administrativeArea: 'Balearic Islands',
+        country: 'Spain',
+        coordinates: [2.6501600, 39.5696000]
     }
 ];
 
