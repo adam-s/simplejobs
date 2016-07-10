@@ -34,6 +34,8 @@
                 .then(function(response) {
                     vm.submitDisabled = false;
                     $state.go('jobobEdit', {id: response._id});
+                }, function(response) {
+                    vm.submitDisabled = false;
                 });
         };
     }

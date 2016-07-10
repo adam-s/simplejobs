@@ -16,7 +16,6 @@ module.exports = function(app) {
         User.findOne({
             _id: id
         }, '-salt -hashedPassword', function (err, user) {
-            console.log(id);
             done(err, user);
         });
     });

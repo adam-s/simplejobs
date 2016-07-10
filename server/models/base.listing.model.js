@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     mongooseDelete = require('mongoose-delete'),
     metadata = require('./plugins/metadata.js'),
     pagination = require('./plugins/pagination.js'),
-    values = require('../config/values.js');
+    values = require('../config/values.js'),
+    validators = require('./validators/validators.js');
 
 var options = {
     discriminatorKey: 'kind'
@@ -17,16 +18,21 @@ var BaseListingSchema = new Schema({
         default: Date.now
     },
     phone: String,
-    email: String,
+    email: {
+        type: String,
+        required: [true, 'Email field is required'],
+        validate: validators.email
+    },
     position: {
         type: String,
-        enum: values.positions
+        validate: validators.position
     },
     languages: {
-        type: String,
-        enum: values.languages
+        type: [String],
+        validate: validators.languages
     },
     location: {
+        name: String,
         locality: String,
         district: String,
         administrativeArea: String,

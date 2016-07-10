@@ -53,7 +53,6 @@ exports.login = function(req, res, next) {
 };
 
 exports.logout = function(req, res, next) {
-    console.log('logging out');
     req.logout();
     res.redirect('/');
 };
@@ -85,7 +84,6 @@ exports.email = function(req, res, next) {
 };
 
 exports.passwordChange = function(req, res, next) {
-    console.log(req.body);
 
     req.assert('password', 'You must enter a password').notEmpty();
     req.assert('newPassword', 'You must enter a new password').notEmpty();

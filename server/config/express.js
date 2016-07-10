@@ -7,6 +7,7 @@ var config = require('./config'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
     expressValidator = require('express-validator'),
+    customValidators = require('./customValidators.js'),
     consolidate = require('consolidate'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
@@ -71,6 +72,7 @@ module.exports = function (db) {
     // Use express validator to assert errors
     // @link https://github.com/ctavan/express-validator
     app.use(expressValidator());
+    app.use(customValidators());
 
     // Load and initialize passport
     // Initializing the session has to come after the statics

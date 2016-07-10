@@ -1,6 +1,6 @@
 <md-content class="sj-section-wrapper">
     <form novalidate ng-submit="vm.submit()">
-        <section class="sj-section" layout="row" layout-align="center">
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
                 <h3>Basic information</h3>
                 <p class="md-body-1">Write a descriptive title for the job position. Include your email address and optional phone number so applicants can contact you.</p>
@@ -60,7 +60,7 @@
                 </md-card>
             </div>
         </section>
-        <section class="sj-section" layout="row" layout-align="center">
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
                 <h3>Job description</h3>
             </div>
@@ -76,13 +76,23 @@
                 </md-card>
             </div>
         </section>
-        <section class="sj-section" layout="row" layout-align="center">
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
                 <h3>Location</h3>
                 <p class="md-body-1">Either select a location from the drop down list of popular ports OR use the autocomplete Google Places service to geocode your address.</p>
             </div>
             <div class="sj-section-content" flex="60">
                 <md-card layout-padding>
+                    <div layout-gt-xs="row">
+                        <md-input-container class="md-block" flex-gt-sm="50" flex>
+                            <label>Latitude</label>
+                            <input ng-model="vm.job.location.location.coordinates[1]" required disabled>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="50" flex>
+                            <label>Longitude</label>
+                            <input ng-model="vm.job.location.location.coordinates[0]" required disabled>
+                        </md-input-container>
+                    </div>
                     <md-input-container class="md-block" flex-gt-xs="70" flex>
                         <label>Location</label>
                         <md-select placeholder="Select location" ng-model="vm.job.location" ports-input-extend>
@@ -118,7 +128,7 @@
                 </md-card>
             </div>
         </section>
-        <section class="sj-section" layout="row" layout-align="center">
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
                 <h3>Yacht information</h3>
                 <p class="md-body-1">Include optional yacht related information</p>

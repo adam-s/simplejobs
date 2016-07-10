@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose'),
     _ = require('lodash'),
-    JobListing = mongoose.model('JobListing');
+    JobListing = mongoose.model('JobListing'),
+    validationErrorHandler = require('../lib/validationErrorHandler.js'),
+    values = require('../config/values.js');
 
 exports.index = function(req, res) {
     var tableState = req.query.tableState || {};
@@ -20,9 +22,10 @@ exports.detail = function(req, res) {
 };
 
 exports.create = function(req, res) {
+
     var jobListing = new JobListing(req.body);
     jobListing.save(function(err) {
-        if (err) return res.status(400).send(err);
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(jobListing);
     });
 };
@@ -49,7 +52,6 @@ exports.jobListingById = function(req, res, next, id) {
         .findById(id)
         .exec(function(err, jobListing) {
             if (err) return res.status(400).send(err);
-            console.log(req.app.locals);
             req.app.locals.jobListing = jobListing;
             next();
         });

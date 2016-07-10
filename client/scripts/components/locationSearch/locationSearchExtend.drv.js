@@ -68,13 +68,11 @@
                     getDetails(item).then(function(details) {
                         ctrl.$setViewValue({
                             name: item.description,
-                            location: {
-                                locality: extractFromAddress(details.address_components, 'locality'),
-                                district: extractFromAddress(details.address_components, 'administrative_area_level_2'),
-                                administrativeArea: extractFromAddress(details.address_components, 'administrative_area_level_1'),
-                                country: extractFromAddress(details.address_components, 'country'),
-                                coordinates: [details.geometry.location.lng(), details.geometry.location.lat()]
-                            }
+                            locality: extractFromAddress(details.address_components, 'locality'),
+                            district: extractFromAddress(details.address_components, 'administrative_area_level_2'),
+                            administrativeArea: extractFromAddress(details.address_components, 'administrative_area_level_1'),
+                            country: extractFromAddress(details.address_components, 'country'),
+                            coordinates: [details.geometry.location.lng(), details.geometry.location.lat()]
                         });
                     });
                 };

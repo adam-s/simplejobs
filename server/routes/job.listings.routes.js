@@ -6,7 +6,7 @@ module.exports = function(app) {
 
     app.route('/api/job-listings')
         .get(jobs.index)
-        .post(jobs.create);
+        .post(createJobListing, jobs.create);
 
     app.route('/api/job-listings/:jobListingId')
         .get(jobs.detail)
@@ -15,3 +15,18 @@ module.exports = function(app) {
 
     app.param('jobListingId', jobs.jobListingById);
 };
+
+// Access check.
+function createJobListing(req, res, next) {
+
+    // user is logged in and is authenticated
+    if (req.user && userHasRole('authenticated', req.user)) return next();
+    res.status(403).send({message: 'User does not have permission'});
+}
+
+function userHasRole(role, user) {
+    var roles = user ? user.roles : ['anonymous'];
+    return roles.some(function(item) {
+        return item === role;
+    })
+}
