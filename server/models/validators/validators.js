@@ -5,6 +5,9 @@ var _ = require('lodash'),
     validate = require('mongoose-validator'),
     values = require('../../config/values.js');
 
+
+var FLOAT = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
+
 exports.title = [
     validate({
         validator: 'isLength',
@@ -79,10 +82,22 @@ exports.description = [
     })
 ];
 
-exports.location = [
+exports.coordinates = [
     validate({
         validator: function(value) {
-            console.log(value);
-        }
+           return value.length == 2;
+        },
+        message: 'Coordinates should have a length of 2'
+    }),
+    validate({
+        validator: function(value) {
+            value.forEach(function(value) {
+                if (value === '' || value === '.') {
+                    return false;
+                }
+                return FLOAT.test(value);
+            })
+        },
+        message: 'Each coordinate value needs to be a float'
     })
 ];

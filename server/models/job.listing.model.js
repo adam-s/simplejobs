@@ -34,7 +34,9 @@ var JobListingSchema = new Schema({
         validate: validators.jobType
     },
     flag: String,
-    length: Number
+    length: {
+        type: Number
+    }
 }, options);
 
 module.exports = BaseListing.discriminator('JobListing', JobListingSchema);

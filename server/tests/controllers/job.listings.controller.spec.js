@@ -229,6 +229,19 @@ describe.only('Job listing controller unit tests: ', function() {
                         done();
                     });
             });
+
+            it('Should throw validation error if coordinates in not an array', function(done) {
+                var data = fakeJobObject();
+                data.location.coordinates = [13, 'dfgdf'];
+                agent
+                    .post('/api/job-listings')
+                    .send(data)
+                    .expect('Content-Type', /json/)
+                    .end(function(err, response) {
+                        expect(response.status).to.equal(400);
+                        done();
+                    });
+            });
         });
     });
 
@@ -319,6 +332,7 @@ function fakeJobObject() {
         languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
         active: true,
         location: {
+            name: faker.lorem.words(3),
             locality: faker.address.city(),
             administrativeArea: faker.address.state(),
             country: faker.address.country(),

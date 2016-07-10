@@ -12,6 +12,23 @@ var options = {
     discriminatorKey: 'kind'
 };
 
+var LocationSchema = new Schema({
+    name: {
+        type: String,
+        required: [true, 'Location name field is required']
+    },
+    locality: String,
+    district: String,
+    administrativeArea: String,
+    country: String,
+    coordinates: {
+        index: '2dsphere',
+        type: [Number],
+        required: [true, 'Location coordinates field is required'],
+        validate: validators.coordinates
+    }
+}, {_id: false});
+
 var BaseListingSchema = new Schema({
     startDate: {
         type: Date,
@@ -31,17 +48,7 @@ var BaseListingSchema = new Schema({
         type: [String],
         validate: validators.languages
     },
-    location: {
-        name: String,
-        locality: String,
-        district: String,
-        administrativeArea: String,
-        country: String,
-        coordinates: {
-            index: '2dsphere',
-            type: [Number]
-        }
-    },
+    location: LocationSchema,
     active: {
         type: Boolean,
         default: true
