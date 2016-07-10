@@ -4,6 +4,16 @@ var _ = require('lodash');
 
 module.exports = function(schema, options) {
 
+    schema.set('toJSON',
+        {
+            virtuals: true,
+            transform: function(doc, ret, options) {
+                delete ret.id;
+                return ret;
+            }
+        }
+    );
+
     schema.add({
         updated: {
             type: Date,
@@ -17,8 +27,7 @@ module.exports = function(schema, options) {
     });
 
     schema.virtual('created').get(function() {
-        var timestamp = _id.toString().substring(0,8);
-        return new Date(parseInt(timestamp, 16) * 1000);
+        return this._id.getTimestamp();
     });
 
 };

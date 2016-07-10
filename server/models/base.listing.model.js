@@ -52,6 +52,11 @@ var BaseListingSchema = new Schema({
     active: {
         type: Boolean,
         default: true
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
     }
 }, options);
 

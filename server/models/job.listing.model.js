@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     BaseListing = require('./base.listing.model.js'),
     values = require('../config/values.js'),
+    metadata = require('./plugins/metadata.js'),
     validators = require('./validators/validators.js');
 
 var options = {
@@ -21,11 +22,11 @@ var JobListingSchema = new Schema({
         required: [true, 'Description field is required'],
         validate: validators.description
     },
-    smokingAllowed: {
+    smoking: {
         type: Boolean,
         default: false
     },
-    reqPapers: {
+    papers: {
         type: Boolean,
         default: false
     },
@@ -34,9 +35,7 @@ var JobListingSchema = new Schema({
         validate: validators.jobType
     },
     flag: String,
-    length: {
-        type: Number
-    }
+    length: Number
 }, options);
 
 module.exports = BaseListing.discriminator('JobListing', JobListingSchema);

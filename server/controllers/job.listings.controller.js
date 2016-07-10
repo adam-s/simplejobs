@@ -22,8 +22,9 @@ exports.detail = function(req, res) {
 };
 
 exports.create = function(req, res) {
-
     var jobListing = new JobListing(req.body);
+    jobListing.author = req.user._id;
+
     jobListing.save(function(err) {
         if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(jobListing);

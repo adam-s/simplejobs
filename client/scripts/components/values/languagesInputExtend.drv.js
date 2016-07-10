@@ -12,9 +12,6 @@
             link: function(scope, element, attrs, ctrl) {
                 scope.languages = angular.copy($window.values.languages);
 
-                ctrl.$render = function() {
-                    scope.language = ctrl.$viewValue;
-                };
             }
         }
     }

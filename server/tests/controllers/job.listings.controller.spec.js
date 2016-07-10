@@ -60,6 +60,21 @@ describe.only('Job listing controller unit tests: ', function() {
                     .end(done);
             });
 
+            it('Should set the job listing author to current user', function(done) {
+                var data = fakeJobObject();
+                delete data.author;
+
+                agent
+                    .post('/api/job-listings')
+                    .send(data)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, response) {
+                        expect(response.body.author).to.be.ok;
+                       done();
+                    });
+            });
+
             it('Should save a job listing to the database', function(done) {
                 var data = fakeJobObject();
                 agent
@@ -269,6 +284,7 @@ describe.only('Job listing controller unit tests: ', function() {
                 .send(data)
                 .expect(200)
                 .end(function(err, response) {
+                    console.log(response.body);
                     expect(response.body.name).to.equal(data.name);
                     done();
                 });
@@ -338,11 +354,12 @@ function fakeJobObject() {
             country: faker.address.country(),
             coordinates: [faker.address.longitude(), faker.address.latitude()]
         },
-        smokingAllowed: false,
-        reqPapers: false,
+        smoking: false,
+        papers: false,
         jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
         flag: 'American',
-        length: faker.random.number({min: 80, max: 300})
+        length: faker.random.number({min: 80, max: 300}),
+        author: mongoose.Types.ObjectId()
     }
 }
 
