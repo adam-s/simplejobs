@@ -14,10 +14,6 @@
                 scope.positions = angular.copy($window.values.positions);
                 scope.positions.unshift('Any position');
 
-                ctrl.$render = function (){
-                    scope.position = ctrl.$viewValue;
-                };
-
                 ctrl.$parsers.push(function(viewValue) {
                     return viewValue === 'Any position' ? null : viewValue;
                 });

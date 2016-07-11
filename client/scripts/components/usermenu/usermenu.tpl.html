@@ -3,7 +3,7 @@
         <md-button ui-sref="login">Login</md-button>
         <md-button class="md-raised" ui-sref="register">Register</md-button>
     </div>
-    <md-menu-bar ng-if="vm.getMe()" id="usermenu" role="menubar">
+    <div ng-if="vm.getMe()" id="usermenu" role="menubar">
         <md-menu md-position-mode="left bottom">
             <md-button class="usermenu-button md-primary"
                        aria-label="User settings"
@@ -13,7 +13,7 @@
                     <md-icon md-font-icon style="color: white;">arrow_drop_down</md-icon>
                 </div>
             </md-button>
-            <md-menu-content width="1" md-position-mode="target-right">
+            <md-menu-content width="3" md-position-mode="target-right" id="usermenu-dropdown">
                 <md-menu-item class="user-menu-item" layout-align="start start">
                     <md-button ui-sref="account">
                         <md-icon md-font-icon="account_circle">account_circle</md-icon>
@@ -41,5 +41,5 @@
                 </md-menu-item>
             </md-menu-content>
         </md-menu>
-    </md-menu-bar>
+    </div>
 </div>

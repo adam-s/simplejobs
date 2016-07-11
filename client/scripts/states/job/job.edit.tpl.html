@@ -12,9 +12,7 @@
                     <md-input-container flex>
                         <label>Title</label>
                         <input name="title"
-                               ng-model="vm.job.title"
-                               md-maxlength="250"
-                               required>
+                               ng-model="vm.job.title">
                         <div ng-messages="jobForm.title.$error" role="alert">
                             <div ng-message="required">Title is a required field</div>
                             <div ng-message="md-maxlength">The title must be shorter than 250 characters</div>
@@ -60,21 +58,31 @@
                     </md-input-container>
                     <md-input-container flex>
                         <label>Job type</label>
-                        <md-select placeholder="Job type" ng-model="vm.job.jobType" job-types-extend>
+                        <md-select name="jobType"
+                                   required
+                                   ng-model="vm.job.jobType"
+                                   job-types-extend>
                             <md-option ng-value="opt"
-                                       ng-repeat="opt in jobTypes | orderBySelectedOption:jobType"
-                                       ng-selected="opt === jobType"
+                                       ng-repeat="opt in jobTypes | orderBySelectedOption:vm.job.jobType"
                                        class="top-selector-option">{{opt}}</md-option>
                         </md-select>
+                        <div ng-messages="jobForm.jobType.$error" role="alert">
+                            <div ng-message="required">Job type field is required</div>
+                        </div>
                     </md-input-container>
                     <md-input-container flex>
                         <label>Positions</label>
-                        <md-select placeholder="Choose a position" ng-model="vm.job.position" positions-input-extend>
+                        <md-select name="position"
+                                   required
+                                   ng-model="vm.job.position"
+                                   positions-input-extend>
                             <md-option ng-value="opt"
-                                       ng-repeat="opt in positions | orderBySelectedOption:position"
-                                       ng-selected="opt === position"
+                                       ng-repeat="opt in positions | orderBySelectedOption:vm.job.position"
                                        class="top-selector-option">{{opt}}</md-option>
                         </md-select>
+                        <div ng-messages="jobForm.position.$error" role="alert">
+                            <div ng-message="required">Position field is required</div>
+                        </div>
                     </md-input-container>
                     <md-input-container flex>
                         <label>Languages</label>
@@ -234,5 +242,5 @@
         </section>
     </form>
 
-    <pre>{{vm.job | json}}</pre>
+    <pre>{{jobForm| json}}</pre>
 </md-content>

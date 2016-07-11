@@ -36,13 +36,13 @@
                     $location.path('/');
                 }, function reject(response) {
                     console.log(response);
-                    handleValdationErrors(response);
+                    handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
 
         }
 
-        function handleValdationErrors(response) {
+        function handleValidationErrors(response) {
             var duplicate = false; // First find if the email is a duplicate
             var alert;
 

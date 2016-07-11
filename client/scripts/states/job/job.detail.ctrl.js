@@ -2,12 +2,13 @@
     angular.module('simplejobs')
         .controller('jobDetailCtrl', jobDetailCtrl);
 
-    jobDetailCtrl.$inject = ['$window', '$scope', '$state', 'jobApi', 'job', 'Auth'];
+    jobDetailCtrl.$inject = ['$window', '$scope', '$mdDialog', '$state', 'jobApi', 'job', 'Auth'];
 
-    function jobDetailCtrl($window, $scope, $state, jobApi, job, Auth) {
+    function jobDetailCtrl($window, $scope, $mdDialog, $state, jobApi, job, Auth) {
         var vm = this;
         vm.job = job || {
             active: true,
+            startDate: new Date(),
             email: angular.copy(Auth.getMe().email)
         };
 
@@ -50,8 +51,40 @@
                     vm.submitDisabled = false;
                     $state.go('jobEdit', {id: response._id});
                 }, function(response) {
+                    handleValidationErrors(response)
                     vm.submitDisabled = false;
                 });
         };
+
+
+        function handleValidationErrors(response) {
+            var alert;
+
+            if (response.message === 'Validation error') {
+                if (response.errors) {
+                    var content = response.errors.reduce(function(string, value) {
+                        console.log(value); console.log(string);
+                        return string + '<li>' + value.msg + '</li>';
+                    }, '');
+
+                    alert = $mdDialog.alert({
+                        title: response.message,
+                        htmlContent: '<ul>' + content + '</ul>',
+                        ok: 'Close'
+                    });
+                }
+            } else if (response.message) {
+                alert = $mdDialog.alert({
+                    title: response.message,
+                    ok: 'Close'
+                })
+            }
+
+            $mdDialog
+                .show(alert)
+                .finally(function() {
+                    alert = undefined;
+                });
+        }
     }
 })();
