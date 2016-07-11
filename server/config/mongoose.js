@@ -5,6 +5,7 @@ var config = require('./config'),
 
 module.exports = function () {
     var options = { server: { socketOptions: { keepAlive: 1 } } };
+    mongoose.Promise = global.Promise;
     var db = mongoose.connect(config.db, options);
 
     // Load the application models

@@ -32,10 +32,17 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var data = _.extend(req.app.locals.jobListing, req.body);
-    data = data.toObject();
-    delete data._id;
-    req.app.locals.jobListing.save(function(err, result) {
+    var jobListing = req.app.locals.jobListing;
+
+    // Protect information
+    delete req.body.author;
+    delete req.body.__v;
+    delete req.body._id;
+
+    // Merge objects
+    _.merge(jobListing, req.body);
+
+    jobListing.save(function(err, result) {
         if (err) return res.status(400).send(err);
         res.json(result);
     });

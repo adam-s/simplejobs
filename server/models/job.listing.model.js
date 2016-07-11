@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     BaseListing = require('./base.listing.model.js'),
     values = require('../config/values.js'),
-    metadata = require('./plugins/metadata.js'),
     validators = require('./validators/validators.js');
 
 var options = {

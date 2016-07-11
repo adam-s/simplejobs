@@ -64,4 +64,10 @@ BaseListingSchema.plugin(metadata);
 BaseListingSchema.plugin(pagination);
 BaseListingSchema.plugin(mongooseDelete, { overrideMethods: 'all' });
 
+BaseListingSchema.path('author').set(function(value) {
+    console.log(this.author);
+    console.log(value);
+    return (this.author || value);
+});
+
 module.exports = mongoose.model('BaseListing', BaseListingSchema);
