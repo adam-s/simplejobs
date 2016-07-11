@@ -12,7 +12,7 @@ exports.index = function(req, res) {
     JobListing
         .pagination(tableState)
         .exec(function(err, result) {
-            if (err) return res.status(400).send(err);
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
             res.json(result);
         });
 };
@@ -22,8 +22,10 @@ exports.detail = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    var jobListing = new JobListing(req.body);
-    jobListing.author = req.user._id;
+    var data = req.body;
+    data.author = req.user._id;
+
+    var jobListing = new JobListing(data);
 
     jobListing.save(function(err) {
         if (err) return res.status(400).send(validationErrorHandler(err, true));
@@ -43,14 +45,16 @@ exports.update = function(req, res) {
     _.merge(jobListing, req.body);
 
     jobListing.save(function(err, result) {
-        if (err) return res.status(400).send(err);
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(result);
     });
 };
 
 exports.remove = function(req, res) {
-    req.app.locals.jobListing.delete(function(err) {
-        if (err) return res.status(400).send(err);
+    var jobListing = req.app.locals.jobListing;
+
+    jobListing.delete(function(err) {
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(true);
     })
 };
@@ -59,7 +63,7 @@ exports.jobListingById = function(req, res, next, id) {
     JobListing
         .findById(id)
         .exec(function(err, jobListing) {
-            if (err) return res.status(400).send(err);
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
             req.app.locals.jobListing = jobListing;
             next();
         });

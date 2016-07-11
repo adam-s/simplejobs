@@ -2,14 +2,22 @@
     angular.module('simplejobs')
         .controller('jobDetailCtrl', jobDetailCtrl);
 
-    jobDetailCtrl.$inject = ['$window', '$scope', '$mdDialog', '$state', 'jobApi', 'job', 'Auth'];
+    jobDetailCtrl.$inject = ['$mdDialog', '$state', 'jobApi', 'job', 'Auth'];
 
-    function jobDetailCtrl($window, $scope, $mdDialog, $state, jobApi, job, Auth) {
+    function jobDetailCtrl($mdDialog, $state, jobApi, job, Auth) {
         var vm = this;
+        var user = Auth.getMe();
+
+        // Should only be able to edit if owner can't do this at policy level because job isn't loaded
+        // Decided to not cloud up the resolve router parameter either.
+        if (job && job.author !== user._id) {
+            $state.go('home');
+        }
+
         vm.job = job || {
             active: true,
             startDate: new Date(),
-            email: angular.copy(Auth.getMe().email)
+            email: angular.copy(user.email)
         };
 
         // Initialize date object;

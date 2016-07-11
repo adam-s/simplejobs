@@ -257,6 +257,37 @@ describe.only('Job listing controller unit tests: ', function() {
                         done();
                     });
             });
+
+            it('Should return 403 if user doesn\'t have access', function(done) {
+                var data = jobListings[0];
+                agent
+                    .put('/api/job-listings/' + data._id)
+                    .send(data)
+                    .expect(403)
+                    .end(done);
+            });
+
+            it('Should update job listing with authenticated user', function(done) {
+                var data = fakeJobObject();
+
+                agent
+                    .post('/api/job-listings')
+                    .send(data)
+                    .expect('Content-Type', /json/)
+                    .end(function(err, response) {
+                        data = response.body;
+                        data.title = 'Argh!! I\'m a pirate';
+                        agent
+                            .put('/api/job-listings/' + data._id)
+                            .send(data)
+                            .expect(200)
+                            .end(function(err, response){
+                                if (err) return done(err);
+                                expect(response.body.title).to.equal(data.title);
+                                done();
+                            });
+                    });
+            });
         });
     });
 
@@ -269,23 +300,6 @@ describe.only('Job listing controller unit tests: ', function() {
                 .end(function(err, response) {
                     if (err) return done(err);
                     expect(response.body.name).to.equal(testJob.name);
-                    done();
-                });
-        });
-    });
-
-    describe('PUT /api/job-listings/:jobListingId', function() {
-        xit('Should update the first job listing document', function(done) {
-            var data = jobListings[0];
-            data.name = 'changed';
-
-            request(app)
-                .put('/api/job-listings/' + data._id)
-                .send(data)
-                .expect(200)
-                .end(function(err, response) {
-                    console.log(response.body);
-                    expect(response.body.name).to.equal(data.name);
                     done();
                 });
         });

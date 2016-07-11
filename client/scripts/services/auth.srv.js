@@ -13,7 +13,8 @@
             login: login,
             logout: logout,
             email: email,
-            passwordChange: passwordChange
+            passwordChange: passwordChange,
+            hasRole: hasRole
         };
 
         function getMe() {
@@ -95,6 +96,13 @@
             });
 
             return deferred.promise;
+        }
+
+        function hasRole(rollToCheck) {
+            var roles = me.roles || [];
+            return roles.some(function(role) {
+                return role === rollToCheck;
+            });
         }
     }
 })();
