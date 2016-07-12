@@ -3,10 +3,10 @@
         <md-card>
             <md-table-container>
                 <table md-table>
-                    <thead md-head>
+                    <thead md-head md-order="vm.tableState.order" md-on-reorder="vm.fetch">
                     <tr md-row>
-                        <th md-column>Active</th>
-                        <th md-column>Starting date</th>
+                        <th md-column md-order-by="active" md-desc>Active</th>
+                        <th md-column md-order-by="startDate" md-desc>Starting date</th>
                         <th md-column>Name</th>
                         <th md-column>Location</th>
                         <th md-column>Position</th>

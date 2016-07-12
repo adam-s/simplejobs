@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('jobDetailCtrl', jobDetailCtrl);
 
-    jobDetailCtrl.$inject = ['$mdDialog', '$state', 'jobApi', 'job', 'Auth'];
+    jobDetailCtrl.$inject = ['$mdDialog', '$mdToast', '$state', 'jobApi', 'job', 'Auth'];
 
-    function jobDetailCtrl($mdDialog, $state, jobApi, job, Auth) {
+    function jobDetailCtrl($mdDialog, $mdToast, $state, jobApi, job, Auth) {
         var vm = this;
         var user = Auth.getMe();
 
@@ -58,8 +58,10 @@
                 .then(function(response) {
                     vm.submitDisabled = false;
                     $state.go('jobEdit', {id: response._id});
+                    var toast = $mdToast.simple().textContent('Job listing updated');
+                    $mdToast.show(toast);
                 }, function(response) {
-                    handleValidationErrors(response)
+                    handleValidationErrors(response);
                     vm.submitDisabled = false;
                 });
         };
