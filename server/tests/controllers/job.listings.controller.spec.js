@@ -373,7 +373,7 @@ function fakeJobObject() {
         jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
         flag: 'American',
         length: faker.random.number({min: 80, max: 300}),
-        author: mongoose.Types.ObjectId()
+        author: userId || mongoose.Types.ObjectId()
     }
 }
 

@@ -1,5 +1,5 @@
-<md-card>
-    <div layout="column">
+<div layout="column" flex>
+    <div style="background: yellow">
         <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools" layout-align="space-between center" md-whiteframe="1">
                 <h2>Crew list</h2>
@@ -8,7 +8,9 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-content>
+    </div>
+    <md-content flex style="background: #cecece">
+        <md-card>
             <md-table-container>
                 <table md-table>
                     <thead md-head>
@@ -34,7 +36,9 @@
                     </tbody>
                 </table>
             </md-table-container>
-        </md-content>
+        </md-card>
+    </md-content>
+    <div>
         <md-table-pagination md-limit="vm.tableState.limit"
                              md-limit-options="[10, 20, 30]"
                              md-page="vm.tableState.page"
@@ -42,4 +46,4 @@
                              md-on-paginate="vm.fetchCrew"
                              md-page-select></md-table-pagination>
     </div>
-</md-card>
+</div>

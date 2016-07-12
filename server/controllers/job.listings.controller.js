@@ -7,10 +7,25 @@ var mongoose = require('mongoose'),
     values = require('../config/values.js');
 
 exports.index = function(req, res) {
+    var user = req.user || {};
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
-    JobListing
-        .pagination(tableState)
+
+    var query = JobListing.pagination(tableState);
+
+    // We allow filter on author ID
+    if (tableState.author) {
+        query.where('author', tableState.author);
+    }
+
+    // Only admin and owner can see nonactive listings.
+    var isAdmin = req.user && req.user.roles.indexOf('admin') !== -1;
+    var isOwner = req.user && tableState.author && req.user._id.toString() === tableState.author.toString();
+    if (!(isAdmin || isOwner)) {
+        query.where('active', true);
+    }
+
+    query
         .exec(function(err, result) {
             if (err) return res.status(400).send(validationErrorHandler(err, true));
             res.json(result);

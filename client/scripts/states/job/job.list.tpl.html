@@ -1,1 +1,39 @@
-<h1>Fuck</h1>
+<div layout="column" flex>
+    <md-content flex style="background: #ececec">
+        <md-card>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                    <tr md-row>
+                        <th md-column>Name</th>
+                        <th md-column>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="job in vm.jobs">
+                        <td md-cell>{{job.title}}</td>
+                        <td md-cell>
+                            <div layout="row">
+                                <md-button class="md-icon-button" ng-click="vm.edit(job._id)">
+                                    <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" ng-click="vm.remove(job._id, $event)">
+                                    <md-icon md-font-icon="delete">delete</md-icon>
+                                </md-button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card>
+    </md-content>
+    <div>
+        <md-table-pagination md-limit="vm.tableState.limit"
+                             md-limit-options="[10, 20, 30]"
+                             md-page="vm.tableState.page"
+                             md-total="{{vm.count}}"
+                             md-on-paginate="vm.fetch"
+                             md-page-select></md-table-pagination>
+    </div>
+</div>

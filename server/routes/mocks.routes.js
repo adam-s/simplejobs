@@ -31,10 +31,18 @@ module.exports = function(app) {
         })
     });
 
+    app.get('/make-job-listings/:userId', function(req, res, next) {
+        var jobs = jobsMaker(100, req.params.userId);
+        JobListing.create(jobs, function(err, results) {
+            if (err) return res.send(err.message);
+            return res.send('Made the jobs')
+        })
+    });
+
     app.get('/make-all-the-things', function(req, res, next) {
-        var users = usersMaker();
-        var crew = crewMaker();
-        var jobs = jobsMaker();
+        var users = usersMaker(count);
+        var crew = crewMaker(count);
+        var jobs = jobsMaker(count);
         async.parallel([
             function(callback) {
                 User.create(users, function(err, results) {
@@ -60,10 +68,10 @@ module.exports = function(app) {
     })
 };
 
-function crewMaker() {
+function crewMaker(count) {
     var crew = [];
 
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < count; i++) {
         crew.push({
             startDate: Date.now(),
             name: faker.name.findName(),
@@ -85,41 +93,42 @@ function crewMaker() {
     return crew;
 }
 
-function jobsMaker() {
+function jobsMaker(count, userId) {
     var jobs = [];
 
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < count; i++) {
         jobs.push({
             startDate: Date.now(),
-            name: faker.name.findName(),
+            title: faker.lorem.words(5),
+            description: faker.lorem.paragraph(),
             phone: faker.phone.phoneNumberFormat(),
             email: faker.internet.email(),
             position: values.positions[Math.floor(Math.random() * values.positions.length)],
-            languages: values.languages[Math.floor(Math.random() * values.languages.length)],
+            languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
             active: true,
             location: {
+                name: faker.lorem.words(3),
                 locality: faker.address.city(),
                 administrativeArea: faker.address.state(),
                 country: faker.address.country(),
                 coordinates: [faker.address.longitude(), faker.address.latitude()]
             },
-            smokingAllowed: false,
-            reqPapers: false,
-            jobTypes: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
+            smoking: false,
+            papers: false,
+            jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
             flag: 'American',
             length: faker.random.number({min: 80, max: 300}),
-            title: faker.lorem.sentence(faker.random.number({min: 3, max:6})),
-            description: faker.lorem.sentences(4, faker.random.number({min: 4, max: 10}))
+            author: userId || mongoose.Types.ObjectId()
         });
     }
 
     return jobs;
 }
 
-function usersMaker() {
+function usersMaker(count) {
     var users = [];
 
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < count; i++) {
         users.push({
             name: faker.name.findName(),
             email: faker.internet.email()
