@@ -7,7 +7,14 @@ var mongoose = require('mongoose'),
     values = require('../config/values.js');
 
 exports.index = function(req, res) {
-    var user = req.user || {};
+
+    req.assert('tableState.limit', 'Limit is not a valid param').isInt().lte(10000);
+    req.assert('tableState.page', 'Page is not a valid param').isInt().lte(10000);
+    req.assert('tableState.author', 'Author is not a valid param').isMongoId();
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
 
@@ -27,6 +34,7 @@ exports.index = function(req, res) {
 
     query
         .exec(function(err, result) {
+            console.log(err);
             if (err) return res.status(400).send(validationErrorHandler(err, true));
             res.json(result);
         });
@@ -59,7 +67,7 @@ exports.update = function(req, res) {
     // Merge objects
     _.merge(jobListing, req.body);
 
-    jobListing.save(function(err, result) {
+    jobListing.save({runValidators: true}, function(err, result) {
         if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(result);
     });

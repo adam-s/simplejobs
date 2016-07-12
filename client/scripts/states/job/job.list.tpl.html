@@ -5,14 +5,27 @@
                 <table md-table>
                     <thead md-head>
                     <tr md-row>
+                        <th md-column>Active</th>
+                        <th md-column>Starting date</th>
                         <th md-column>Name</th>
+                        <th md-column>Location</th>
+                        <th md-column>Position</th>
                         <th md-column>Actions</th>
                     </tr>
                     </thead>
                     <tbody md-body>
                     <tr md-row ng-repeat="job in vm.jobs">
-                        <td md-cell>{{job.title}}</td>
-                        <td md-cell>
+                        <td md-cell style="width: 40px" cg-busy="vm.promise">
+                            <md-switch ng-model="job.active"
+                                       aria-label="Job listing active"
+                                       ng-disabled="vm.switchIsDisabled[$index]"
+                                       ng-change="vm.activeChange(job, $index)"></md-switch>
+                        </td>
+                        <td md-cell style="width: 100px;">{{job.startDate | date}}</td>
+                        <td md-cell style="min-width: 200px">{{job.title}}</td>
+                        <td md-cell style="min-width: 200px">{{job.location.name}}</td>
+                        <td md-cell style="min-width: 100px">{{job.position}}</td>
+                        <td md-cell style="width: 100px">
                             <div layout="row">
                                 <md-button class="md-icon-button" ng-click="vm.edit(job._id)">
                                     <md-icon md-font-icon="mode_edit">mode_edit</md-icon>

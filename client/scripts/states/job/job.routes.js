@@ -7,7 +7,7 @@
     function routes($stateProvider) {
         $stateProvider
             .state('myJobList', {
-                url: '/job/list?limit&page&author',
+                url: '/job/list?limit&page&author&order',
                 parent: 'sidebar',
                 controller: 'jobListCtrl as vm',
                 templateUrl: 'scripts/states/job/job.list.tpl.html',
@@ -18,6 +18,7 @@
                     }]
                 },
                 params: {
+                    order: "-updated",
                     limit: "10",
                     page: "1",
                     author: ['Auth', function(Auth) {

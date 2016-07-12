@@ -1,6 +1,7 @@
 (function() {
     angular.module('simplejobs')
-        .config(routes);
+        .config(routes)
+        .run(runPhase);
 
     routes.$inject = ['$locationProvider', '$urlRouterProvider'];
 
@@ -12,4 +13,13 @@
             $state.go('home');
         });
     }
+
+    runPhase.$inject = ['$rootScope', '$state'];
+
+    function runPhase ($rootScope, $state) {
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            console.log('handle me')
+            event.preventDefault();
+        })
+    };
 })();

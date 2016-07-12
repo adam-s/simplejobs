@@ -8,7 +8,8 @@
         'md.data.table',
         'validation.match',
         'permission',
-        'permission.ui'
+        'permission.ui',
+        'angular-loading-bar'
     ]);
 })();
 
