@@ -12,7 +12,11 @@
                 templateUrl: 'scripts/states/account/account.tpl.html',
                 controller: 'accountCtrl as vm',
                 data: {
-                    title: 'My Account'
+                    title: 'My Account',
+                    permissions: {
+                        only: ['manageAccount'],
+                        redirectTo: 'login'
+                    }
                 }
             })
             .state('email', {
@@ -21,7 +25,11 @@
                 templateUrl: 'scripts/states/account/email.tpl.html',
                 controller: 'emailCtrl as vm',
                 data: {
-                    title: 'Change Email'
+                    title: 'Change Email',
+                    permissions: {
+                        only: ['manageAccount'],
+                        redirectTo: 'login'
+                    }
                 }
             })
             .state('password', {
@@ -30,7 +38,11 @@
                 templateUrl: 'scripts/states/account/passwordChange.tpl.html',
                 controller: 'passwordChangeCtrl as vm',
                 data: {
-                    title: 'Change password'
+                    title: 'Change password',
+                    permissions: {
+                        only: ['manageAccount'],
+                        redirectTo: 'login'
+                    }
                 }
             });
     }

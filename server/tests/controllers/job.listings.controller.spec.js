@@ -44,7 +44,7 @@ describe.only('Job listing controller unit tests: ', function() {
             });
         });
 
-        describe('Anthendicated users', function() {
+        describe('Authenticated users', function() {
             beforeEach(function(done) {
 
                 var data = {
@@ -306,7 +306,7 @@ describe.only('Job listing controller unit tests: ', function() {
     });
 
     describe('DELETE /api/job-listings/:jobListingId', function() {
-        it('Should delete the job listing document', function(done) {
+        xit('Should delete the job listing document', function(done) {
             var data = jobListings[0];
 
             request(app)
@@ -324,6 +324,18 @@ describe.only('Job listing controller unit tests: ', function() {
                 });
         });
     });
+
+    describe('GET /api/job-listings/count', function() {
+        it ('Should get the count of the number of job listings', function(done) {
+            request(app)
+                .get('/api/job-listings/count')
+                .expect(200)
+                .end(function(err, response){
+                    expect(response.body.count).to.equal(10);
+                    done();
+                })
+        })
+    })
 });
 
 function setup(done) {
@@ -351,7 +363,7 @@ function teardown(done) {
     });
 }
 
-function fakeJobObject() {
+function fakeJobObject(userId) {
     return {
         startDate: Date.now(),
         title: faker.lorem.words(5),

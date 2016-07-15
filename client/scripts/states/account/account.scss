@@ -1,0 +1,29 @@
+.sj-account {
+  margin: 0 auto 20px;
+  max-width: 900px;
+
+  .sj-account-column {
+
+  }
+
+  md-card {
+    //    margin-top: 20px;
+    width: 100%;
+    min-height: 172px;
+    box-sizing: border-box;
+
+    .md-media-sm {
+      md-icon {
+        //        color: rgb(170, 0, 0);
+        line-height: inherit;
+        font-size: 80px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .sj-section {
+    padding-top: 20px
+  }
+}

@@ -1,9 +1,12 @@
-<md-content>
-    <div layout="row">
-        <md-card flex-gt-md="60" flex>
-            <div layout="column" layout-padding>
-                <!-- Rows for each section -->
-                <form novalidate name="emailForm" ng-submit="vm.submit()">
+<md-content class="sj-section-wrapper" flex>
+    <form novalidate name="emailForm" ng-submit="vm.submit()">
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Change email</h3>
+                <p class="md-body-1">Add your new email address and your password.</p>
+            </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
                     <md-input-container class="md-block">
                         <label>Current email</label>
                         <input disabled
@@ -16,14 +19,14 @@
                                ng-model="vm.me.newEmail"
                                placeholder="New email"
                                ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
-                               required
+                       required
                                aria-label="New email"
                                aria-invalid="false"/>
                         <div ng-messages="emailForm.newEmail.$error"
                              role="alert"
                              aria-live="assertive"
                              ng-show="(!emailForm.newEmail.$untouched || emailForm.$submitted)
-                                && (emailForm.newEmail.$error.email || emailForm.newEmail.$error.required)">
+                        && (emailForm.newEmail.$error.email || emailForm.newEmail.$error.required)">
                             <div ng-message="required"><span>Email field is required</span></div>
                             <div ng-message="pattern"><span>Email must be a valid e-mail address</span></div>
                         </div>
@@ -41,17 +44,17 @@
                              aria-live="assertive"
                              ng-show="(!emailForm.password.$untouched || emailForm.$submitted) && emailForm.password.$error.required">
                             <div ng-message="required"><span>Password field is required</span></div>
-                         </div>
+                        </div>
                     </md-input-container>
-                    <div layout="row" layout-align="end center">
-                        <span><a ng-href="/account">cancel</a></span>
-                        <md-button class="md-raised md-primary submit"
-                                   type="submit"
-                                   ng-disabled="emailForm.$invalid || emailForm.$pristine ||  vm.disabledFlag"
-                                   aria-label="Change email">Change email</md-button>
-                    </div>
-                </form>
+                </md-card>
+                <div layout="row" layout-align="end center">
+                    <span><md-button ng-href="/account">cancel</md-button></span>
+                    <md-button class="md-raised md-primary submit"
+                               type="submit"
+                               ng-disabled="emailForm.$invalid || emailForm.$pristine ||  vm.disabledFlag"
+                               aria-label="Change email">Change email</md-button>
+                </div>
             </div>
-        </md-card>
-    </div>
+        </section>
+    </form>
 </md-content>

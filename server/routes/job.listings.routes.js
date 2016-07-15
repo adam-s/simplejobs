@@ -3,6 +3,7 @@
 var jobs = require('../controllers/job.listings.controller.js');
 
 module.exports = function(app) {
+    app.get('/api/job-listings/count', jobs.count);
 
     app.route('/api/job-listings')
         .get(jobs.index)
@@ -14,6 +15,7 @@ module.exports = function(app) {
         .delete(checkAdminOrOwn, jobs.remove);
 
     app.param('jobListingId', jobs.jobListingById);
+
 };
 
 // Access check.

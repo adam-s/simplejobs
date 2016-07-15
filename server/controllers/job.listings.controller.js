@@ -8,9 +8,9 @@ var mongoose = require('mongoose'),
 
 exports.index = function(req, res) {
 
-    req.assert('tableState.limit', 'Limit is not a valid param').isInt().lte(10000);
-    req.assert('tableState.page', 'Page is not a valid param').isInt().lte(10000);
-    req.assert('tableState.author', 'Author is not a valid param').isMongoId();
+    req.assert('tableState.limit', 'Limit is not a valid param').optional().isInt().lte(10000);
+    req.assert('tableState.page', 'Page is not a valid param').optional().isInt().lte(10000);
+    req.assert('tableState.author', 'Author is not a valid param').optional().isMongoId();
 
     var errors = req.validationErrors();
     if (errors) return res.status(400).send(validationErrorHandler(errors));
@@ -90,4 +90,19 @@ exports.jobListingById = function(req, res, next, id) {
             req.app.locals.jobListing = jobListing;
             next();
         });
+};
+
+exports.count = function(req, res) {
+    var userId = req.query.userId;
+
+    var query = JobListing.count();
+
+    if (!_.isEmpty(userId)) {
+        query.where('author', userId);
+    }
+
+    query.exec(function(err, count) {
+        if (err) return res.status(400).send({message: 'An error occurred', errors: [err]});
+        res.json({count: count})
+    })
 };
