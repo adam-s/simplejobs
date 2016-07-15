@@ -95,14 +95,49 @@ exports.jobListingById = function(req, res, next, id) {
 exports.count = function(req, res) {
     var userId = req.query.userId;
 
-    var query = JobListing.count();
+    if (_.isEmpty(userId)) {
+        JobListing.count({active: true}, function(err, count) {
+            if (err) return res.status(400).send({message: 'An error occurred', errors: [err]});
+            return res.json({count: { total: count }})
+        });
+    } else {
+        req.assert('userId', 'Not a valid User ID').isMongoId();
 
-    if (!_.isEmpty(userId)) {
-        query.where('author', userId);
+        var errors = req.validationErrors();
+        if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+        var isAdmin = req.user && req.user.roles.indexOf('admin') !== -1;
+        var isOwner = req.user && userId && req.user._id.toString() === userId;
+
+        JobListing
+            .find()
+            .where('author', userId)
+            .select('active')
+            .exec(function(err, listings) {
+                if (err) return res.status(400).send({message: 'An error occurred', errors: [err]});
+
+                var activeCount = _.countBy(listings, function(item) {
+                    return item.active ? 'active' : 'deactivated'
+                });
+
+                if (!isAdmin && !isOwner) {
+                    var count = {
+                        total: listings.length
+                    };
+
+                    return res.json({count: count});
+                } else {
+                    var count = {
+                        total: listings.length,
+                        active: activeCount.active,
+                        deactivated: activeCount.deactivated
+                    };
+
+                    return res.json({count: count});
+                }
+
+
+            })
     }
 
-    query.exec(function(err, count) {
-        if (err) return res.status(400).send({message: 'An error occurred', errors: [err]});
-        res.json({count: count})
-    })
 };

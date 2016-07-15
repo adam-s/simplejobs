@@ -45,6 +45,8 @@ describe.only('Job listing controller unit tests: ', function() {
         });
 
         describe('Authenticated users', function() {
+            var user;
+
             beforeEach(function(done) {
 
                 var data = {
@@ -57,7 +59,10 @@ describe.only('Job listing controller unit tests: ', function() {
                     .post('/auth/register')
                     .send(data)
                     .expect(200)
-                    .end(done);
+                    .end(function(err, response) {
+                        user = response.body;
+                        done();
+                    });
             });
 
             it('Should set the job listing author to current user', function(done) {
@@ -288,6 +293,26 @@ describe.only('Job listing controller unit tests: ', function() {
                             });
                     });
             });
+
+            it('should get a count of active and inactive listings with authenticated user', function(done) {
+                var jobs = [];
+                for (var i = 0; i < 100; i++) {
+                    var item = fakeJobObject();
+                    item.active = i < 25 ;
+                    item.author = user._id;
+                    jobs.push(item);
+                }
+
+                JobListing.create(jobs, function() {
+                    agent
+                        .get('/api/job-listings/count/?userId=' + user._id)
+                        .end(function(err, response) {
+                            console.log(response.body);
+                            done();
+                        })
+                })
+
+            })
         });
     });
 
@@ -331,11 +356,11 @@ describe.only('Job listing controller unit tests: ', function() {
                 .get('/api/job-listings/count')
                 .expect(200)
                 .end(function(err, response){
-                    expect(response.body.count).to.equal(10);
+                    expect(response.body.count.total).to.equal(10);
                     done();
                 })
         })
-    })
+    });
 });
 
 function setup(done) {
@@ -363,7 +388,7 @@ function teardown(done) {
     });
 }
 
-function fakeJobObject(userId) {
+function fakeJobObject() {
     return {
         startDate: Date.now(),
         title: faker.lorem.words(5),
@@ -385,7 +410,7 @@ function fakeJobObject(userId) {
         jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
         flag: 'American',
         length: faker.random.number({min: 80, max: 300}),
-        author: userId || mongoose.Types.ObjectId()
+        author: mongoose.Types.ObjectId()
     }
 }
 

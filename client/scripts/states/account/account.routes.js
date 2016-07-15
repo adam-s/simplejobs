@@ -17,6 +17,14 @@
                         only: ['manageAccount'],
                         redirectTo: 'login'
                     }
+                },
+                resolve: {
+                    profile: function() {
+                        return 'profile'
+                    },
+                    jobListingCount: function() {
+                        return 10;
+                    }
                 }
             })
             .state('email', {

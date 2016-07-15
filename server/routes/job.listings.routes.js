@@ -29,13 +29,11 @@ function checkAdminOrOwn(req, res, next) {
     var user = req.user;
     var jobListing = req.app.locals.jobListing;
 
-    setTimeout(function() {
-        if (!jobListing) return res.status(400).send({message: 'Job listing doesn\'t exist'});
-        if (user && userHasRole('admin', user)) return next();
-        if (user && jobListing.author.toString() === user._id.toString()) return next();
+    if (!jobListing) return res.status(400).send({message: 'Job listing doesn\'t exist'});
+    if (user && userHasRole('admin', user)) return next();
+    if (user && jobListing.author.toString() === user._id.toString()) return next();
 
-        return res.status(403).send({message: 'User is not authorized'});
-    }, 2000);
+    return res.status(403).send({message: 'User is not authorized'});
 
 }
 
