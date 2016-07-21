@@ -9,7 +9,9 @@
         'validation.match',
         'permission',
         'permission.ui',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'angularMoment',
+        'ngFileUpload'
     ]);
 })();
 

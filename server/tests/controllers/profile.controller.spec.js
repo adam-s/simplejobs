@@ -9,7 +9,7 @@ var app = require('../../../server.js'),
     agent = require('supertest').agent(app),
     _ = require('lodash');
 
-describe('/api/profile', function() {
+describe.only('/api/profile', function() {
     beforeEach(function(done) {
         CrewListing.remove(function() {
             User.remove(function() {
@@ -113,6 +113,7 @@ describe('/api/profile', function() {
 function fakeProfileObject() {
     return {
         startDate: Date.now(),
+        checkIn: Date.now(),
         title: faker.lorem.words(5),
         description: faker.lorem.paragraph(),
         phone: faker.phone.phoneNumberFormat(),

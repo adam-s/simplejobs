@@ -58,7 +58,13 @@
                     <md-card-title-text>
                         <span class="md-headline">Crew profile</span>
                         <span class="md-subhead">Your profile is <b>{{vm.profile.active ? 'active' : 'deactivated'}}</b></span>
-                        <span class="md-subhead"><b>Check in</b> to move to the top</span>
+                        <span class="md-subhead" ng-if="vm.timeToCheckIn && vm.profile.active">
+                            <span>You can </span><b>check in</b><span> again </span><span am-time-ago="vm.timeToCheckIn"></span>
+                        </span>
+                        <span class="md-subhead" ng-if="!vm.timeToCheckIn && vm.profile.active">
+                            <b>Check in </b>
+                            <span> now to be top of the list</span>
+                        </span>
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-sm" card-media>
@@ -67,8 +73,10 @@
                     </md-card-title-media>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="start center">
-                    <md-button>Check in</md-button>
-                    <md-button ng-click="vm.toggleProfile()" ng-disabled="vm.toggleProfileButtonDisabled">{{vm.profile.active ? 'Deactivate' : 'Activate'}}</md-button>
+                    <md-button ng-click="vm.checkIn()" ng-disabled="vm.checkInButtonDisabled || vm.timeToCheckIn || !vm.profile.active">Check in</md-button>
+                    <md-button ng-click="vm.toggleProfile()"
+                               ng-disabled="vm.toggleProfileButtonDisabled">{{vm.profile.active ? 'Deactivate' : 'Activate'}}
+                    </md-button>
                     <md-button ui-sref="profileEdit">Edit</md-button>
                 </md-card-actions>
             </md-card>

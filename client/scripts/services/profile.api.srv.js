@@ -33,7 +33,7 @@
 
         function create(model) {
             var deferred = $q.defer();
-console.log('create');
+
             $http
                 .post(endpoint, model)
                 .then(function success(response) {
@@ -47,7 +47,7 @@ console.log('create');
 
         function update(model) {
             var deferred = $q.defer();
-console.log('update');
+
             $http
                 .put(endpoint, model)
                 .then(function success(response) {

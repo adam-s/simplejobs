@@ -13,7 +13,7 @@ var app = require('../../../server.js'),
 
 var jobListings;
 
-describe.only('Job listing controller unit tests: ', function() {
+describe('Job listing controller unit tests: ', function() {
     beforeEach(function(done) {
         setup(done);
     });

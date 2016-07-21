@@ -10,8 +10,26 @@ var options = {
 
 var CrewListingSchema = new Schema({
     name: String,
-    resume: String
+    resume: String,
+    checkIn: {
+        type: Date
+    }
 }, options);
+
+CrewListingSchema.pre('save', function(next) {
+    var now = new Date();
+    var twentyFour = 1000 * 60 * 60 * 24;
+
+    if (this.checkIn) {
+        this.checkIn = now.getTime() - twentyFour > this.checkIn.getTime() ? now : this.checkIn;
+    } else {
+        this.checkIn = now;
+    }
+
+    console.log(this.checkIn);
+
+    next();
+});
 
 module.exports = BaseListing.discriminator('CrewListing', CrewListingSchema);
 

@@ -1,5 +1,28 @@
 <md-content class="sj-section-wrapper" flex>
     <form name="profileForm" novalidate ng-submit="vm.submit()">
+        <section class="sj-section resume" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Resume upload</h3>
+                <p class="md-body-1">Attach your resume to this form. Either drag and drop a text file or click to use the file browser. Allowed formats are .doc .txt .pdf</p>
+            </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
+                    <div>No file selected</div>
+                    <div class="md-primary md-raised md-button"
+                           md-ink-ripple
+                           ngf-select
+                           name="resume"
+                           ngf-max-size="10MB"
+                           ng-model="resume">
+                        <span>Select</span>
+                    </div>
+                    <input ng-model="resume">
+                    <pre>{{resume.type | json}}</pre>
+                    <pre>{{resume.name | json}}</pre>
+                    <pre>{{resume.value | json}}</pre>
+                </md-card>
+            </div>
+        </section>
         <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
                 <h3>Basic information</h3>
