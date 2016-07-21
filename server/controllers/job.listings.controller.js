@@ -98,7 +98,7 @@ exports.count = function(req, res) {
     if (_.isEmpty(userId)) {
         JobListing.count({active: true}, function(err, count) {
             if (err) return res.status(400).send({message: 'An error occurred', errors: [err]});
-            return res.json({count: { total: count }})
+            return res.json({ total: count })
         });
     } else {
         req.assert('userId', 'Not a valid User ID').isMongoId();
@@ -125,7 +125,7 @@ exports.count = function(req, res) {
                         total: listings.length
                     };
 
-                    return res.json({count: count});
+                    return res.json(count);
                 } else {
                     var count = {
                         total: listings.length,
@@ -133,7 +133,7 @@ exports.count = function(req, res) {
                         deactivated: activeCount.deactivated
                     };
 
-                    return res.json({count: count});
+                    return res.json(count);
                 }
 
 

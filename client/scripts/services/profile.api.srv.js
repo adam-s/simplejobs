@@ -1,12 +1,12 @@
 (function() {
-    angular.module('simplejob')
+    angular.module('simplejobs')
         .factory('profileApi', profileApi);
 
     profileApi.$inject = ['$http', '$q'];
 
     var endpoint = '/api/profile/';
 
-    function profileApi() {
+    function profileApi($http, $q) {
         return {
             detail: detail,
             create: create,
@@ -17,7 +17,6 @@
         function detail(userId) {
             var deferred = $q.defer();
             var detailEndpoint = endpoint;
-
             if (userId) {
                  detailEndpoint = endpoint + userId;
             }
@@ -34,7 +33,7 @@
 
         function create(model) {
             var deferred = $q.defer();
-
+console.log('create');
             $http
                 .post(endpoint, model)
                 .then(function success(response) {
@@ -48,7 +47,7 @@
 
         function update(model) {
             var deferred = $q.defer();
-
+console.log('update');
             $http
                 .put(endpoint, model)
                 .then(function success(response) {

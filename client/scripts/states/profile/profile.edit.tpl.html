@@ -1,50 +1,61 @@
 <md-content class="sj-section-wrapper" flex>
-    <form name="jobForm" novalidate ng-submit="vm.submit()">
+    <form name="profileForm" novalidate ng-submit="vm.submit()">
         <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
                 <h3>Basic information</h3>
-                <p class="md-body-1">Write a descriptive title for the job position. Include your email address and optional phone number so applicants can contact you.</p>
-                <p class="md-body-1">Select the type of job you are offering. Some options include an office position, work on a motor yacht, in a marina, or commercial vessel.</p>
-                <p class="md-body-1">Which languages are spoken at this job? Select multiple.</p>
+                <p class="md-body-1">Write a descriptive title for your profile. Include your name, email address, and optional phone number.</p>
+                <p class="md-body-1">Select your position and your job type preference.</p>
+                <p class="md-body-1">Select the languages you speak.</p>
             </div>
             <div class="sj-section-content" flex="60">
                 <md-card>
                     <md-input-container flex>
                         <label>Title</label>
                         <input name="title"
-                               ng-model="vm.job.title"
-                                required
-                                max="250">
-                        <div ng-messages="jobForm.title.$error" role="alert">
+                               required
+                               max="250"
+                               ng-model="vm.profile.title">
+                        <div ng-messages="profileForm.title.$error" role="alert">
                             <div ng-message="required">Title is a required field</div>
                             <div ng-message="md-maxlength">The title must be shorter than 250 characters</div>
                         </div>
                     </md-input-container>
                     <md-input-container>
-                        <md-checkbox ng-model="vm.job.active"
+                        <md-checkbox ng-model="vm.profile.active"
                                      class="md-block"
-                                     aria-label="Active job listing?">
+                                     aria-label="Active profile?">
                             <div>
-                                <span>Is the job listing active?</span>
-                                <span>{{vm.job.active?'Yes':'No'}}</span>
+                                <span>Is the profile active?</span>
+                                <span>{{vm.profile.active?'Yes':'No'}}</span>
                             </div>
                         </md-checkbox>
                     </md-input-container>
                     <md-input-container>
                         <label>Start date</label>
                         <md-datepicker flex
-                                       ng-model="vm.job.startDate"
+                                       ng-model="vm.profile.startDate"
                                        md-placeholder="Enter start date">
-                       </md-datepicker>
+                        </md-datepicker>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Name</label>
+                        <input name="Name"
+                               required
+                               max="250"
+                               ng-model="vm.profile.name">
+                        <div ng-messages="profileForm.name.$error" role="alert">
+                            <div ng-message="required">Name is a required field</div>
+                            <div ng-message="md-maxlength">The name must be shorter than 250 characters</div>
+                        </div>
                     </md-input-container>
                     <md-input-container flex>
                         <label>Email</label>
                         <input name="email"
-                               ng-model="vm.job.email"
+                               ng-model="vm.profile.email"
                                type="email"
                                ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
                                required>
-                        <div ng-messages="jobForm.email.$error" role="alert">
+                        <div ng-messages="profileForm.email.$error" role="alert">
                             <div ng-message="required">Email is a required field</div>
                             <div ng-message="pattern">Must be a valid email</div>
                         </div>
@@ -52,9 +63,9 @@
                     <md-input-container flex>
                         <label>Phone</label>
                         <input name="phone"
-                               ng-model="vm.job.phone"
+                               ng-model="vm.profile.phone"
                                required>
-                        <div ng-messages="jobForm.phone.$error" role="alert">
+                        <div ng-messages="profileForm.phone.$error" role="alert">
                             <div ng-message="required">Phone is a required field</div>
                         </div>
                     </md-input-container>
@@ -62,33 +73,33 @@
                         <label>Job type</label>
                         <md-select name="jobType"
                                    required
-                                   ng-model="vm.job.jobType"
+                                   ng-model="vm.profile.jobType"
                                    job-types-extend>
                             <md-option ng-value="opt"
-                                       ng-repeat="opt in jobTypes | orderBySelectedOption:vm.job.jobType"
+                                       ng-repeat="opt in jobTypes | orderBySelectedOption:vm.profile.jobType"
                                        class="top-selector-option">{{opt}}</md-option>
                         </md-select>
-                        <div ng-messages="jobForm.jobType.$error" role="alert">
+                        <div ng-messages="profileForm.jobType.$error" role="alert">
                             <div ng-message="required">Job type field is required</div>
                         </div>
                     </md-input-container>
                     <md-input-container flex>
-                        <label>Positions</label>
+                        <label>Position</label>
                         <md-select name="position"
                                    required
-                                   ng-model="vm.job.position"
+                                   ng-model="vm.profile.position"
                                    positions-input-extend>
                             <md-option ng-value="opt"
-                                       ng-repeat="opt in positions | orderBySelectedOption:vm.job.position"
+                                       ng-repeat="opt in positions | orderBySelectedOption:vm.profile.position"
                                        class="top-selector-option">{{opt}}</md-option>
                         </md-select>
-                        <div ng-messages="jobForm.position.$error" role="alert">
+                        <div ng-messages="profileForm.position.$error" role="alert">
                             <div ng-message="required">Position field is required</div>
                         </div>
                     </md-input-container>
                     <md-input-container flex>
                         <label>Languages</label>
-                        <md-select placeholder="Select languages" ng-model="vm.job.languages" languages-input-extend multiple>
+                        <md-select placeholder="Select languages" ng-model="vm.profile.languages" languages-input-extend multiple>
                             <md-optgroup>
                                 <md-option ng-value="opt"
                                            ng-repeat="opt in languages">{{opt}}</md-option>
@@ -100,18 +111,18 @@
         </section>
         <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
             <div class="sj-section-annotation" flex="40" layout-padding>
-                <h3>Job description</h3>
+                <h3>Profile description</h3>
             </div>
             <div class="sj-section-content" flex="60">
                 <md-card>
                     <md-input-container flex>
                         <label>Description</label>
                         <textarea name="description"
-                                  ng-model="vm.job.description"
+                                  ng-model="vm.profile.description"
                                   md-maxlength="2500"
                                   required></textarea>
 
-                        <div ng-messages="jobForm.description.$error" role="alert">
+                        <div ng-messages="profileForm.description.$error" role="alert">
                             <div ng-message="required">Description is a required field</div>
                             <div ng-message="md-maxlength">The description must be shorter than 2500 characters</div>
                         </div>
@@ -124,18 +135,18 @@
                 <h3>Location</h3>
                 <p class="md-body-1">Either select a location from the drop down list of popular ports OR use the autocomplete Google Places service to geocode your address.</p>
                 <div>
-                    <div ng-if="vm.job.location.name">
+                    <div ng-if="vm.profile.location.name">
                         <span class="md-body-1">Name: </span>
-                        <span class="md-body-2">{{vm.job.location.name}}</span>
+                        <span class="md-body-2">{{vm.profile.location.name}}</span>
                     </div>
                     <div layout="row">
-                        <div ng-if="vm.job.location.coordinates[1]">
+                        <div ng-if="vm.profile.location.coordinates[1]">
                             <span class="md-body-1">Latitude: </span>
-                            <span class="md-body-2">{{vm.job.location.coordinates[1]}}&nbsp;</span>
+                            <span class="md-body-2">{{vm.profile.location.coordinates[1]}}&nbsp;</span>
                         </div>
-                        <div ng-if="vm.job.location.coordinates[0]">
+                        <div ng-if="vm.profile.location.coordinates[0]">
                             <span class="md-body-1">Longitude: </span>
-                            <span class="md-body-2">{{vm.job.location.coordinates[0]}}</span>
+                            <span class="md-body-2">{{vm.profile.location.coordinates[0]}}</span>
                         </div>
                     </div>
                 </div>
@@ -145,30 +156,30 @@
                     <div layout-gt-xs="row">
                         <md-input-container flex-gt-sm="50" flex>
                             <label>Latitude</label>
-                            <input name="latitude" ng-model="vm.job.location.coordinates[1]" required disabled>
-                            <div ng-messages="jobForm.latitude.$error" role="alert">
+                            <input name="latitude" ng-model="vm.profile.location.coordinates[1]" required disabled>
+                            <div ng-messages="profileForm.latitude.$error" role="alert">
                                 <div ng-message="required">Latitude is required</div>
                             </div>
                         </md-input-container>
                         <md-input-container flex-gt-sm="50" flex>
                             <label>Longitude</label>
-                            <input name="longitude" ng-model="vm.job.location.coordinates[0]" required disabled>
-                            <div ng-messages="jobForm.longitude.$error" role="alert">
+                            <input name="longitude" ng-model="vm.profile.location.coordinates[0]" required disabled>
+                            <div ng-messages="profileForm.longitude.$error" role="alert">
                                 <div ng-message="required">Longitude is required</div>
                             </div>
                         </md-input-container>
                     </div>
                     <md-input-container flex>
                         <label>Location</label>
-                        <md-select placeholder="Select location" ng-model="vm.job.location" ports-input-extend>
+                        <md-select placeholder="Select location" ng-model="vm.profile.location" ports-input-extend>
                             <md-option ng-value="opt"
-                                       ng-repeat="opt in ports | orderBySelectedOption:vm.job.location.name"
-                                       ng-selected="opt.name == vm.job.location.name"
+                                       ng-repeat="opt in ports | orderBySelectedOption:vm.profile.location.name"
+                                       ng-selected="opt.name == vm.profile.location.name"
                                        class="top-selector-option">{{opt.name}}</md-option>
                         </md-select>
                     </md-input-container>
                     <div flex id="location-search" class="md-block">
-                        <md-autocomplete ng-model="vm.job.location"
+                        <md-autocomplete ng-model="vm.profile.location"
                                          location-search-extend
                                          md-no-cache="false"
                                          md-selected-item="item"
@@ -191,51 +202,8 @@
                         </md-autocomplete>
                     </div>
                 </md-card>
-            </div>
-        </section>
-        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
-            <div class="sj-section-annotation" flex="40" layout-padding>
-                <h3>Yacht information</h3>
-                <p class="md-body-1">Include optional yacht related information</p>
-            </div>
-            <div class="sj-section-content" flex="60">
-                <md-card>
-                    <md-input-container>
-                        <md-checkbox ng-model="vm.job.papers"
-                                     class="md-block"
-                                     aria-label="Work papers required?">
-                            <div>
-                                <span>Work papers required?</span>
-                                <span>{{vm.job.papers?'Yes':'No'}}</span>
-                            </div>
-                        </md-checkbox>
-                    </md-input-container>
-                    <md-input-container>
-                        <md-checkbox ng-model="vm.job.smoking"
-                                     class="md-block"
-                                     aria-label="Smoking is not allowed?">
-                            <div>
-                                <span>Smoking allowed?</span>
-                                <span>{{vm.job.smoking?'Yes':'No'}}</span>
-                            </div>
-                        </md-checkbox>
-                    </md-input-container>
-                    <md-input-container flex>
-                        <label>Vessel flag</label>
-                        <input ng-model="vm.job.flag">
-                    </md-input-container>
-                    <md-input-container flex>
-                        <label>Length in meters</label>
-                        <input name="length"
-                               ng-model="vm.job.length"
-                                type="number">
-                        <div ng-messages="jobForm.length.$error">
-                            <div ng-message="number">Length has to be a number in meters</div>
-                        </div>
-                    </md-input-container>
-                </md-card>
                 <div layout-gt-xs="row" layout-xs="column" layout-align="end">
-                    <md-button ng-disabled="vm.submitDisabled || jobForm.$invalid || jobForm.$pristine"
+                    <md-button ng-disabled="vm.submitDisabled || profileForm.$invalid || profileForm.$pristine"
                                class="md-primary md-raised"
                                type="submit">Submit</md-button>
                 </div>

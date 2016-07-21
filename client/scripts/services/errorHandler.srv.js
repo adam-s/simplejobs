@@ -7,7 +7,7 @@
     function errorHandler($mdDialog) {
         return {
             handleValidationErrors: handleValidationErrors
-        }
+        };
 
         function handleValidationErrors(response, callback) {
             var alert;

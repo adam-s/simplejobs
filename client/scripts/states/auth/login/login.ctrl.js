@@ -33,7 +33,7 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $location.path('/');
+                    $location.path('/account');
                 }, function reject(response) {
                     console.log(response);
                     handleValidationErrors(response);

@@ -6,6 +6,14 @@ var mongoose = require('mongoose'),
     validationErrorHandler = require('../lib/validationErrorHandler.js');
 
 exports.index = function(req, res) {
+
+    req.assert('tableState.limit', 'Limit is not a valid param').optional().isInt().lte(10000);
+    req.assert('tableState.page', 'Page is not a valid param').optional().isInt().lte(10000);
+    req.assert('tableState.author', 'Author is not a valid param').optional().isMongoId();
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
     CrewListing
@@ -29,13 +37,20 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var data = _.extend(req.app.locals.crewListing, req.body);
-    data = data.toObject();
-    delete data._id;
-    req.app.locals.crewListing.save(function(err, result) {
-        if (err) return res.status(400).send(validationErrorHandler(err,true));
+    var crewListing = req.app.locals.crewListing;
+
+    // Protect information
+    delete req.body.author;
+    delete req.body.__v;
+    delete req.body._id;
+
+    // Merge objects
+    _.merge(crewListing, req.body);
+
+    crewListing.save({runValidators: true}, function(err, result) {
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(result);
-    });
+    })
 };
 
 exports.remove = function(req, res) {

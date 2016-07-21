@@ -2,34 +2,34 @@
     angular.module('simplejobs')
         .factory('jobApi', jobApi);
 
-    jobApi.$inject = ['RestApi'];
+    jobApi.$inject = ['RestApi', '$http', '$q'];
 
     var endpoint = '/api/job-listings/';
     // The paradigm for ES5 inheritance.
     // @link http://stackoverflow.com/questions/15192722/javascript-extending-class
-    function jobApi(RestApi) {
+    function jobApi(RestApi, $http, $q) {
         function JobApi (endpoint) {
             RestApi.call(this, endpoint)
         }
 
-        JobApi.prototype = Object.create(JobApi.prototype);
+        JobApi.prototype = Object.create(RestApi.prototype);
 
         JobApi.prototype.constructor = JobApi;
 
         JobApi.prototype.count = function(userId) {
             var deferred = $q.defer();
 
-            $http.({
+            $http({
                 method: 'GET',
                 url: endpoint + 'count',
                 params: {
                     userId: userId
                 }
             })
-                .then(function success(response) {
-                return response.data
+            .then(function success(response) {
+                deferred.resolve(response.data)
             }, function error(response) {
-                return response.data;
+                deferred.reject(response.data);
             });
 
             return deferred.promise;

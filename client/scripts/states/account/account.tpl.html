@@ -36,7 +36,7 @@
 
         </div>
         <div class="sj-account-column" layout="column" layout-align="start start" flex>
-            <md-card>
+            <md-card ng-if="!vm.profile._id">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Crew profile</span>
@@ -50,14 +50,14 @@
                     </md-card-title-media>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="start center">
-                    <md-button>Create</md-button>
+                    <md-button ui-sref="profileEdit">Create</md-button>
                 </md-card-actions>
             </md-card>
-            <md-card>
+            <md-card ng-if="vm.profile._id">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Crew profile</span>
-                        <span class="md-subhead">Your profile is <b>active</b></span>
+                        <span class="md-subhead">Your profile is <b>{{vm.profile.active ? 'active' : 'deactivated'}}</b></span>
                         <span class="md-subhead"><b>Check in</b> to move to the top</span>
                     </md-card-title-text>
                     <md-card-title-media>
@@ -68,11 +68,11 @@
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="start center">
                     <md-button>Check in</md-button>
-                    <md-button>Deactivate</md-button>
-                    <md-button>Edit</md-button>
+                    <md-button ng-click="vm.toggleProfile()" ng-disabled="vm.toggleProfileButtonDisabled">{{vm.profile.active ? 'Deactivate' : 'Activate'}}</md-button>
+                    <md-button ui-sref="profileEdit">Edit</md-button>
                 </md-card-actions>
             </md-card>
-            <md-card>
+            <md-card ng-if="!vm.jobListingCount.total">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">My job listings</span>
@@ -86,14 +86,15 @@
                     </md-card-title-media>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="start center">
-                    <md-button>Create</md-button>
+                    <md-button ui-sref="jobEdit({id: 'add'})">Create</md-button>
                 </md-card-actions>
             </md-card>
-            <md-card>
+            <md-card ng-if="vm.jobListingCount.total">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">My job listings</span>
-                        <span class="md-subhead">You have <b>10</b> job listings</span>
+                        <span ng-if="vm.jobListingCount.active" class="md-subhead">You have <b>{{vm.jobListingCount.active}}</b> active job listings</span>
+                        <span ng-if="vm.jobListingCount.deactivated" class="md-subhead">You have <b>{{vm.jobListingCount.deactivated}}</b> deactivated job listings</span>
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-sm" card-media>
@@ -102,8 +103,8 @@
                     </md-card-title-media>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="start center">
-                    <md-button>Create</md-button>
-                    <md-button>List</md-button>
+                    <md-button ui-sref="jobEdit({id: 'add'})">Create</md-button>
+                    <md-button ui-sref="myJobList">List</md-button>
                 </md-card-actions>
             </md-card>
         </div>

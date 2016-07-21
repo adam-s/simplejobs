@@ -31,23 +31,6 @@
             }
         }
 
-        //vm.job = job || {
-        //    active: true,
-        //    position: 'Captain',
-        //    jobType: 'Sailing',
-        //    location:  {
-        //        name: 'Newport',
-        //        location: {
-        //            locality: 'Newport',
-        //            district: 'Newport County',
-        //            administrativeArea: 'Rhode Island',
-        //            country: 'United States',
-        //            coordinates: [-71.3128290, 41.4901020]
-        //        }
-        //    }
-        //};
-
-
         vm.submitDisabled = false;
 
         vm.submit = function() {

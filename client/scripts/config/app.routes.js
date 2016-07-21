@@ -18,7 +18,7 @@
 
     function runPhase ($rootScope, $state) {
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-            console.log('handle me')
+            console.log('handle me');
             event.preventDefault();
         })
     };

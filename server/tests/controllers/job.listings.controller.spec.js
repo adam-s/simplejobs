@@ -356,7 +356,7 @@ describe.only('Job listing controller unit tests: ', function() {
                 .get('/api/job-listings/count')
                 .expect(200)
                 .end(function(err, response){
-                    expect(response.body.count.total).to.equal(10);
+                    expect(response.body.total).to.equal(10);
                     done();
                 })
         })

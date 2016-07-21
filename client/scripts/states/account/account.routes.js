@@ -19,12 +19,13 @@
                     }
                 },
                 resolve: {
-                    profile: function() {
-                        return 'profile'
-                    },
-                    jobListingCount: function() {
-                        return 10;
-                    }
+                    profile: ['profileApi', function(profileApi) {
+                        return profileApi.detail();
+                    }],
+                    jobListingCount: ['jobApi', 'Auth', function(jobApi, Auth) {
+                        var userId = Auth.getMe()._id;
+                        return jobApi.count(userId);
+                    }]
                 }
             })
             .state('email', {

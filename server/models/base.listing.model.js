@@ -30,6 +30,16 @@ var LocationSchema = new Schema({
 }, {_id: false});
 
 var BaseListingSchema = new Schema({
+    title: {
+        type: String,
+        required: [true, 'Title field is required'],
+        validate: validators.title
+    },
+    description: {
+        type: String,
+        required: [true, 'Description field is required'],
+        validate: validators.description
+    },
     startDate: {
         type: Date,
         default: Date.now
@@ -39,6 +49,10 @@ var BaseListingSchema = new Schema({
         type: String,
         required: [true, 'Email field is required'],
         validate: validators.email
+    },
+    jobType: {
+        type: String,
+        validate: validators.jobType
     },
     position: {
         type: String,

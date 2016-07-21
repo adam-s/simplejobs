@@ -6,10 +6,10 @@
 
     function policies(RoleStore, PermissionStore, Auth) {
 
-        var roles = Auth.getMe().roles || [];
 
         PermissionStore
             .definePermission('manageAccount', function() {
+                var roles = Auth.getMe().roles || [];
                 return roles.some(function(role) {
                     return role === 'authenticated';
                 });
