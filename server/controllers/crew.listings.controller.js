@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
     _ = require('lodash'),
     CrewListing = mongoose.model('CrewListing'),
-    validationErrorHandler = require('../lib/validationErrorHandler.js');
+    validationErrorHandler = require('../lib/validationErrorHandler.js'),
+    multer = require('multer');
 
 exports.index = function(req, res) {
 
@@ -29,7 +30,10 @@ exports.detail = function(req, res) {
 };
 
 exports.create = function(req, res) {
+    console.log('file: ', req.file);
     var crewListing = new CrewListing(req.body);
+
+
     crewListing.save(function(err) {
         if (err) return res.status(400).send(validationErrorHandler(err,true));
         res.json(crewListing);
@@ -106,4 +110,39 @@ exports.updateProfile = function(req, res, next) {
     var crewListing = req.app.locals.crewListing;
     if (_.isEmpty(crewListing)) return res.status(400).send({message: 'Profile doesn\'t exist'});
     next();
+};
+
+
+// Destination temp directory + field name
+var fileOptions = {
+    dest: 'tmp/',
+    limits: {
+        fileSize: 10 * 1000000
+    }
+};
+var upload = multer(fileOptions).single('file');
+
+exports.fileHandler = function(req, res, next) {
+    upload(req, res, function(err) {
+        if (err) return res.status(400).send({message: 'An error occurred with file'});
+
+        // Validate file here???
+        var file = req.file;
+        if (typeof file === 'undefined') return res.status(400).send({message: 'Resume is required'});
+
+        // allowed extensions .doc .docx .odt .pdf .txt
+        var allowedMimeTypes = [
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.oasis.opendocument.text',
+            'application/pdf',
+            'text/plain'
+        ];
+        var validMimetype = allowedMimeTypes.some(function(mimetype) {
+           return file.mimetype == mimetype;
+        });
+        if (!validMimetype) return res.status(400).send({message: 'Resume is not a valid file format'});
+        
+        return next();
+    });
 };

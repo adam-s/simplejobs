@@ -1,6 +1,8 @@
 'use strict';
 
-var crew = require('../controllers/crew.listings.controller.js');
+var crew = require('../controllers/crew.listings.controller.js'),
+    multer = require('multer'),
+    upload = multer({dest: 'uploads/'});
 
 module.exports = function(app) {
 
@@ -23,9 +25,12 @@ module.exports = function(app) {
     // We have actions for all user's profile.
     app.route('/api/profile').all(checkAuthenticated, crew.crewListingBySession)
         .get(crew.detail)
-        .post(crew.createProfile, crew.create)
-        .put(crew.updateProfile, crew.update)
         .delete(crew.remove);
+
+    app.route('/api/profile')
+        .all(checkAuthenticated, crew.crewListingBySession, crew.fileHandler) // file handling middle ware on crew
+        .post(crew.createProfile, crew.create)
+        .put(crew.updateProfile, crew.update);
 
     app.param('userId', crew.crewListingByUserId);
 };

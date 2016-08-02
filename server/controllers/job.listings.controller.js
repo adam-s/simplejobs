@@ -34,7 +34,6 @@ exports.index = function(req, res) {
 
     query
         .exec(function(err, result) {
-            console.log(err);
             if (err) return res.status(400).send(validationErrorHandler(err, true));
             res.json(result);
         });

@@ -9,7 +9,7 @@ var app = require('../../../server.js'),
     agent = require('supertest').agent(app),
     _ = require('lodash');
 
-describe.only('/api/profile', function() {
+describe('/api/profile', function() {
     beforeEach(function(done) {
         CrewListing.remove(function() {
             User.remove(function() {
@@ -53,13 +53,33 @@ describe.only('/api/profile', function() {
                 });
         });
 
-        it('should create a profile', function(done) {
-            var data = fakeProfileObject();
+        it.only('should create a profile', function(done) {
 
             agent
                 .post('/api/profile')
-                .send(data)
+                .field('startDate', '1470017218561')
+                .field('checkIn', '1470017218561')
+                .field('title', 'consequatur dolorem facere voluptatem debitis')
+                .field('description', 'Quibusdam laudantium pariatur labore qui consequatur incidunt. Voluptatem quia laudantium. Assumenda quia labore veritatis eius aliquam et. Veritatis debitis quos quia sequi perspiciatis dolor est natus soluta. Ullam ipsam consequatur quaerat ipsa omnis. Nostrum necessitatibus perspiciatis sequi adipisci error.')
+                .field('phone', '934-182-8580')
+                .field('email', 'Sabrina.OKon@hotmail.com')
+                .field('position', 'Dayworker')
+                .field('languages[0]', 'Russian')
+                .field('active', 'true')
+                .field('location[name]', 'ut nulla occaecati')
+                .field('location[locality]', 'Haagmouth')
+                .field('location[administrativeArea', 'Kentucky')
+                .field('location[country]', 'Turkmenistan')
+                .field('location[coordinates][0]', '-0.6660')
+                .field('location[coordinates][1]', '38.3562')
+                .field('smoking', 'false')
+                .field('papers', 'false')
+                .field('jobType', 'Commercial')
+                .field('name', 'Bridgette Hahn')
+                .field('resume', 'https://keenan.net')
+                .attach('file', __dirname + '/../fixtures/test.pdf')
                 .end(function(err, response) {
+                    //console.log(response.body);
                     expect(response.status).to.equal(200);
                     done();
                 })
@@ -70,7 +90,8 @@ describe.only('/api/profile', function() {
 
             agent
                 .post('/api/profile')
-                .send(data)
+                .field(data)
+                .attach('file', __dirname + '/../fixtures/sidenav-bg.png')
                 .end(function(err, response) {
                     expect(response.status).to.equal(200);
                     data = response.body;
@@ -78,6 +99,7 @@ describe.only('/api/profile', function() {
                     agent
                         .put('/api/profile')
                         .send(data)
+                        .attach('file', __dirname + '/../fixtures/sidenav-bg.png')
                         .end(function(err, response) {
                             expect(response.status).to.equal(200);
                             expect(response.body.active).to.equal(false);

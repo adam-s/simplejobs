@@ -7,15 +7,15 @@
     function policies(RoleStore, PermissionStore, Auth) {
 
         PermissionStore
-            .definePermission('addJob', function () {
+            .definePermission('editProfile', function() {
                 var roles = Auth.getMe().roles || [];
 
                 return roles.some(function(role) {
-                   return role === 'authenticated';
+                    return role === 'authenticated';
                 });
             });
 
         RoleStore
-            .defineRole('authenticated', ['addJob'])
+            .defineRole('authenticated', ['editProfile'])
     }
 })();

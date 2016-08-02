@@ -307,7 +307,6 @@ describe('Job listing controller unit tests: ', function() {
                     agent
                         .get('/api/job-listings/count/?userId=' + user._id)
                         .end(function(err, response) {
-                            console.log(response.body);
                             done();
                         })
                 })

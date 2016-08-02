@@ -26,8 +26,6 @@ CrewListingSchema.pre('save', function(next) {
         this.checkIn = now;
     }
 
-    console.log(this.checkIn);
-
     next();
 });
 

@@ -2,10 +2,11 @@
     angular.module('simplejobs')
         .controller('profileEditCtrl', profileEditCtrl);
 
-    profileEditCtrl.$inject = ['$mdToast', 'Auth', '$state', 'profileApi', 'profile', 'errorHandler'];
+    profileEditCtrl.$inject = ['$scope', '$mdToast', 'Auth', '$state', 'profileApi', 'profile', 'errorHandler'];
 
-    function profileEditCtrl($mdToast, Auth, $state, profileApi, profile, errorHandler) {
+    function profileEditCtrl($scope, $mdToast, Auth, $state, profileApi, profile, errorHandler) {
         var vm = this;
+        vm.file = {};
         var user = Auth.getMe();
 
         if (profile && profile.author !== user._id) {
@@ -25,6 +26,12 @@
                 vm.profile.startDate = new Date(vm.profile.startDate);
             }
         }
+
+        $scope.$watch('vm.profile.file', function(file) {
+            if (file) {
+                vm.profile.resume = file.name || '';
+            }
+        });
 
         vm.submitDisabled = false;
         vm.submit = function() {
