@@ -2,11 +2,11 @@
     angular.module('simplejobs')
         .run(policies);
 
-    policies.$inject = ['RoleStore', 'PermissionStore', 'Auth'];
+    policies.$inject = ['PermRoleStore', 'PermPermissionStore', 'Auth'];
 
-    function policies(RoleStore, PermissionStore, Auth) {
+    function policies(PermRoleStore, PermPermissionStore, Auth) {
 
-        PermissionStore
+        PermPermissionStore
             .definePermission('addJob', function () {
                 var roles = Auth.getMe().roles || [];
 
@@ -15,7 +15,7 @@
                 });
             });
 
-        RoleStore
+        PermRoleStore
             .defineRole('authenticated', ['addJob'])
     }
 })();

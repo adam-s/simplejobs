@@ -76,10 +76,10 @@ describe('/api/profile', function() {
                 .field('papers', 'false')
                 .field('jobType', 'Commercial')
                 .field('name', 'Bridgette Hahn')
-                .field('resume', 'https://keenan.net')
-                .attach('file', __dirname + '/../fixtures/test.pdf')
+                // .field('resume', 'tmp/871c711c50e96b3706240657cc62d319')
+                .attach('file', __dirname + '/../fixtures/test.txt')
                 .end(function(err, response) {
-                    //console.log(response.body);
+                    console.log(response.body);
                     expect(response.status).to.equal(200);
                     done();
                 })

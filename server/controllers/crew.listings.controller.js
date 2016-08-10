@@ -4,7 +4,9 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     CrewListing = mongoose.model('CrewListing'),
     validationErrorHandler = require('../lib/validationErrorHandler.js'),
-    multer = require('multer');
+    multer = require('multer'),
+    async = require('async'),
+    fs = require('fs-extra');
 
 exports.index = function(req, res) {
 
@@ -30,13 +32,21 @@ exports.detail = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    console.log('file: ', req.file);
     var crewListing = new CrewListing(req.body);
 
-
     crewListing.save(function(err) {
-        if (err) return res.status(400).send(validationErrorHandler(err,true));
-        res.json(crewListing);
+        if (err) {
+            // Delete the req file
+            fs.unlink(req.file.path, function() {
+                return res.status(400).send(validationErrorHandler(err,true));
+            });
+        } else {
+            // Move the req file
+            fs.move(req.file.path, crewListing.resume, {clobber: true}, function(err) {
+                if (err) return res.status(400).send({message: 'Unexpected error has occured'})
+                res.json(crewListing);
+            });
+        }
     });
 };
 
@@ -113,23 +123,14 @@ exports.updateProfile = function(req, res, next) {
 };
 
 
-// Destination temp directory + field name
-var fileOptions = {
-    dest: 'tmp/',
-    limits: {
-        fileSize: 10 * 1000000
-    }
-};
-var upload = multer(fileOptions).single('file');
 
 exports.fileHandler = function(req, res, next) {
-    upload(req, res, function(err) {
-        if (err) return res.status(400).send({message: 'An error occurred with file'});
+    var MAX_FILE_SIZE = 10 * 1000000;
+    var FILE_FIELD = 'file';
+    var PARENT_DIRECTORY = 'client/files/resumes/';
 
-        // Validate file here???
-        var file = req.file;
-        if (typeof file === 'undefined') return res.status(400).send({message: 'Resume is required'});
-
+    // Validate here
+    var fileFilter = function fileFilter (req, file, callback) {
         // allowed extensions .doc .docx .odt .pdf .txt
         var allowedMimeTypes = [
             'application/msword',
@@ -139,10 +140,49 @@ exports.fileHandler = function(req, res, next) {
             'text/plain'
         ];
         var validMimetype = allowedMimeTypes.some(function(mimetype) {
-           return file.mimetype == mimetype;
+            return file.mimetype == mimetype;
         });
-        if (!validMimetype) return res.status(400).send({message: 'Resume is not a valid file format'});
-        
-        return next();
+
+        if (!validMimetype) return callback(new Error('Resume is not a valid file format'));
+
+        callback(null, true)
+    };
+
+    var fileOptions = {
+        fileFilter: fileFilter,
+        dest: 'tmp/',
+        limits: {
+            fileSize: MAX_FILE_SIZE
+        }
+    };
+    var upload = multer(fileOptions).single(FILE_FIELD);
+
+    upload(req, res, function(err) {
+        if (err) return res.status(400).send({message: err.message});
+
+        // We don't need a new file if req.body.resume has a value
+        if (typeof req.body.resume === 'undefined' && typeof req.file === 'undefined') {
+            return res.status(400).send({message: 'Resume file is required'});
+        }
+
+        // Make sure that if there is a resume file but no new file, the resume exists in the file system.
+        if (req.body.resume && typeof req.file === 'undefined') {
+            fs.stat(req.body.resume, function(err, stats) {
+                if (err) {
+                    return res.status(400).send({message: 'Resume doesn\'t exist on file server'});
+                } else {
+                    return next();
+                }
+            })
+        } else {
+            // Let's add the file path at req.body.resume.
+            // The idea is that if the save method on the model returns and error. Delete the file
+            // in the tmp folder. Then return an error. If the model validates and is saved. Move the
+            // file into the proper folder
+
+            req.body.resume = PARENT_DIRECTORY + req.user._id + '/' + req.file.originalname;
+            console.log(req.body.resume);
+            return next();
+        }
     });
 };

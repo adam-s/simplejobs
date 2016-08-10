@@ -10,7 +10,10 @@ var options = {
 
 var CrewListingSchema = new Schema({
     name: String,
-    resume: String,
+    resume: {
+        type: String,
+        required: [true, 'Resume file path is required']
+    },
     checkIn: {
         type: Date
     }

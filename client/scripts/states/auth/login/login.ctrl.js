@@ -35,7 +35,6 @@
                     vm.disableFlag = false;
                     $location.path('/account');
                 }, function reject(response) {
-                    console.log(response);
                     handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
