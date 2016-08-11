@@ -42,7 +42,8 @@ exports.create = function(req, res) {
             });
         } else {
             // Move the req file
-            fs.move(req.file.path, crewListing.resume, {clobber: true}, function(err) {
+            console.log(req.file);
+            fs.move(req.file.path, 'client/' + crewListing.resume, {clobber: true}, function(err) {
                 if (err) return res.status(400).send({message: 'Unexpected error has occured'})
                 res.json(crewListing);
             });
@@ -62,8 +63,24 @@ exports.update = function(req, res) {
     _.merge(crewListing, req.body);
 
     crewListing.save({runValidators: true}, function(err, result) {
-        if (err) return res.status(400).send(validationErrorHandler(err, true));
-        res.json(result);
+        if (req.file) {
+            if (err) {
+                // Delete the req file
+                fs.unlink(req.file.path, function() {
+                    return res.status(400).send(validationErrorHandler(err,true));
+                });
+            } else {
+                // Move the req file
+                console.log(req.file);
+                fs.move(req.file.path, 'client/' + crewListing.resume, {clobber: true}, function(err) {
+                    if (err) return res.status(400).send({message: 'Unexpected error has occured'})
+                    return res.json(result);
+                });
+            }
+        } else {
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
+            return res.json(result);
+        }
     })
 };
 
@@ -127,7 +144,7 @@ exports.updateProfile = function(req, res, next) {
 exports.fileHandler = function(req, res, next) {
     var MAX_FILE_SIZE = 10 * 1000000;
     var FILE_FIELD = 'file';
-    var PARENT_DIRECTORY = 'client/files/resumes/';
+    var PARENT_DIRECTORY = 'files/resumes/';
 
     // Validate here
     var fileFilter = function fileFilter (req, file, callback) {
@@ -161,13 +178,14 @@ exports.fileHandler = function(req, res, next) {
         if (err) return res.status(400).send({message: err.message});
 
         // We don't need a new file if req.body.resume has a value
-        if (typeof req.body.resume === 'undefined' && typeof req.file === 'undefined') {
+        console.log(typeof req.body.resume);
+        if (_.isEmpty(req.body.resume) && typeof req.file === 'undefined') {
             return res.status(400).send({message: 'Resume file is required'});
         }
 
         // Make sure that if there is a resume file but no new file, the resume exists in the file system.
         if (req.body.resume && typeof req.file === 'undefined') {
-            fs.stat(req.body.resume, function(err, stats) {
+            fs.stat('client/' + req.body.resume, function(err, stats) {
                 if (err) {
                     return res.status(400).send({message: 'Resume doesn\'t exist on file server'});
                 } else {
@@ -181,7 +199,6 @@ exports.fileHandler = function(req, res, next) {
             // file into the proper folder
 
             req.body.resume = PARENT_DIRECTORY + req.user._id + '/' + req.file.originalname;
-            console.log(req.body.resume);
             return next();
         }
     });

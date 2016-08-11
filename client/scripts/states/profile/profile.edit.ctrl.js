@@ -43,7 +43,7 @@
                     var toast = $mdToast.simple().textContent('Your profile is updated');
                     $mdToast.show(toast);
                 }, function(response) {
-                    vm.submitDsiabled = false;
+                    vm.submitDisabled = false;
                     errorHandler.handleValidationErrors(response);
                 })
         }
