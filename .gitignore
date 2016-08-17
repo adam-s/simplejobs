@@ -6,4 +6,5 @@
 /client/assets/images
 /client/css
 /build
+/client/files
 npm-debug.log
