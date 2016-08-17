@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "NODE_ENV=test mocha --reporter spec server/tests/*.spec.js",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "setAdminAccount": "node ./server/lib/install.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "multer": "^1.1.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "sanitize-filename": "^1.6.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {

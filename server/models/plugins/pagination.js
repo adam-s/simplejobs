@@ -29,7 +29,7 @@ module.exports = function(schema) {
             //var conditions = {}; // Build up conditions object to pass to find see metadata for 'where' conditions
             tableState = tableState || {};
             this.model = model;
-            this.limit = tableState.limit || 10;
+            this.limit = parseInt(tableState.limit) || 10;
             this.skip = tableState.page ? (tableState.page - 1) * this.limit : 0;
             this.sort = tableState.order || '';
 

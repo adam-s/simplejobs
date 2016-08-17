@@ -6,7 +6,9 @@ var mongoose = require('mongoose'),
     validationErrorHandler = require('../lib/validationErrorHandler.js'),
     multer = require('multer'),
     async = require('async'),
-    fs = require('fs-extra');
+    fs = require('fs-extra'),
+    sanitizeFilename = require('sanitize-filename'),
+    config = require('../config/config');
 
 exports.index = function(req, res) {
 
@@ -42,8 +44,7 @@ exports.create = function(req, res) {
             });
         } else {
             // Move the req file
-            console.log(req.file);
-            fs.move(req.file.path, 'client/' + crewListing.resume, {clobber: true}, function(err) {
+            fs.move(req.file.path, config.dir + crewListing.resume, {clobber: true}, function(err) {
                 if (err) return res.status(400).send({message: 'Unexpected error has occured'})
                 res.json(crewListing);
             });
@@ -71,9 +72,8 @@ exports.update = function(req, res) {
                 });
             } else {
                 // Move the req file
-                console.log(req.file);
-                fs.move(req.file.path, 'client/' + crewListing.resume, {clobber: true}, function(err) {
-                    if (err) return res.status(400).send({message: 'Unexpected error has occured'})
+                fs.move(req.file.path, config.dir + crewListing.resume, {clobber: true}, function(err) {
+                    if (err) return res.status(400).send({message: 'Unexpected error has occured'});
                     return res.json(result);
                 });
             }
@@ -144,7 +144,7 @@ exports.updateProfile = function(req, res, next) {
 exports.fileHandler = function(req, res, next) {
     var MAX_FILE_SIZE = 10 * 1000000;
     var FILE_FIELD = 'file';
-    var PARENT_DIRECTORY = 'files/resumes/';
+    var PARENT_DIRECTORY = config.fileDir + 'resumes/';
 
     // Validate here
     var fileFilter = function fileFilter (req, file, callback) {
@@ -178,14 +178,13 @@ exports.fileHandler = function(req, res, next) {
         if (err) return res.status(400).send({message: err.message});
 
         // We don't need a new file if req.body.resume has a value
-        console.log(typeof req.body.resume);
         if (_.isEmpty(req.body.resume) && typeof req.file === 'undefined') {
             return res.status(400).send({message: 'Resume file is required'});
         }
 
         // Make sure that if there is a resume file but no new file, the resume exists in the file system.
         if (req.body.resume && typeof req.file === 'undefined') {
-            fs.stat('client/' + req.body.resume, function(err, stats) {
+            fs.stat(config.dir + req.body.resume, function(err, stats) {
                 if (err) {
                     return res.status(400).send({message: 'Resume doesn\'t exist on file server'});
                 } else {
@@ -197,8 +196,8 @@ exports.fileHandler = function(req, res, next) {
             // The idea is that if the save method on the model returns and error. Delete the file
             // in the tmp folder. Then return an error. If the model validates and is saved. Move the
             // file into the proper folder
-
-            req.body.resume = PARENT_DIRECTORY + req.user._id + '/' + req.file.originalname;
+            var cleanFilename = sanitizeFilename(req.file.originalname);
+            req.body.resume = PARENT_DIRECTORY + req.user._id + '/' + cleanFilename;
             return next();
         }
     });

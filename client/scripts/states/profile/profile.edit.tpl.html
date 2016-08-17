@@ -12,7 +12,7 @@
                             <md-button class="md-primary md-raised"
                                        style="max-width: 150px; color: white;"
                                        ngf-select
-                                       required
+                                       ng-required="!vm.profile.resume"
                                        name="resume"
                                        ngf-min-size="0MB"
                                        ngf-max-size="1MB"
@@ -27,7 +27,7 @@
                             <md-button class="md-icon-button" md-no-ink>
                                 <md-icon md-font-icon="attachment">attachment</md-icon>
                             </md-button>
-                            <div>{{vm.profile.resume}}</div>
+                            <div>{{vm.profile.resume | fileName}}</div>
                         </div>
                         <div ng-messages="profileForm.resume.$error"
                              ng-if="profileForm.resume.$error && (profileForm.$submitted || profileForm.resume.$dirty)"

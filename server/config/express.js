@@ -91,4 +91,4 @@ module.exports = function (db) {
 
     // Return the Server instance
     return server;
-}
+};

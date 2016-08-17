@@ -8,6 +8,10 @@
 module.exports = {
     db: process.env.MONGODB_URI,
     // set this to build
-    dir: 'client',
-    sessionSecret: process.env.SESSION_SECRET || 'MEAN'
+    // dir: 'build/',
+    dir: 'client/',
+    fileDir: 'files/',
+    sessionSecret: process.env.SESSION_SECRET || 'MEAN',
+    adminAccountEmail: process.env.ADMIN_ACCOUNT_EMAIL || 'admin@simpleyachtjobs.com',
+    adminAccountPassword: process.env.ADMIN_ACCOUNT_PASSWORD || 'password'
 };

@@ -79,7 +79,6 @@ describe('/api/profile', function() {
                 // .field('resume', 'tmp/871c711c50e96b3706240657cc62d319')
                 .attach('file', __dirname + '/../fixtures/test.txt')
                 .end(function(err, response) {
-                    console.log(response.body);
                     expect(response.status).to.equal(200);
                     done();
                 })

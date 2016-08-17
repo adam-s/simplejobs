@@ -6,10 +6,11 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     async = require('async'),
     faker = require('faker'),
-    values = require('../config/values.js');
+    values = require('../config/values.js'),
+    fs = require('fs-extra');
 
 module.exports = function(app) {
-    app.get('/delete-all-the-things', function(req, res, next) {
+    app.get('/delete-all-the-things', function(req, res) {
         async.parallel([
             function(callback) {
                 CrewListing.remove({}, function() {
@@ -31,108 +32,108 @@ module.exports = function(app) {
         })
     });
 
-    app.get('/make-job-listings/:userId', function(req, res, next) {
-        var jobs = jobsMaker(100, req.params.userId);
-        JobListing.create(jobs, function(err, results) {
-            if (err) return res.send(err.message);
-            return res.send('Made the jobs')
-        })
+    app.get('/make-all-the-things', function(req, res) {
+        var count = 1000;
+        async.whilst(
+            function() { return count > 0},
+            function(callback) {
+                count --;
+
+                var userData = {
+                    name: faker.name.findName(),
+                    email: faker.internet.email()
+                };
+
+                var user = new User(userData);
+
+                user.save(function() {
+                    var files = ['test.doc', 'test.docx', 'test.odt', 'test.pdf', 'test.txt'];
+                    var fileName = files[Math.floor(Math.random() * files.length)];
+                    var path = 'files/resumes/' + user._id + '/' + fileName;
+                    fs.copy(__dirname + '/../tests/fixtures/' + fileName, 'client/' + path, function() {
+                        var profileData = {
+                            startDate: Date.now(),
+                            title: faker.lorem.words(5),
+                            description: faker.lorem.paragraph(),
+                            phone: faker.phone.phoneNumberFormat(),
+                            email: faker.internet.email(),
+                            position: values.positions[Math.floor(Math.random() * values.positions.length)],
+                            languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
+                            active: true,
+                            location: {
+                                name: faker.lorem.words(3),
+                                locality: faker.address.city(),
+                                administrativeArea: faker.address.state(),
+                                country: faker.address.country(),
+                                coordinates: [faker.address.longitude(), faker.address.latitude()]
+                            },
+                            jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
+                            resume: path,
+                            author: user._id
+                        };
+
+                        var profile = new CrewListing(profileData);
+
+                        profile.save(function() {
+                            callback();
+                        })
+
+                    });
+                });
+            },
+            function() {
+                var userData = {
+                    name: faker.name.findName(),
+                    email: faker.internet.email()
+                };
+
+                var user = new User(userData);
+
+                user.save(function() {
+                    count = 25;
+                    async.whilst(
+                        function () { return count > 0},
+                        function (callback) {
+                            count --;
+
+                            var jobData = {
+                                startDate: Date.now(),
+                                title: faker.lorem.words(5),
+                                description: faker.lorem.paragraph(),
+                                phone: faker.phone.phoneNumberFormat(),
+                                email: faker.internet.email(),
+                                position: values.positions[Math.floor(Math.random() * values.positions.length)],
+                                languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
+                                active: true,
+                                location: {
+                                    name: faker.lorem.words(3),
+                                    locality: faker.address.city(),
+                                    administrativeArea: faker.address.state(),
+                                    country: faker.address.country(),
+                                    coordinates: [faker.address.longitude(), faker.address.latitude()]
+                                },
+                                smoking: false,
+                                papers: false,
+                                jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
+                                flag: 'American',
+                                length: faker.random.number({min: 80, max: 300}),
+                                author: user._id
+                            };
+
+                            var job = new JobListing(jobData);
+
+                            job.save(function() {
+                                return callback();
+                            })
+                        },
+                        function() {
+                            res.send('Made all the things');
+                        }
+                    );
+                });
+            }
+        )
     });
 
-    app.get('/make-all-the-things', function(req, res, next) {
-        var users = usersMaker(count);
-        var crew = crewMaker(count);
-        var jobs = jobsMaker(count);
-        async.parallel([
-            function(callback) {
-                User.create(users, function(err, results) {
-                    if (err) return callback(err);
-                    callback(null, results);
-                })
-            },
-            function(callback) {
-                CrewListing.create(crew, function(err, results) {
-                    if (err) return callback(err);
-                    callback(null, results);
-                })
-            },
-            function(callback) {
-                JobListing.create(jobs, function(err, results) {
-                    if (err) return callback(err);
-                    callback(null, results);
-                })
-            }
-        ], function(err, results) {
-            res.send('Made all the things')
-        })
-    })
+
 };
-
-function crewMaker(count) {
-    var crew = [];
-
-    for (var i = 0; i < count; i++) {
-        crew.push({
-            startDate: Date.now(),
-            name: faker.name.findName(),
-            phone: faker.phone.phoneNumberFormat(),
-            email: faker.internet.email(),
-            position: values.positions[Math.floor(Math.random() * values.positions.length)],
-            languages: values.languages[Math.floor(Math.random() * values.languages.length)],
-            active: true,
-            location: {
-                locality: faker.address.city(),
-                administrativeArea: faker.address.state(),
-                country: faker.address.country(),
-                coordinates: [faker.address.longitude(), faker.address.latitude()]
-            },
-            resume: faker.internet.url()
-        })
-    }
-
-    return crew;
-}
-
-function jobsMaker(count, userId) {
-    var jobs = [];
-
-    for (var i = 0; i < count; i++) {
-        jobs.push({
-            startDate: Date.now(),
-            title: faker.lorem.words(5),
-            description: faker.lorem.paragraph(),
-            phone: faker.phone.phoneNumberFormat(),
-            email: faker.internet.email(),
-            position: values.positions[Math.floor(Math.random() * values.positions.length)],
-            languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
-            active: true,
-            location: {
-                name: faker.lorem.words(3),
-                locality: faker.address.city(),
-                administrativeArea: faker.address.state(),
-                country: faker.address.country(),
-                coordinates: [faker.address.longitude(), faker.address.latitude()]
-            },
-            smoking: false,
-            papers: false,
-            jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
-            flag: 'American',
-            length: faker.random.number({min: 80, max: 300}),
-            author: userId || mongoose.Types.ObjectId()
-        });
-    }
-
-    return jobs;
-}
-
-function usersMaker(count) {
-    var users = [];
-
-    for (var i = 0; i < count; i++) {
-        users.push({
-            name: faker.name.findName(),
-            email: faker.internet.email()
-        });
-    }
-    return users;
-}
