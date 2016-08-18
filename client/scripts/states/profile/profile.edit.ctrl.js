@@ -9,6 +9,7 @@
         vm.file = {};
         var user = Auth.getMe();
 
+        // Only edit own here because angular permission module doesn't wait for resolved object ;(
         if (profile && profile.author !== user._id) {
             $state.go('home');
         }

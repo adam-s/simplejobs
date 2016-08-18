@@ -14,8 +14,5 @@
                     return role === 'authenticated';
                 });
             });
-
-        PermRoleStore
-            .defineRole('authenticated', ['editProfile'])
     }
 })();

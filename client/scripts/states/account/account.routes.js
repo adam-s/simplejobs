@@ -14,7 +14,7 @@
                 data: {
                     title: 'My Account',
                     permissions: {
-                        only: ['manageAccount'],
+                        only: ['manageOwnAccount'],
                         redirectTo: 'login'
                     }
                 },
@@ -36,7 +36,7 @@
                 data: {
                     title: 'Change Email',
                     permissions: {
-                        only: ['manageAccount'],
+                        only: ['manageOwnAccount'],
                         redirectTo: 'login'
                     }
                 }
@@ -49,7 +49,7 @@
                 data: {
                     title: 'Change password',
                     permissions: {
-                        only: ['manageAccount'],
+                        only: ['manageOwnAccount'],
                         redirectTo: 'login'
                     }
                 }
