@@ -36,7 +36,7 @@
                 url: '/crew/:id/edit',
                 parent: 'admin',
                 controller: 'adminCrewDetailCtrl as vm',
-                templateUrl: 'scripts/states/admin/crew/crew.edit.tpl.html',
+                templateUrl: 'scripts/states/profile/profile.edit.tpl.html',
                 resolve: {
                     crew: ['$stateParams', 'crewApi', function($stateParams, crewApi) {
                         if ($stateParams.id === 'add') {

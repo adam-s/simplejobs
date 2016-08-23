@@ -1,19 +1,254 @@
-<md-content>
-    <div layout="row">
-        <md-card md-whitefram="1" flex-gt-md="60" flex>
-            <div layout="column" layout-padding>
-                <form novalidate ng-submit="vm.submit()">
-                    <div layout-gt-xs="row" layout-xs="column">
-                        <md-input-container flex>
-                            <label>Name</label>
-                            <input ng-model="vm.crew.name">
+<md-content class="sj-section-wrapper" flex>
+    <form name="profileForm" novalidate ng-submit="vm.submit()">
+        <section class="sj-section resume" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Resume upload</h3>
+                <p class="md-body-1">Attach your resume to this form. Either drag and drop a text file or click to use the file browser. Allowed formats are .doc .txt .pdf</p>
+            </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
+                    <md-input-container>
+                        <div layout="row" layout-align="start center">
+                            <md-button class="md-primary md-raised"
+                                       style="max-width: 150px; color: white;"
+                                       ngf-select
+                                       ng-required="!vm.profile.resume"
+                                       name="resume"
+                                       ngf-min-size="0MB"
+                                       ngf-max-size="1MB"
+                                       ng-model="vm.profile.file">
+                                <span>{{!vm.profile.resume ? 'Select file' : 'Change'}}</span>
+                            </md-button>
+                            <md-button ng-if="vm.profile.resume" ng-click="vm.profile.file = {}" class="md-icon-button">
+                                <md-icon md-font-icon="clear">clear</md-icon>
+                            </md-button>
+                        </div>
+                        <div ng-if="vm.profile.resume" layout="row" layout-align="start center">
+                            <md-button class="md-icon-button" md-no-ink>
+                                <md-icon md-font-icon="attachment">attachment</md-icon>
+                            </md-button>
+                            <div>{{vm.profile.resume | fileName}}</div>
+                        </div>
+                        <div ng-messages="profileForm.resume.$error"
+                             ng-if="profileForm.resume.$error && (profileForm.$submitted || profileForm.resume.$dirty)"
+                             role="alert">
+                            <div ng-if="profileForm.resume.$error.maxSize"
+                                 ng-message="maxSize">Max file size is 10MB</div>
+                            <div ng-if="profileForm.resume.$error.required"
+                                 ng-message="required">Resume is a required field</div>
+                        </div>
+                    </md-input-container>
+                </md-card>
+            </div>
+        </section>
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Basic information</h3>
+                <p class="md-body-1">Write a descriptive title for your profile. Include your name, email address, and optional phone number.</p>
+                <p class="md-body-1">Select your position and your job type preference.</p>
+                <p class="md-body-1">Select the languages you speak.</p>
+            </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
+                    <md-input-container flex>
+                        <label>Title</label>
+                        <input name="title"
+                               required
+                               max="250"
+                               ng-model="vm.profile.title">
+                        <div ng-messages="profileForm.title.$error" role="alert">
+                            <div ng-message="required">Title is a required field</div>
+                            <div ng-message="md-maxlength">The title must be shorter than 250 characters</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <md-checkbox ng-model="vm.profile.active"
+                                     class="md-block"
+                                     aria-label="Active profile?">
+                            <div>
+                                <span>Is the profile active?</span>
+                                <span>{{vm.profile.active?'Yes':'No'}}</span>
+                            </div>
+                        </md-checkbox>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Start date</label>
+                        <md-datepicker flex
+                                       ng-model="vm.profile.startDate"
+                                       md-placeholder="Enter start date">
+                        </md-datepicker>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Name</label>
+                        <input name="Name"
+                               required
+                               max="250"
+                               ng-model="vm.profile.name">
+                        <div ng-messages="profileForm.name.$error" role="alert">
+                            <div ng-message="required">Name is a required field</div>
+                            <div ng-message="md-maxlength">The name must be shorter than 250 characters</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Email</label>
+                        <input name="email"
+                               ng-model="vm.profile.email"
+                               type="email"
+                               ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
+                               required>
+                        <div ng-messages="profileForm.email.$error" role="alert">
+                            <div ng-message="required">Email is a required field</div>
+                            <div ng-message="pattern">Must be a valid email</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Phone</label>
+                        <input name="phone"
+                               ng-model="vm.profile.phone"
+                               required>
+                        <div ng-messages="profileForm.phone.$error" role="alert">
+                            <div ng-message="required">Phone is a required field</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Job type</label>
+                        <md-select name="jobType"
+                                   required
+                                   ng-model="vm.profile.jobType"
+                                   job-types-extend>
+                            <md-option ng-value="opt"
+                                       ng-repeat="opt in jobTypes | orderBySelectedOption:vm.profile.jobType"
+                                       class="top-selector-option">{{opt}}</md-option>
+                        </md-select>
+                        <div ng-messages="profileForm.jobType.$error" role="alert">
+                            <div ng-message="required">Job type field is required</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Position</label>
+                        <md-select name="position"
+                                   required
+                                   ng-model="vm.profile.position"
+                                   positions-input-extend>
+                            <md-option ng-value="opt"
+                                       ng-repeat="opt in positions | orderBySelectedOption:vm.profile.position"
+                                       class="top-selector-option">{{opt}}</md-option>
+                        </md-select>
+                        <div ng-messages="profileForm.position.$error" role="alert">
+                            <div ng-message="required">Position field is required</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Languages</label>
+                        <md-select placeholder="Select languages" ng-model="vm.profile.languages" languages-input-extend multiple>
+                            <md-optgroup>
+                                <md-option ng-value="opt"
+                                           ng-repeat="opt in languages">{{opt}}</md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
+                </md-card>
+            </div>
+        </section>
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Profile description</h3>
+            </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
+                    <md-input-container flex>
+                        <label>Description</label>
+                        <textarea name="description"
+                                  ng-model="vm.profile.description"
+                                  md-maxlength="2500"
+                                  required></textarea>
+
+                        <div ng-messages="profileForm.description.$error" role="alert">
+                            <div ng-message="required">Description is a required field</div>
+                            <div ng-message="md-maxlength">The description must be shorter than 2500 characters</div>
+                        </div>
+                    </md-input-container>
+                </md-card>
+            </div>
+        </section>
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Location</h3>
+                <p class="md-body-1">Either select a location from the drop down list of popular ports OR use the autocomplete Google Places service to geocode your address.</p>
+                <div>
+                    <div ng-if="vm.profile.location.name">
+                        <span class="md-body-1">Name: </span>
+                        <span class="md-body-2">{{vm.profile.location.name}}</span>
+                    </div>
+                    <div layout="row">
+                        <div ng-if="vm.profile.location.coordinates[1]">
+                            <span class="md-body-1">Latitude: </span>
+                            <span class="md-body-2">{{vm.profile.location.coordinates[1]}}&nbsp;</span>
+                        </div>
+                        <div ng-if="vm.profile.location.coordinates[0]">
+                            <span class="md-body-1">Longitude: </span>
+                            <span class="md-body-2">{{vm.profile.location.coordinates[0]}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
+                    <div layout-gt-xs="row">
+                        <md-input-container flex-gt-sm="50" flex>
+                            <label>Latitude</label>
+                            <input name="latitude" ng-model="vm.profile.location.coordinates[1]" required disabled>
+                            <div ng-messages="profileForm.latitude.$error" role="alert">
+                                <div ng-message="required">Latitude is required</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex-gt-sm="50" flex>
+                            <label>Longitude</label>
+                            <input name="longitude" ng-model="vm.profile.location.coordinates[0]" required disabled>
+                            <div ng-messages="profileForm.longitude.$error" role="alert">
+                                <div ng-message="required">Longitude is required</div>
+                            </div>
                         </md-input-container>
                     </div>
-                    <div layout-gt-xs="row" layout-xs="column">
-                        <md-button ng-disabled="vm.submitDisabled" class="md-accent md-raised" type="submit">Submit</md-button>
+                    <md-input-container flex>
+                        <label>Location</label>
+                        <md-select placeholder="Select location" ng-model="vm.profile.location" ports-input-extend>
+                            <md-option ng-value="opt"
+                                       ng-repeat="opt in ports | orderBySelectedOption:vm.profile.location.name"
+                                       ng-selected="opt.name == vm.profile.location.name"
+                                       class="top-selector-option">{{opt.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div flex id="location-search" class="md-block">
+                        <md-autocomplete ng-model="vm.profile.location"
+                                         location-search-extend
+                                         md-no-cache="false"
+                                         md-selected-item="item"
+                                         md-selected-item-change="getLatLng(item)"
+                                         ng-model-options="{debounce: 1000}"
+                                         md-search-text-change="search(searchText)"
+                                         md-search-text="searchText"
+                                         md-items="item in search(searchText)"
+                                         md-item-text="item.description"
+                                         md-min-length="2"
+                                         md-max-length="50"
+                                         placeholder="Type your address"
+                                         md-floating-label="Look up coordinates">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.description}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No matches found.
+                            </md-not-found>
+                        </md-autocomplete>
                     </div>
-                </form>
+                </md-card>
+                <div layout-gt-xs="row" layout-xs="column" layout-align="end">
+                    <md-button ng-disabled="vm.submitDisabled || profileForm.$invalid || profileForm.$pristine"
+                               class="md-primary md-raised"
+                               type="submit">Submit</md-button>
+                </div>
             </div>
-        </md-card>
-    </div>
+        </section>
+    </form>
 </md-content>
