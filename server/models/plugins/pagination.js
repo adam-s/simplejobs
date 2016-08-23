@@ -54,6 +54,16 @@ module.exports = function(schema) {
             return this;
         };
 
+        /**
+         * { path: 'fans', match: { age: { $gte: 21 }}, select: 'name -_id', options: { limit: 5 } }
+         * @param object
+         * @returns {Pagination}
+         */
+        Pagination.prototype.populate = function(populateOptions) {
+            this.query.populate(populateOptions);
+            return this;
+        };
+
         Pagination.prototype.exec = function(callback) {
             var _this = this;
             async.parallel({

@@ -6,22 +6,26 @@ var crew = require('../controllers/crew.listings.controller.js'),
 
 module.exports = function(app) {
 
+    // Stuff everybody can see.
+    app.route('/api/crew-listings').get(crew.index);
+    app.route('/api/crew-listings/:crewListingId').get(crew.detail);
+
     // Protect these routes with admin access only
     app.route('/api/crew-listings')
-        .get(crew.index)
-        .post(crew.create);
+        .post(checkAdministrator, crew.fileHandler, crew.create);
 
     app.route('/api/crew-listings/:crewListingId')
-        .get(crew.detail)
-        .put(crew.update)
-        .delete(crew.remove);
+        .put(checkAdministrator, crew.fileHandler, crew.update)
+        .delete(checkAdministrator, crew.remove);
 
     app.param('crewListingId', crew.crewListingById);
 
     // Get any profile by the user ID
     app.route('/api/profile/:userId')
         .get(crew.detail);
-    
+
+    app.param('userId', crew.crewListingByUserId);
+
     // We have actions for all user's profile.
     app.route('/api/profile').all(checkAuthenticated, crew.crewListingBySession)
         .get(crew.detail)
@@ -32,13 +36,18 @@ module.exports = function(app) {
         .post(crew.createProfile, crew.create)
         .put(crew.updateProfile, crew.update);
 
-    app.param('userId', crew.crewListingByUserId);
 };
 
 // Access check.
 function checkAuthenticated(req, res, next) {
     // user is logged in and is authenticated
     if (req.user && userHasRole('authenticated', req.user)) return next();
+    return res.status(403).send({message: 'User is not authorized'});
+}
+
+function checkAdministrator(req, res, next) {
+    // user is logged in and is authenticated
+    if (req.user && userHasRole('administrator', req.user)) return next();
     return res.status(403).send({message: 'User is not authorized'});
 }
 

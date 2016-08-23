@@ -28,7 +28,9 @@ module.exports = function(app) {
                 })
             }
         ], function() {
-            res.send('all the things deleted');
+            fs.emptyDir('client/files/resumes', function() {
+                res.send('all the things deleted');
+            });
         })
     });
 
@@ -57,6 +59,7 @@ module.exports = function(app) {
                             description: faker.lorem.paragraph(),
                             phone: faker.phone.phoneNumberFormat(),
                             email: faker.internet.email(),
+                            name: faker.name.firstName() + ' ' + faker.name.lastName(),
                             position: values.positions[Math.floor(Math.random() * values.positions.length)],
                             languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
                             active: true,

@@ -90,7 +90,7 @@ UserSchema.methods.hasRole = function(role) {
  * @api public
  */
 UserSchema.methods.isAdmin = function() {
-    return this.roles.indexOf('admin') !== -1;
+    return this.roles.indexOf('administrator') !== -1;
 };
 
 /**

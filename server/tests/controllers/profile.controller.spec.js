@@ -53,7 +53,7 @@ describe('/api/profile', function() {
                 });
         });
 
-        it.only('should create a profile', function(done) {
+        it('should create a profile', function(done) {
 
             agent
                 .post('/api/profile')

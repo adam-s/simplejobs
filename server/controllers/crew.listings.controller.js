@@ -21,6 +21,7 @@ exports.index = function(req, res) {
 
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
+
     CrewListing
         .pagination(tableState)
         .exec(function(err, results) {
@@ -45,7 +46,7 @@ exports.create = function(req, res) {
         } else {
             // Move the req file
             fs.move(req.file.path, config.dir + crewListing.resume, {clobber: true}, function(err) {
-                if (err) return res.status(400).send({message: 'Unexpected error has occured'})
+                if (err) return res.status(400).send({message: 'Unexpected error has occurred'})
                 res.json(crewListing);
             });
         }
@@ -197,7 +198,21 @@ exports.fileHandler = function(req, res, next) {
             // in the tmp folder. Then return an error. If the model validates and is saved. Move the
             // file into the proper folder
             var cleanFilename = sanitizeFilename(req.file.originalname);
-            req.body.resume = PARENT_DIRECTORY + req.user._id + '/' + cleanFilename;
+
+            // Tricky. As security, authenticated users can only upload to their own directory with their
+            // user id. But, admins can upload to any directory. Therefore, we will check for admin privledges
+            // to see if they can save to different users directory. Otherwise, the resume is saved to user
+            // directory. Seems wonky to me.
+            var userId;
+            if (req.user.isAdmin()) {
+                // Is admin so the file userId must be the author field unless it belongs to the admin
+                // then fall back to the admin's user id.
+                userId = req.body.author || req.user._id;
+            } else {
+                userId = req.user._id;
+            }
+
+            req.body.resume = PARENT_DIRECTORY + userId + '/' + cleanFilename;
             return next();
         }
     });

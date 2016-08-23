@@ -6,10 +6,12 @@
 
     function adminJobListCtrl($scope, $location, $stateParams, $state, $mdDialog, jobApi, job) {
         var vm = this;
-        vm.job = job.records;
+        vm.jobs = job.records;
         vm.count = job.metadata.totalCount;
 
         vm.tableState = $stateParams;
+
+        console.log(vm.jobs);
 
         $scope.$watchCollection(function() {
             return vm.tableState;
@@ -21,7 +23,7 @@
             vm.promise = jobApi
                 .index(vm.tableState)
                 .then(function(response) {
-                    vm.job = response.records;
+                    vm.jobs = response.records;
                     vm.count = response.metadata.totalCount;
                 });
         };

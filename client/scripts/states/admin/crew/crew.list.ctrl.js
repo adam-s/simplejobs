@@ -9,6 +9,8 @@
         vm.crew = crew.records;
         vm.count = crew.metadata.totalCount;
 
+        console.log(vm.crew);
+
         vm.tableState = $stateParams;
 
         $scope.$watchCollection(function() {
