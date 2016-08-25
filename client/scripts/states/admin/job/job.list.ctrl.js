@@ -11,8 +11,6 @@
 
         vm.tableState = $stateParams;
 
-        console.log(vm.jobs);
-
         $scope.$watchCollection(function() {
             return vm.tableState;
         }, function(newVal) {

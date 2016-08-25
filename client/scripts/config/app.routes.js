@@ -1,11 +1,11 @@
 (function() {
     angular.module('simplejobs')
-        .config(routes)
-        .run(runPhase);
+        .config(config)
+        .run(run);
 
-    routes.$inject = ['$locationProvider', '$urlRouterProvider'];
+    config.$inject = ['$locationProvider', '$urlRouterProvider'];
 
-    function routes($locationProvider, $urlRouterProvider) {
+    function config($locationProvider, $urlRouterProvider) {
         $locationProvider.html5Mode(true);
         $urlRouterProvider.when('', '/');
         $urlRouterProvider.otherwise( function($injector) {
@@ -14,12 +14,14 @@
         });
     }
 
-    runPhase.$inject = ['$rootScope', '$state'];
+    run.$inject = ['$rootScope', '$window'];
 
-    function runPhase ($rootScope, $state) {
-        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-            console.log(error);
-            event.preventDefault();
-        })
+    function run($rootScope, $window) {
+        // $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        //     event.preventDefault();
+        // })
+        //
+        // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        // })
     };
 })();

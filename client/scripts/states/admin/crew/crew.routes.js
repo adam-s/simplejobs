@@ -13,13 +13,17 @@
                 templateUrl: 'scripts/states/admin/crew/crew.list.tpl.html',
                 resolve: {
                     crew: ['$stateParams', 'crewApi', function($stateParams, crewApi) {
-                        var crew = crewApi.index($stateParams);
+                        var crew = crewApi.index(angular.copy($stateParams));
                         return crew;
                     }]
                 },
                 params: {
-                    limit: "10",
-                    page: "1"
+                    limit: {
+                        value: "10"
+                    },
+                    page: {
+                        value: "1"
+                    }
                 },
                 reloadOnSearch: false,
                 data: {
@@ -36,9 +40,9 @@
                 url: '/crew/:id/edit',
                 parent: 'admin',
                 controller: 'adminCrewDetailCtrl as vm',
-                templateUrl: 'scripts/states/profile/profile.edit.tpl.html',
+                templateUrl: 'scripts/states/admin/crew/crew.edit.tpl.html',
                 resolve: {
-                    crew: ['$stateParams', 'crewApi', function($stateParams, crewApi) {
+                    profile: ['$stateParams', 'crewApi', function($stateParams, crewApi) {
                         if ($stateParams.id === 'add') {
                             return;
                         }

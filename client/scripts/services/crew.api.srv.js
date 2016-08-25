@@ -17,29 +17,32 @@
 
         CrewApi.prototype.create = function create(model, file) {
             var deferred = $q.defer();
-            console.log(file);
 
-            $http
-                .post(endpoint, model)
-                .then(function success(response) {
-                    deferred.resolve(response.data);
-                }, function error(response) {
-                    deferred.reject(response.data);
-                });
+            Upload.upload({
+                url: endpoint,
+                method: 'POST',
+                data: model
+            }).then(function success(response) {
+                deferred.resolve(response.data);
+            }, function error(response) {
+                deferred.reject(response.data);
+            });
 
             return deferred.promise;
         };
 
         CrewApi.prototype.update = function update(model, file) {
             var deferred = $q.defer();
-            console.log(file);
-            $http
-                .put(endpoint + model._id, model)
-                .then(function success(response) {
-                    deferred.resolve(response.data);
-                }, function error(response) {
-                    deferred.reject(response.data);
-                });
+
+            Upload.upload({
+                url: endpoint + model._id,
+                method: 'PUT',
+                data: model
+            }).then(function success(response) {
+                deferred.resolve(response.data);
+            }, function error(response) {
+                deferred.reject(response.data);
+            });
 
             return deferred.promise;
         };

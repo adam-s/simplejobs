@@ -68,7 +68,6 @@
                             })
                     } else {
                         var content = response.errors.reduce(function(string, value) {
-                            console.log(value); console.log(string);
                             return string + '<li>' + value.msg + '</li>';
                         }, '');
 

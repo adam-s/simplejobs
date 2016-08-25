@@ -25,6 +25,7 @@
                         return Auth.getMe()._id;
                     }]
                 },
+                reloadOnSearch: false,
                 data: {
                     title: 'My job listings'
                 }

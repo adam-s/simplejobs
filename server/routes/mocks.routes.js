@@ -35,7 +35,7 @@ module.exports = function(app) {
     });
 
     app.get('/make-all-the-things', function(req, res) {
-        var count = 1000;
+        var count = 5;
         async.whilst(
             function() { return count > 0},
             function(callback) {
@@ -52,6 +52,8 @@ module.exports = function(app) {
                     var files = ['test.doc', 'test.docx', 'test.odt', 'test.pdf', 'test.txt'];
                     var fileName = files[Math.floor(Math.random() * files.length)];
                     var path = 'files/resumes/' + user._id + '/' + fileName;
+                    console.log('1: ', user._id);
+                    console.log('2: ', path);
                     fs.copy(__dirname + '/../tests/fixtures/' + fileName, 'client/' + path, function() {
                         var profileData = {
                             startDate: Date.now(),

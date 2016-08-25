@@ -6,7 +6,6 @@
 
     function fileName() {
         return function (input) {
-            console.log(input);
             return input.substr(input.lastIndexOf('/') + 1);
         }
     }

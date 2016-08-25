@@ -83,8 +83,6 @@
                 });
 
                 ctrl.$parsers.push(function(viewModel) {
-                    console.log('parser', viewModel);
-                    console.log(scope);
                     return viewModel;
                 })
             }

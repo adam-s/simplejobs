@@ -186,6 +186,7 @@ exports.fileHandler = function(req, res, next) {
         // Make sure that if there is a resume file but no new file, the resume exists in the file system.
         if (req.body.resume && typeof req.file === 'undefined') {
             fs.stat(config.dir + req.body.resume, function(err, stats) {
+                console.log(err);
                 if (err) {
                     return res.status(400).send({message: 'Resume doesn\'t exist on file server'});
                 } else {
