@@ -7,8 +7,6 @@
         'ngAnimate',
         'md.data.table',
         'validation.match',
-        'permission',
-        'permission.ui',
         'angular-loading-bar',
         'angularMoment',
         'ngFileUpload'

@@ -9,13 +9,7 @@
             .state('admin', {
                 url: '/admin',
                 templateUrl: 'scripts/states/admin/admin.tpl.html',
-                abstract: true,
-                data: {
-                    permissions: {
-                        only: ['ADMINISTRATOR'],
-                        redirectTo: 'home'
-                    }
-                }
+                abstract: true
             });
     }
 })();

@@ -18,11 +18,7 @@
                     }]
                 },
                 data: {
-                    title: 'My crew profile',
-                    permissions: {
-                        only: ['editProfile'],
-                        redirectTo: 'login'
-                    }
+                    title: 'My crew profile'
                 }
             })
     }
