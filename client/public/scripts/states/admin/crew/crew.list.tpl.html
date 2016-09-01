@@ -8,6 +8,9 @@
                     <th md-column>Status</th>
                     <th md-column>Last Check-in</th>
                     <th md-column>Name</th>
+                    <th md-column>Location</th>
+                    <th md-column>Job type</th>
+                    <th md-column>Position</th>
                     <th md-column>Actions</th>
                 </tr>
                 </thead>
@@ -16,6 +19,9 @@
                     <td md-cell class="status">{{crewMember.active ? 'Active' : 'Deactive'}}</td>
                     <td md-cell class="check-in">{{crewMember.checkIn | date : 'M/d/yy h:mm a'}}</td>
                     <td md-cell class="name">{{crewMember.name}}</td>
+                    <td md-cell class="location">{{crewMember.location.name}}</td>
+                    <td md-cell class="jobType">{{crewMember.jobType}}</td>
+                    <td md-cell class="position">{{crewMember.position}}</td>
                     <td md-cell class="actions">
                         <md-menu md-position-mode="target-right bottom" >
                             <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -35,13 +41,13 @@
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item>
-                                    <md-button>
+                                    <md-button ng-click="vm.sendMail(crewMember.email)">
                                         <md-icon md-font-icon="mail">mail</md-icon>
                                         <span>Email crew</span>
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item>
-                                    <md-button>
+                                    <md-button ng-click="vm.downloadFile(crewMember.resume)">
                                         <md-icon md-font-icon="move_to_inbox">move_to_inbox</md-icon>
                                         <span>Download resume</span>
                                     </md-button>

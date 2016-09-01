@@ -2,15 +2,16 @@
     angular.module('simplejobs')
         .controller('adminCrewListCtrl', adminCrewListCtrl);
 
-    adminCrewListCtrl.$inject = ['$scope', '$timeout', '$location', '$stateParams', '$state', '$mdDialog', 'crewApi', 'crew'];
+    adminCrewListCtrl.$inject = ['$window', '$state', '$mdDialog', 'crewApi', 'crew'];
 
-    function adminCrewListCtrl($scope, $timeout, $location, $stateParams, $state, $mdDialog, crewApi, crew) {
+    function adminCrewListCtrl($window, $state, $mdDialog, crewApi, crew) {
         var vm = this;
         vm.crew = crew.records;
         vm.count = crew.metadata.totalCount;
 
         vm.tableState = angular.copy($state.params);
 
+        console.log(vm.crew[0]);
 
 
         // There is some hocky stuff going on. Things seem to work now following this blog post at
@@ -53,6 +54,13 @@
                 });
         };
 
+        // @link http://stackoverflow.com/questions/19493759/how-to-invoke-mailto-in-angularjs-controller
+        vm.sendMail = function(email) {
+            $window.open("mailto:" + email)
+        };
 
+        vm.downloadFile = function(uri) {
+            $window.open(uri, 'Download');
+        };
     }
 })();

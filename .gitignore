@@ -2,9 +2,9 @@
 .idea/
 .tmp/
 /node_modules
-/client/bower_components
-/client/assets/images
-/client/css
+/client/public/bower_components
+/client/public/assets/images
+/client/public/css
 /build
 /client/files
 npm-debug.log

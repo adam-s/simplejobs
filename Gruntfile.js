@@ -37,30 +37,30 @@ module.exports = function(grunt) {
             //    tasks: [ 'karma', 'test']
             //},
             wiredep: {
-                files: ['client/bower_components/**'],
+                files: ['client/public/bower_components/**'],
                 tasks: ['wiredep']
             },
             sass: {
                 options: {
                     spawn: false
                 },
-                files: ['client/sass/**/*.scss', 'client/scripts/**/*.scss'],
+                files: ['client/**/*.scss'],
                 tasks: ['sass']
             },
             injector: {
-                files: [['client/scripts/**','!client/srcipts/app.js', 'client/css/**'], ['client/scripts/app.js']],
+                files: [['client/public/scripts/**','!client/public/srcipts/app.js', 'client/public/css/**'], ['client/public/scripts/app.js']],
                 tasks: ['injector']
             }
         },
         wiredep: {
             src: {
                 src: ['client/index.html'],
-                exclude: ['client/bower_components/angular-mocks/']
+                exclude: ['client/public/bower_components/angular-mocks/']
             }
         },
         ngtemplates: {
             live: {
-                cwd: 'client',
+                cwd: 'client/public',
                 src: '**/*.tpl.html',
                 dest: '.tmp/template.js',
                 options: {
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'client/index.html': ['client/scripts/**/*.js', 'client/css/**/*.css']
+                    'client/index.html': ['client/public/scripts/**/*.js', 'client/public/css/**/*.css']
                 }
             }
         },
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'client/',
                 src: [ 'sass/**/*.scss', 'scripts/**/*.scss'],
-                dest: 'client/css',
+                dest: 'client/public/css',
                 ext: '.css'
             }
         },

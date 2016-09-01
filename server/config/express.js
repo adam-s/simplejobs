@@ -41,7 +41,7 @@ module.exports = function (db) {
 
     // Configure static file serving
     // @link http://evanhahn.com/express-dot-static-deep-dive/
-    app.use(express.static('./' + config.dir, {
+    app.use(express.static('./' + config.dir + '/public', {
         index: false
     }));
 
@@ -80,6 +80,7 @@ module.exports = function (db) {
     require('./passport.js')(app);
 
     // Load the routing files
+    require('../routes/download.routes')(app);
     require('../routes/auth.routes.js')(app);
     require('../routes/crew.listings.routes.js')(app);
     require('../routes/job.listings.routes.js')(app);

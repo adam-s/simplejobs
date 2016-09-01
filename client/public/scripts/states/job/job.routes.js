@@ -44,7 +44,11 @@
                     }]
                 },
                 data: {
-                    title: 'Job edit'
+                    title: 'Job edit',
+                    permissions: {
+                        only: ['addJob'],
+                        redirectTo: 'home'
+                    }
                 }
             })
     }
