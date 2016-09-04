@@ -1,8 +1,7 @@
 'use strict';
 
 var crew = require('../controllers/crew.listings.controller.js'),
-    multer = require('multer'),
-    upload = multer({dest: 'uploads/'});
+    multer = require('multer');
 
 module.exports = function(app) {
 

@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         injector: {
             options: {
                 addRootSlash: false,
-                ignorePath: 'client'
+                ignorePath: 'client/public/'
             },
             dist: {
                 files: {
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
             files: {
                 expand: true,
                 cwd: 'client/',
-                src: [ 'sass/**/*.scss', 'scripts/**/*.scss'],
+                src: [ 'sass/**/*.scss', 'public/scripts/**/*.scss'],
                 dest: 'client/public/css',
                 ext: '.css'
             }

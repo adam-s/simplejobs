@@ -1,25 +1,66 @@
 <md-card class="jobs-list">
     <div layout="column">
         <md-table-container>
-            <table md-table>
+            <table md-table md-progress="vm.promise">
                 <thead md-head>
                 <tr md-row>
-                    <th md-column>Name</th>
+                    <th md-column>Status</th>
+                    <th md-column>title</th>
+                    <th md-column>Created</th>
+                    <th md-column>Start date</th>
+                    <th md-column>Job type</th>
+                    <th md-column>Position</th>
                     <th md-column>Actions</th>
                 </tr>
                 </thead>
                 <tbody md-body>
-                <tr md-row ng-repeat="jobMember in vm.jobs">
-                    <td md-cell>{{jobMember.name}}</td>
-                    <td md-cell>
-                        <div layout="row">
-                            <md-button class="md-icon-button" ng-click="vm.editCrew(jobMember._id)">
-                                <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+                <tr md-row ng-repeat="job in vm.jobs">
+                    <td md-cell class="status">{{job.active ? 'Active' : 'Deactive'}}</td>
+                    <td md-cell class="title">{{job.title}}</td>
+                    <td md-cell class="created">{{job.created | date : 'M/d/yy h:mm a'}}</td>
+                    <td md-cell class="startDate">{{job.startDate | date : 'M/d/yy h:mm a'}}</td>
+                    <td md-cell class="jobType">{{job.jobType}}</td>
+                    <td md-cell class="position">{{job.position}}</td>
+                    <td md-cell class="actions">
+                        <!--<div layout="row">-->
+                            <!--<md-button class="md-icon-button" ng-click="vm.editJob(job._id)">-->
+                                <!--<md-icon md-font-icon="mode_edit">mode_edit</md-icon>-->
+                            <!--</md-button>-->
+                            <!--<md-button class="md-icon-button" ng-click="vm.deleteJob(job._id, $event)">-->
+                                <!--<md-icon md-font-icon="delete">delete</md-icon>-->
+                            <!--</md-button>-->
+                        <!--</div>-->
+                        <md-menu md-position-mode="target-right bottom">
+                            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                <md-icon md-font-icon="menu">menu</md-icon>
                             </md-button>
-                            <md-button class="md-icon-button" ng-click="vm.deleteCrew(jobMember._id, $event)">
-                                <md-icon md-font-icon="delete">delete</md-icon>
-                            </md-button>
-                        </div>
+                            <md-menu-content>
+                                <md-menu-item>
+                                    <md-button ng-click="vm.editJob(job._id)">
+                                        <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+                                        <span>Edit</span>
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button>
+                                        <md-icon md-font-icon="person">person</md-icon>
+                                        <span>Author's user account</span>
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="vm.sendMail(job.email)">
+                                        <md-icon md-font-icon="move_to_inbox">move_to_inbox</md-icon>
+                                        <span>Email author</span>
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="vm.deleteJob(job._id, $event)">
+                                        <md-icon md-font-icon="delete">delete</md-icon>
+                                        <span>Delete</span>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                     </td>
                 </tr>
                 </tbody>
@@ -29,7 +70,7 @@
                              md-limit-options="[10, 20, 30]"
                              md-page="vm.tableState.page"
                              md-total="{{vm.count}}"
-                             md-on-paginate="vm.fetchCrew"
+                             md-on-paginate="vm.fetchJobs"
                              md-page-select></md-table-pagination>
     </div>
 </md-card>

@@ -18,8 +18,12 @@
                     }]
                 },
                 params: {
-                    limit: "10",
-                    page: "1"
+                    limit: {
+                        value: "10"
+                    },
+                    page: {
+                        value: "1"
+                    }
                 },
                 reloadOnSearch: false,
                 data: {

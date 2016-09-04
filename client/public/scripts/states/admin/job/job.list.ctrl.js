@@ -2,39 +2,37 @@
     angular.module('simplejobs')
         .controller('adminJobListCtrl', adminJobListCtrl);
 
-    adminJobListCtrl.$inject = ['$scope', '$location', '$stateParams', '$state', '$mdDialog', 'jobApi', 'job'];
+    adminJobListCtrl.$inject = ['$window', '$state', '$mdToast', '$mdDialog', 'jobApi', 'job'];
 
-    function adminJobListCtrl($scope, $location, $stateParams, $state, $mdDialog, jobApi, job) {
+    function adminJobListCtrl($window, $state, $mdToast, $mdDialog, jobApi, job) {
         var vm = this;
         vm.jobs = job.records;
         vm.count = job.metadata.totalCount;
 
-        vm.tableState = $stateParams;
+        console.log(vm.jobs[0]);
 
-        $scope.$watchCollection(function() {
-            return vm.tableState;
-        }, function(newVal) {
-            $location.search(newVal);
-        });
+        vm.tableState = angular.copy($state.params);
 
-        vm.fetchCrew = function() {
+        vm.fetchJobs = function() {
+            var tableState = angular.copy(vm.tableState);
             vm.promise = jobApi
-                .index(vm.tableState)
+                .index(tableState)
                 .then(function(response) {
                     vm.jobs = response.records;
                     vm.count = response.metadata.totalCount;
+                    $state.go('.', tableState)
                 });
         };
 
-        vm.addCrew = function() {
+        vm.addJob = function() {
             $state.go('adminJobEdit', {id: 'add'})
         };
 
-        vm.editCrew = function(id) {
+        vm.editJob = function(id) {
             $state.go('adminJobEdit', {id: id})
         };
 
-        vm.deleteCrew = function(id, $event) {
+        vm.deleteJob = function(id, $event) {
             var confirm = $mdDialog.confirm()
                 .title('Are you sure you want to delete this job')
                 .targetEvent($event)
@@ -48,10 +46,17 @@
                         .remove(id)
                         .then(function() {
                             $state.go('adminJobList', {}, {reload: true});
-                        }, function cancel(){})
+                            var toast = $mdToast.simple().textContent('Job listing deleted');
+                            $mdToast.show(toast);
+                        }, function (){
+                            // Error happened
+                        })
                 });
         };
 
-
+        // @link http://stackoverflow.com/questions/19493759/how-to-invoke-mailto-in-angularjs-controller
+        vm.sendMail = function(email) {
+            $window.open("mailto:" + email)
+        };
     }
 })();

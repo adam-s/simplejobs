@@ -105,7 +105,7 @@ exports.count = function(req, res) {
         var errors = req.validationErrors();
         if (errors) return res.status(400).send(validationErrorHandler(errors));
 
-        var isAdmin = req.user && req.user.roles.indexOf('admin') !== -1;
+        var isAdmin = req.user && req.user.roles.indexOf('administrator') !== -1;
         var isOwner = req.user && userId && req.user._id.toString() === userId;
 
         JobListing
