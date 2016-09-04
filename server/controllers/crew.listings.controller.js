@@ -105,7 +105,7 @@ exports.crewListingById = function(req, res, next, id) {
 
 exports.crewListingByUserId = function (req, res, next, id) {
     CrewListing
-        .find()
+        .findOne()
         .where('author', id)
         .exec(function(err, crewListing) {
             if (!crewListing) return res.status(404).send({message: "File not found"});

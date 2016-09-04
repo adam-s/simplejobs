@@ -9,6 +9,7 @@
         vm.user = user.records;
         vm.count = user.metadata.totalCount;
 
+        console.log(vm.user[0])
         vm.tableState = $stateParams;
 
         $scope.$watchCollection(function() {
@@ -31,7 +32,10 @@
         };
 
         vm.editCrew = function(id) {
-            $state.go('adminUserEdit', {id: id})
+            $state.go('adminCrewEdit', {id: id})
+                .catch(function() {
+                    console.log(shit);
+                })
         };
 
         vm.deleteCrew = function(id, $event) {

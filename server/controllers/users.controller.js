@@ -11,6 +11,9 @@ exports.index = function(req, res) {
         .pagination(tableState)
         .exec(function(err, results) {
             if (err) return res.status(400).send(err);
+            // Make another query to crew listings using $in selecting only _id.
+
+
             res.json(results);
         });
 };
