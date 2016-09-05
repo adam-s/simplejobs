@@ -37,16 +37,16 @@
                 templateUrl: 'scripts/states/admin/crew/crew.detail.tpl.html'
             })
             .state('adminCrewEdit', {
-                url: '/user/:id/crew/edit',
+                url: '/crew/:id/edit',
                 parent: 'admin',
                 controller: 'adminCrewDetailCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.edit.tpl.html',
                 resolve: {
-                    profile: ['$stateParams', 'profileApi', function($stateParams, profileApi) {
+                    profile: ['$stateParams', 'crewApi', function($stateParams, crewApi) {
                         if ($stateParams.id === 'add') {
                             return;
                         }
-                        return profileApi.detail($stateParams.id);
+                        return crewApi.detail($stateParams.id);
                     }]
                 },
                 data: {
