@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     User = mongoose.model('User'),
     CrewListing = mongoose.model('CrewListing'),
-    async = require('async');
+    async = require('async'),
+    validationErrorHandler = require('../lib/validationErrorHandler.js');
 
 exports.index = function(req, res) {
     var tableState = req.query.tableState || {};
@@ -80,12 +81,31 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var data = _.extend(req.app.locals.user, req.body);
-    data = data.toObject();
-    delete data._id;
-    req.app.locals.user.save(function(err, result) {
-        if (err) return res.status(400).send(err);
-        res.json(result);
+    var user = req.app.locals.user;
+
+    if (req.body.newEmail) {
+        req.assert('email', 'You must enter a valid email address').isEmail();
+        user.email = req.body.newEmail;
+    }
+
+    if (req.body.newPassword || req.body.newPasswordConfirm) {
+        req.assert('newPassword', 'You must enter a password').notEmpty();
+        req.assert('newPasswordConfirm', 'Passwords must match').equals(req.body.newPassword);
+        user.password = req.body.newPassword
+    }
+
+    user.roles = req.body.roles;
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+    user.save(function(err) {
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
+
+        user.password = user.passwordConfirm = undefined;
+        user.salt = undefined;
+
+        res.json(user);
     });
 };
 

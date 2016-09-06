@@ -20,10 +20,10 @@ module.exports = function(app) {
     app.param('crewListingId', crew.crewListingById);
 
     // Get any profile by the user ID
-    app.route('/api/profile/:userId')
+    app.route('/api/profile/:userIdForProfile')
         .get(crew.detail);
 
-    app.param('userId', crew.crewListingByUserId);
+    app.param('userIdForProfile', crew.crewListingByUserId);
 
     // We have actions for all user's profile.
     app.route('/api/profile').all(checkAuthenticated, crew.crewListingBySession)

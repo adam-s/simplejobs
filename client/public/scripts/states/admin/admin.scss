@@ -10,4 +10,13 @@
     //  width: 100%;
     //}
   }
+
+  fieldset {
+    border: 1px solid rgba(0,0,0,0.38);
+    height: 100%;
+  }
+
+  legend, md-checkbox {
+    color: rgba(0,0,0,0.38);
+  }
 }

@@ -53,9 +53,10 @@ module.exports = function(grunt) {
             }
         },
         wiredep: {
-            src: {
+            target: {
                 src: ['client/index.html'],
-                exclude: ['client/public/bower_components/angular-mocks/']
+                exclude: ['client/public/bower_components/angular-mocks/'],
+                ignorePath: 'public/'
             }
         },
         ngtemplates: {

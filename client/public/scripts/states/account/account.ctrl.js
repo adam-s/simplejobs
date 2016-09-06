@@ -2,12 +2,13 @@
     angular.module('simplejobs')
         .controller('accountCtrl', accountCtrl);
 
-    accountCtrl.$inject = ['$scope', '$timeout', '$mdToast', 'profileApi', 'profile', 'jobListingCount', 'errorHandler'];
+    accountCtrl.$inject = ['$scope', '$timeout', '$mdToast', 'Auth', 'profileApi', 'profile', 'jobListingCount', 'errorHandler'];
 
-    function accountCtrl($scope, $timeout, $mdToast, profileApi, profile, jobListingCount, errorHandler) {
+    function accountCtrl($scope, $timeout, $mdToast, Auth, profileApi, profile, jobListingCount, errorHandler) {
         var vm = this;
         vm.profile = profile;
         vm.jobListingCount = jobListingCount;
+        vm.me = Auth.getMe();
         vm.toggleProfileButtonDisabled = false;
         vm.checkInButtonDisabled = false;
 

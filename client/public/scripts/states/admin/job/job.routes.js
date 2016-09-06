@@ -7,7 +7,7 @@
     function router($stateProvider) {
         $stateProvider
             .state('adminJobList', {
-                url: '/job/list?limit&page',
+                url: '/job/list?limit&page&author',
                 parent: 'admin',
                 controller: 'adminJobListCtrl as vm',
                 templateUrl: 'scripts/states/admin/job/job.list.tpl.html',

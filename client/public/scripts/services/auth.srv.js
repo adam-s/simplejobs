@@ -73,9 +73,10 @@
                 url: '/auth/email',
                 data: credentials
             }).success(function(response) {
-                //me = response;
-                deferred.resolve();
+                me = response;
+                deferred.resolve(response);
             }).error(function(response) {
+                console.log(response);
                 deferred.reject(response);
             });
 
@@ -89,7 +90,7 @@
                 url: '/auth/change-password',
                 data: credentials
             }).success(function(response) {
-                //me = response;
+                me = response;
                 deferred.resolve();
             }).error(function(response) {
                 deferred.reject(response);

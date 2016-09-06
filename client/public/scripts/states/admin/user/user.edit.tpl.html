@@ -1,19 +1,75 @@
-<md-content>
-    <div layout="row">
-        <md-card md-whitefram="1" flex-gt-md="60" flex>
-            <div layout="column" layout-padding>
-                <form novalidate ng-submit="vm.submit()">
-                    <div layout-gt-xs="row" layout-xs="column">
-                        <md-input-container flex>
-                            <label>Name</label>
-                            <input ng-model="vm.user.name">
-                        </md-input-container>
-                    </div>
-                    <div layout-gt-xs="row" layout-xs="column">
-                        <md-button ng-disabled="vm.submitDisabled" class="md-primary md-raised" type="submit">Submit</md-button>
-                    </div>
-                </form>
+<md-content class="sj-section-wrapper" flex>
+    <form name="userForm" novalidate ng-submit="vm.submit()">
+        <section class="sj-section" layout-gt-sm="row" layout="column" layout-align="center">
+            <div class="sj-section-annotation" flex="40" layout-padding>
+                <h3>Admin only</h3>
             </div>
-        </md-card>
-    </div>
+            <div class="sj-section-content" flex="60">
+                <md-card>
+                    <md-input-container class="md-block">
+                        <label>Current email</label>
+                        <input disabled
+                               type="email"
+                               ng-model="vm.user.email">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input type="email"
+                               name="newEmail"
+                               ng-model="vm.user.newEmail"
+                               placeholder="New email"
+                               ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
+                               aria-label="New email"
+                               aria-invalid="false"/>
+                        <div ng-messages="userForm.newEmail.$error"
+                             role="alert"
+                             aria-live="assertive"
+                             ng-show="(!userForm.newEmail.$untouched || userForm.$submitted)
+                        && (userForm.newEmail.$error.email)">
+                            <div ng-message="pattern"><span>Email must be a valid e-mail address</span></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input type="password"
+                               name="newPassword"
+                               ng-model="vm.user.newPassword"
+                               placeholder="New password"
+                               aria-label="New password"
+                               aria-invalid="false"/>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input type="password"
+                               name="newPasswordConfirm"
+                               ng-model="vm.user.newPasswordConfirm"
+                               placeholder="New password confirmation"
+                               match="vm.user.newPassword"
+                               match-ignore-empty="!vm.user.newPassword"
+                               aria-label="New password confirmation"
+                               aria-invalid="false"/>
+                        <div ng-messages="userForm.newPasswordConfirm.$error"
+                             role="alert"
+                             aria-live="assertive"
+                             ng-show="(!userForm.newPasswordConfirm.$untouched || userForm.$submitted)
+                            && (userForm.newPasswordConfirm.$error.match)">
+                            <div ng-message="match"><span>The passwords do not match</span></div>
+                        </div>
+                    </md-input-container>
+                    <fieldset>
+                        <legend>User roles</legend>
+                        <div ng-repeat="role in vm.roles">
+                            <md-checkbox checklist-model="vm.user.roles" checklist-value="role">
+                                {{role}}
+                            </md-checkbox>
+                        </div>
+                    </fieldset>
+                </md-card>
+                <div layout="row" layout-align="end">
+                    <md-button ng-click="goBack()">Cancel</md-button>
+                    <md-button ng-disabled="vm.submitDisabled || userForm.$invalid || userForm.$pristine"
+                               class="md-primary md-raised"
+                               type="submit">Submit</md-button>
+                </div>
+                <pre>{{vm.user | json}}</pre>
+            </div>
+        </section>
+    </form>
 </md-content>

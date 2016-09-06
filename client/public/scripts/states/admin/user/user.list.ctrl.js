@@ -30,14 +30,21 @@
             $state.go('adminUserEdit', {id: 'add'})
         };
 
-        vm.editCrew = function(id) {
-            $state.go('adminCrewEdit', {id: id})
+        vm.edit = function(id) {
+            $state.go('adminUserEdit', {id: id})
                 .finally(function(error) {
                     console.log(error);
                 })
         };
 
-        vm.deleteCrew = function(id, $event) {
+        vm.editCrew = function(id) {
+            $state.go('adminCrewEdit', {id: id})
+                .finally(function(error) {
+                    console.log(error);
+                });
+        };
+
+        vm.delete = function(id, $event) {
             var confirm = $mdDialog.confirm()
                 .title('Are you sure you want to delete this user')
                 .targetEvent($event)
@@ -54,6 +61,10 @@
                         }, function cancel(){})
                 });
         };
+
+        vm.viewJobList = function(id) {
+            $state.go('adminJobList', { author: id});
+        }
 
 
     }

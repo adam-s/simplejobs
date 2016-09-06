@@ -11,7 +11,8 @@
         'permission.ui',
         'angular-loading-bar',
         'angularMoment',
-        'ngFileUpload'
+        'ngFileUpload',
+        'checklist-model'
     ]);
 })();
 
