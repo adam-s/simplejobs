@@ -22,12 +22,82 @@ exports.index = function(req, res) {
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
 
-    CrewListing
-        .pagination(tableState)
+    var query = CrewListing.pagination(tableState);
+
+    if (tableState.active) query.where('active', tableState.active);
+    if (tableState.name) query.where('name', tableState.name);
+    if (tableState.location) query.where('location.name', tableState.location);
+    if (tableState.jobType) query.where('jobType', tableState.jobType);
+    if (tableState.position) query.where('position', tableState.position);
+
+    query
         .exec(function(err, results) {
             if (err) return res.status(400).send(validationErrorHandler(err,true));
             res.json(results);
         });
+};
+
+exports.autocomplete = function(req, res) {
+    req.assert('field', 'Fields are limited to name and email').inArray(['name', 'email', 'location.name']);
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+    var field = req.params.field,
+        searchString = req.query.q.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+    var match = new RegExp(searchString, 'i');
+    var rules = {};
+    rules[field] = match;
+
+    CrewListing.aggregate([
+        { $match: rules },
+        { $limit: 10 },
+        { $group: {
+            _id: '$' + field
+        }}
+    ], function(err, results) {
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
+
+        results = results.map(function(result) {
+            return result._id;
+        });
+
+        // http://stackoverflow.com/questions/6393943/convert-javascript-string-in-dot-notation-into-an-object-reference
+        // results = field.split('.')
+        //     .reduce(function(obj, i) {
+        //         var arr = [];
+        //         obj.forEach(function(item) {
+        //             arr.push(item[i]);
+        //         });
+        //         return arr;
+        //     }, results);
+
+        res.json(results);
+    });
+
+    // CrewListing
+    //     .find()
+    //     .where(field, match)
+    //     .limit(10)
+    //     .select(field)
+    //     .sort(field)
+    //     .group(field)
+    //     .exec(function(err, results) {
+    //         if (err) return res.status(400).send(validationErrorHandler(err, true));
+    //
+    //         // http://stackoverflow.com/questions/6393943/convert-javascript-string-in-dot-notation-into-an-object-reference
+    //         results = field.split('.')
+    //             .reduce(function(obj, i) {
+    //                 var arr = [];
+    //                 obj.forEach(function(item) {
+    //                     arr.push(item[i]);
+    //                 });
+    //                 return arr;
+    //             }, results);
+    //
+    //         res.json(results);
+    //     });
 };
 
 exports.detail = function(req, res) {

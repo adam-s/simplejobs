@@ -11,7 +11,8 @@ var app = require('../../../server.js'),
     fs = require('fs-extra'),
     config = require('../../config/config.js');
 
-describe.only('/api/crew-listings', function() {
+
+describe('/api/crew-listings', function() {
     beforeEach(function(done) {
         CrewListing.remove(function() {
             User.remove(function() {
@@ -28,6 +29,10 @@ describe.only('/api/crew-listings', function() {
                 });
             });
         });
+    });
+
+    describe.only('/api/crew-listings/field?q=search_string', function() {
+
     });
 
     describe('Admin control crew listings', function() {

@@ -7,7 +7,7 @@
     function router($stateProvider) {
         $stateProvider
             .state('adminCrewList', {
-                url: '/crew/list?limit&page',
+                url: '/crew/list?{limit:int}&{page:int}&active&name&location&jobType&position',
                 parent: 'admin',
                 controller: 'adminCrewListCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.list.tpl.html',
@@ -19,10 +19,10 @@
                 },
                 params: {
                     limit: {
-                        value: "10"
+                        value: 10
                     },
                     page: {
-                        value: "1"
+                        value: 1
                     }
                 },
                 reloadOnSearch: false,

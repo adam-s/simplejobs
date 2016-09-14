@@ -11,6 +11,11 @@ module.exports = function() {
             },
             lte: function(param, num) {
                 return param <= num;
+            },
+            inArray: function(param, array) {
+                return array.some(function(item) {
+                    return item == param;
+                })
             }
         }
     })

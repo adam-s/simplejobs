@@ -10,6 +10,7 @@
         vm.count = crew.metadata.totalCount;
 
         vm.tableState = angular.copy($state.params);
+        console.log(vm.tableState);
 
         // There is some hocky stuff going on. Things seem to work now following this blog post at
         // @link http://www.codelord.net/2015/11/25/query-parameters-in-ui-router-without-needless-reloading-with-example-project/
@@ -62,5 +63,38 @@
         vm.downloadFile = function(uri) {
             $window.open(uri, 'Download');
         };
+
+        vm.showFilterDialog = function($event) {
+            $mdDialog.show({
+                controller: 'crewDialogFilterCtrl',
+                bindToController: true,
+                controllerAs: 'dialog',
+                templateUrl: 'scripts/states/admin/crew/crewDialogFilter.tpl.html',
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                fullscreen: true,
+                locals: {
+                    tableState: angular.copy(vm.tableState)
+                }
+            })
+            .then(function(tableState) {
+                vm.tableState = tableState;
+                vm.fetchCrew();
+            }, function() {
+
+            })
+        };
+
+        vm.clearFilter = function() {
+
+            vm.tableState = {
+                limit: vm.tableState.limit,
+                page: vm.tableState.page
+            };
+
+            vm.fetchCrew();
+            $state.go('adminCrewList', {}, {reload: true});
+        }
     }
 })();

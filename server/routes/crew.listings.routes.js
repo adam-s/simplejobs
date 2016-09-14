@@ -19,6 +19,11 @@ module.exports = function(app) {
 
     app.param('crewListingId', crew.crewListingById);
 
+    // Add some autocomplete functionality
+    // Requires a field i.e. "name" and a query string "q"
+    app.route('/api/crew-listings/autocomplete/:field')
+        .get(checkAuthenticated, crew.autocomplete);
+
     // Get any profile by the user ID
     app.route('/api/profile/:userIdForProfile')
         .get(crew.detail);

@@ -20,3 +20,8 @@
     color: rgba(0,0,0,0.38);
   }
 }
+
+// Chrome bug fix
+md-input-container.md-input-has-value input.md-input {
+  color: inherit;
+}
