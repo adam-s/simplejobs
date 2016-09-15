@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('jobListCtrl', jobListCtrl);
 
-    jobListCtrl.$inject = ['$timeout', '$location', '$stateParams', '$state', '$mdDialog', '$mdToast', 'jobApi', 'job', 'errorHandler'];
+    jobListCtrl.$inject = ['$location', '$stateParams', '$state', '$mdDialog', '$mdToast', 'jobApi', 'job', 'errorHandler'];
 
-    function jobListCtrl($timeout, $location, $stateParams, $state, $mdDialog, $mdToast, jobApi, job, errorHandler) {
+    function jobListCtrl($location, $stateParams, $state, $mdDialog, $mdToast, jobApi, job, errorHandler) {
         var vm = this;
         vm.jobs = job.records;
         vm.count = job.metadata.totalCount;
@@ -14,6 +14,7 @@
         vm.activeChange = activeChange;
         vm.edit = edit;
         vm.remove = remove;
+        vm.addJob = addJob;
 
         function fetch() {
             vm.promise = jobApi
@@ -65,6 +66,10 @@
                             $state.go('myJobList', {}, {reload: true});
                         }, function cancel(){})
                 });
+        }
+
+        function addJob() {
+            $state.go('jobEdit', {id: 'add'});
         }
     }
 })();

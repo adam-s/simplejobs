@@ -1,6 +1,14 @@
 <div layout="column" flex>
     <md-content flex style="background: #ececec">
         <md-card>
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <div flex></div>
+                    <md-button class="md-icon-button md-raised md-primary" ng-click="vm.addJob()">
+                        <md-icon md-font-icon="add">add</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
             <md-table-container>
                 <table md-table>
                     <thead md-head md-order="vm.tableState.order" md-on-reorder="vm.fetch">
