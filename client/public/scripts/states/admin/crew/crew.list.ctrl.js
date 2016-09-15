@@ -2,28 +2,29 @@
     angular.module('simplejobs')
         .controller('adminCrewListCtrl', adminCrewListCtrl);
 
-    adminCrewListCtrl.$inject = ['$window', '$state', '$mdToast', '$mdDialog', 'crewApi', 'crew'];
+    adminCrewListCtrl.$inject = ['$window', '$location', '$state', '$mdToast', '$mdDialog', 'crewApi', 'crew'];
 
-    function adminCrewListCtrl($window, $state, $mdToast, $mdDialog, crewApi, crew) {
+    function adminCrewListCtrl($window, $location, $state, $mdToast, $mdDialog, crewApi, crew) {
         var vm = this;
         vm.crew = crew.records;
         vm.count = crew.metadata.totalCount;
 
         vm.tableState = angular.copy($state.params);
-        console.log(vm.tableState);
 
         // There is some hocky stuff going on. Things seem to work now following this blog post at
         // @link http://www.codelord.net/2015/11/25/query-parameters-in-ui-router-without-needless-reloading-with-example-project/
 
         vm.fetchCrew = function() {
             var tableState = angular.copy(vm.tableState);
-            vm.promise = crewApi
-                .index(tableState)
-                .then(function(response) {
-                    vm.crew = response.records;
-                    vm.count = response.metadata.totalCount;
-                    $state.go('.', tableState);
-                });
+            $location.search(tableState);
+            // vm.promise = crewApi
+            //     .index(tableState)
+            //     .then(function(response) {
+            //         vm.crew = response.records;
+            //         vm.count = response.metadata.totalCount;
+            //
+            //         $state.go('.', tableState);
+            //     });
         };
 
         vm.addCrew = function() {
@@ -93,8 +94,7 @@
                 page: vm.tableState.page
             };
 
-            vm.fetchCrew();
-            $state.go('adminCrewList', {}, {reload: true});
+            $location.search(vm.tableState);
         }
     }
 })();

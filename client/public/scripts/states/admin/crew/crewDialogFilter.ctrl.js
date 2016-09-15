@@ -9,6 +9,10 @@
         dialog.tableState = tableState;
 
         dialog.close = function() {
+            // Set the page to the first because if we ask for second page with 10 on a page and there is only
+            // 6 results. It will return nothing.
+
+            dialog.tableState.page = 1;
             $mdDialog.hide(dialog.tableState);
         };
 

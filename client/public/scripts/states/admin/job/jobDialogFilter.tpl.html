@@ -1,0 +1,83 @@
+<md-dialog flex="60">
+    <form name="filterForm" novalidate ng-submit="dialog.close()">
+        <md-toolbar>
+            <div class="md-toolbar-tools" layout-align="space-between center">
+                <h2>Table filters</h2>
+                <md-button class="md-icon-button" ng-click="dialog.close()">
+                    <md-icon md-font-icon="clear">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content aria-label="Filter dialog">
+            <div layout-padding layout="column">
+                <!--<md-input-container flex>-->
+                <!--<label>Name</label>-->
+                <!--<input ng-model="dialog.tableState.name">-->
+                <!--</md-input-container>-->
+                <md-input-container>
+                    <md-autocomplete
+                            md-floating-label="Location"
+                            md-delay="350"
+                            md-selected-item="dialog.tableState.location"
+                            md-search-text="locationSearch"
+                            md-item-text="item"
+                            md-select-on-focus="true"
+                            md-items="item in dialog.querySearch('location.name', locationSearch)">
+                        <md-item-template>
+                            <span md-highlight-text="locationSearch">{{item}}</span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container>
+                <md-input-container>
+                    <md-autocomplete
+                            md-floating-label="Email"
+                            md-delay="350"
+                            md-selected-item="dialog.tableState.email"
+                            md-search-text="emailSearch"
+                            md-item-text="item"
+                            md-select-on-focus="true"
+                            md-items="item in dialog.querySearch('email', emailSearch)">
+                        <md-item-template>
+                            <span md-highlight-text="emailSearch">{{item}}</span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Active</label>
+                    <md-select name="active"
+                               ng-model="dialog.tableState.active">
+                        <md-option ng-value="">Any status</md-option>
+                        <md-option ng-value="true">Active</md-option>
+                        <md-option ng-value="false">Deactive</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Job type</label>
+                    <md-select name="jobType"
+                               ng-model="dialog.tableState.jobType"
+                               job-types-extend>
+                        <md-option ng-value="opt"
+                                   ng-repeat="opt in jobTypes | orderBySelectedOption:dialog.tableState.jobType"
+                                   class="top-selector-option">{{opt}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Position</label>
+                    <md-select name="position"
+                               ng-model="dialog.tableState.position"
+                               positions-input-extend>
+                        <md-option ng-value="opt"
+                                   ng-repeat="opt in positions | orderBySelectedOption:dialog.tableState.position"
+                                   class="top-selector-option">{{opt}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="dialog.cancel()">Cancel</md-button>
+            <md-button type="submit" class="md-primary md-raised">
+                Submit filters
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

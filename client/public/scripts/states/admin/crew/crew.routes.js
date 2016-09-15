@@ -25,7 +25,7 @@
                         value: 1
                     }
                 },
-                reloadOnSearch: false,
+                reloadOnSearch: true,
                 data: {
                     title: 'Crew list'
                 }

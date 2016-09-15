@@ -16,6 +16,8 @@ module.exports = function(app) {
 
     app.param('jobListingId', jobs.jobListingById);
 
+    app.route('/api/job-listings/autocomplete/:field')
+        .get(checkAuthenticated, jobs.autocomplete);
 };
 
 // Access check.

@@ -21,12 +21,16 @@ exports.index = function(req, res) {
     var query = JobListing.pagination(tableState);
 
     // We allow filter on author ID
-    if (tableState.author) {
-        query.where('author', tableState.author);
-    }
+    if (tableState.author) query.where('author', tableState.author);
+    if (tableState.active) query.where('active', tableState.active);
+    if (tableState.email) query.where('email', tableState.email);
+    if (tableState.location) query.where('location.name', tableState.location);
+    if (tableState.jobType) query.where('jobType', tableState.jobType);
+    if (tableState.position) query.where('position', tableState.position);
 
     // Only admin and owner can see nonactive listings.
-    var isAdmin = req.user && req.user.roles.indexOf('admin') !== -1;
+    var isAdmin = req.user && req.user.isAdmin();
+    console.log(isAdmin);
     var isOwner = req.user && tableState.author && req.user._id.toString() === tableState.author.toString();
     if (!(isAdmin || isOwner)) {
         query.where('active', true);
@@ -37,6 +41,35 @@ exports.index = function(req, res) {
             if (err) return res.status(400).send(validationErrorHandler(err, true));
             res.json(result);
         });
+};
+exports.autocomplete = function(req, res) {
+    req.assert('field', 'Fields are limited to name and email').inArray(['name', 'email', 'location.name']);
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+    var field = req.params.field,
+        searchString = req.query.q.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+    var match = new RegExp(searchString, 'i');
+    var rules = {};
+    rules[field] = match;
+
+    JobListing.aggregate([
+        { $match: rules },
+        { $limit: 10 },
+        { $group: {
+            _id: '$' + field
+        }}
+    ], function(err, results) {
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
+
+        results = results.map(function(result) {
+            return result._id;
+        });
+
+        res.json(results);
+    });
 };
 
 exports.detail = function(req, res) {

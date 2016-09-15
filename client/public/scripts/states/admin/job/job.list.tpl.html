@@ -1,5 +1,16 @@
 <md-card class="jobs-list">
     <div layout="column">
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="vm.showFilterDialog($event)">
+                    <md-icon md-font-icon="filter_list">filter_list</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="vm.clearFilter()">
+                    <md-icon md-font-icon="clear">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
         <md-table-container>
             <table md-table md-progress="vm.promise">
                 <thead md-head>
@@ -42,7 +53,7 @@
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item>
-                                    <md-button>
+                                    <md-button ng-click="vm.editAuthor(job.author)">
                                         <md-icon md-font-icon="person">person</md-icon>
                                         <span>Author's user account</span>
                                     </md-button>
