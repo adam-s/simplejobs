@@ -2,28 +2,17 @@
     angular.module('simplejobs')
         .controller('adminUserListCtrl', adminUserListCtrl);
 
-    adminUserListCtrl.$inject = ['$scope', '$location', '$stateParams', '$state', '$mdDialog', 'userApi', 'user'];
+    adminUserListCtrl.$inject = ['$location', '$state', '$mdToast', '$mdDialog', 'userApi', 'user'];
 
-    function adminUserListCtrl($scope, $location, $stateParams, $state, $mdDialog, userApi, user) {
+    function adminUserListCtrl($location, $state, $mdToast, $mdDialog, userApi, user) {
         var vm = this;
         vm.user = user.records;
         vm.count = user.metadata.totalCount;
 
-        vm.tableState = $stateParams;
-
-        $scope.$watchCollection(function() {
-            return vm.tableState;
-        }, function(newVal) {
-            $location.search(newVal);
-        });
+        vm.tableState = angular.copy($state.params);
 
         vm.fetchCrew = function() {
-            vm.promise = userApi
-                .index(vm.tableState)
-                .then(function(response) {
-                    vm.user = response.records;
-                    vm.count = response.metadata.totalCount;
-                });
+            $location.search(vm.tableState);
         };
 
         vm.addCrew = function() {
@@ -58,14 +47,45 @@
                         .remove(id)
                         .then(function() {
                             $state.go('adminUserList', {}, {reload: true});
+                            var toast = $mdToast.simple().textContent('User deleted');
+                            $mdToast.show(toast);
                         }, function cancel(){})
                 });
         };
 
         vm.viewJobList = function(id) {
             $state.go('adminJobList', { author: id});
-        }
+        };
 
+        vm.showFilterDialog = function($event) {
+            $mdDialog.show({
+                controller: 'userDialogFilterCtrl',
+                bindToController: true,
+                controllerAs: 'dialog',
+                templateUrl: 'scripts/states/admin/user/userDialogFilter.tpl.html',
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                fullscreen: true,
+                locals: {
+                    tableState: angular.copy(vm.tableState)
+                }
+            })
+                .then(function(tableState) {
+                    vm.tableState = tableState;
+                    console.log(vm.tableState);
+                    $location.search(vm.tableState);
+                }, function(){})
+        };
+
+        vm.clearFilter = function() {
+            vm.tableState = {
+                limit: vm.tableState.limit,
+                page: vm.tableState.page
+            };
+
+            $location.search(vm.tableState);
+        };
 
     }
 })();

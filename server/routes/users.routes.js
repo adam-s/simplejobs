@@ -15,6 +15,16 @@ module.exports = function(app) {
 
     app.param('userId', user.userById);
 
+    app.route('/api/users/autocomplete/:field')
+        .get(checkAuthenticated, user.autocomplete);
+
+    // Access check.
+    function checkAuthenticated(req, res, next) {
+        // user is logged in and is authenticated
+        if (req.user && userHasRole('authenticated', req.user)) return next();
+        return res.status(403).send({message: 'User is not authorized'});
+    }
+
     function checkAdministrator(req, res, next) {
         // user is logged in and is authenticated
         if (req.user && userHasRole('administrator', req.user)) return next();

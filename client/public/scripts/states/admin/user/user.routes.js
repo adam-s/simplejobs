@@ -7,7 +7,7 @@
     function router($stateProvider) {
         $stateProvider
             .state('adminUserList', {
-                url: '/user/list?limit&page',
+                url: '/user/list?{limit:int}&{page:int}&email',
                 parent: 'admin',
                 controller: 'adminUserListCtrl as vm',
                 templateUrl: 'scripts/states/admin/user/user.list.tpl.html',
@@ -19,13 +19,13 @@
                 },
                 params: {
                     limit: {
-                        value: "10"
+                        value: 10
                     },
                     page: {
-                        value: "1"
+                        value: 1
                     }
                 },
-                reloadOnSearch: false,
+                reloadOnSearch: true,
                 data: {
                     title: 'User list'
                 }

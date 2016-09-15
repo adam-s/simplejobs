@@ -9,7 +9,7 @@
     // @link http://stackoverflow.com/questions/15192722/javascript-extending-class
     function jobApi(RestApi, $http, $q) {
         function JobApi (endpoint) {
-            RestApi.call(this, endpoint)
+            RestApi.call(this, endpoint);
         }
 
         JobApi.prototype = Object.create(RestApi.prototype);

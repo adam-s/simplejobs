@@ -8,13 +8,23 @@ var mongoose = require('mongoose'),
     validationErrorHandler = require('../lib/validationErrorHandler.js');
 
 exports.index = function(req, res) {
+
+    req.assert('tableState.limit', 'Limit is not a valid param').optional().isInt().lte(10000);
+    req.assert('tableState.page', 'Page is not a valid param').optional().isInt().lte(10000);
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
     var tableState = req.query.tableState || {};
     tableState.order = tableState.order || '-updated';
 
     async.waterfall([
         function(callback) {
-            User
-                .pagination(tableState)
+            var query = User.pagination(tableState);
+
+            if (tableState.email) query.where('email', tableState.email);
+
+            query
                 .select('email updated roles _id')
                 .exec(function(err, results) {
                     if (err) return callback(err);
@@ -66,6 +76,36 @@ exports.index = function(req, res) {
         if (err) return res.status(400).send(err);
         res.json(results);
     })
+};
+
+exports.autocomplete = function(req, res) {
+    req.assert('field', 'Fields are limited to name and email').inArray(['email']);
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(validationErrorHandler(errors));
+
+    var field = req.params.field,
+        searchString = req.query.q.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+    var match = new RegExp(searchString, 'i');
+    var rules = {};
+    rules[field] = match;
+
+    User.aggregate([
+        { $match: rules },
+        { $limit: 10 },
+        { $group: {
+            _id: '$' + field
+        }}
+    ], function(err, results) {
+        if (err) return res.status(400).send(validationErrorHandler(err, true));
+
+        results = results.map(function(result) {
+            return result._id;
+        });
+
+        res.json(results);
+    });
 };
 
 exports.detail = function(req, res) {
