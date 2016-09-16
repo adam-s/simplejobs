@@ -7,10 +7,10 @@
     function routes($stateProvider) {
         $stateProvider
             .state('myJobList', {
-                url: '/searchJob/list?limit&page&author&order',
+                url: '/job/list?limit&page&author&order',
                 parent: 'sidebar',
                 controller: 'jobListCtrl as vm',
-                templateUrl: 'scripts/states/searchJob/searchJob.list.tpl.html',
+                templateUrl: 'scripts/states/job/job.list.tpl.html',
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
                         var job = jobApi.index($stateParams);
@@ -27,14 +27,14 @@
                 },
                 reloadOnSearch: false,
                 data: {
-                    title: 'My searchJob listings'
+                    title: 'My job listings'
                 }
             })
             .state('jobEdit', {
-                url: '/searchJob/:id/edit',
+                url: '/job/:id/edit',
                 parent: 'sidebar',
                 controller: 'jobDetailCtrl as vm',
-                templateUrl: 'scripts/states/searchJob/searchJob.edit.tpl.html',
+                templateUrl: 'scripts/states/job/job.edit.tpl.html',
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
                         if ($stateParams.id === 'add') {

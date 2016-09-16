@@ -80,7 +80,6 @@ exports.index = function(req, res) {
 
 exports.autocomplete = function(req, res) {
     req.assert('field', 'Fields are limited to name and email').inArray(['email']);
-    req.assert('q', 'Search query string is required').notEmpty();
 
     var errors = req.validationErrors();
     if (errors) return res.status(400).send(validationErrorHandler(errors));

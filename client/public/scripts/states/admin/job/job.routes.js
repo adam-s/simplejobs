@@ -7,10 +7,10 @@
     function router($stateProvider) {
         $stateProvider
             .state('adminJobList', {
-                url: '/searchJob/list?{limit:int}&{page:int}&active&jobType&email&position&author',
+                url: '/job/list?{limit:int}&{page:int}&active&jobType&email&position&author',
                 parent: 'admin',
                 controller: 'adminJobListCtrl as vm',
-                templateUrl: 'scripts/states/admin/searchJob/searchJob.list.tpl.html',
+                templateUrl: 'scripts/states/admin/job/job.list.tpl.html',
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
                         var job = jobApi.index($stateParams);
@@ -31,16 +31,16 @@
                 }
             })
             .state('adminJobDetail', {
-                url: '/searchJob/:id/view',
+                url: '/job/:id/view',
                 parent: 'admin',
                 controller: 'adminJobDetailCtrl as vm',
-                templateUrl: 'scripts/states/admin/searchJob/searchJob.detail.tpl.html'
+                templateUrl: 'scripts/states/admin/job/job.detail.tpl.html'
             })
             .state('adminJobEdit', {
-                url: '/searchJob/:id/edit',
+                url: '/job/:id/edit',
                 parent: 'admin',
                 controller: 'adminJobDetailCtrl as vm',
-                templateUrl: 'scripts/states/admin/searchJob/searchJob.edit.tpl.html',
+                templateUrl: 'scripts/states/admin/job/job.edit.tpl.html',
                 resolve: {
                     job: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
                         if ($stateParams.id === 'add') {

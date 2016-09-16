@@ -36,7 +36,7 @@
 
         vm.deleteJob = function(id, $event) {
             var confirm = $mdDialog.confirm()
-                .title('Are you sure you want to delete this searchJob')
+                .title('Are you sure you want to delete this job')
                 .targetEvent($event)
                 .ok('Delete now')
                 .cancel('Cancel');
@@ -66,7 +66,7 @@
                 controller: 'jobDialogFilterCtrl',
                 bindToController: true,
                 controllerAs: 'dialog',
-                templateUrl: 'scripts/states/admin/searchJob/jobDialogFilter.tpl.html',
+                templateUrl: 'scripts/states/admin/job/jobDialogFilter.tpl.html',
                 targetEvent: $event,
                 clickOutsideToClose: true,
                 escapeToClose: true,
