@@ -1,6 +1,6 @@
 <md-content class=""flex style="background: #ececec">
-    <div layout="row" class="sj-account">
-        <div class="sj-account-column" layout="column" layout-align="start end" flex>
+    <div layout-gt-xs="row" layout="column" class="sj-account sj-card-grid">
+        <div class="sj-account-column" layout="column"  flex>
             <md-card>
                 <md-card-title>
                     <md-card-title-text>
@@ -33,9 +33,8 @@
                     <md-button ui-sref="password">Change</md-button>
                 </md-card-actions>
             </md-card>
-
         </div>
-        <div class="sj-account-column" layout="column" layout-align="start start" flex>
+        <div class="sj-account-column" layout="column" flex>
             <md-card ng-if="!vm.profile._id">
                 <md-card-title>
                     <md-card-title-text>

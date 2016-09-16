@@ -108,10 +108,18 @@ md-table-pagination {
   min-height: 56px;
 }
 
-//@media screen and (max-width: 460px) {
-//  .md-table-pagination { display: table !important; margin: 10px auto; padding-top: 10px; }
-//  .md-table-pagination .label, md-table-pagination .md-table-select { display: table-header-group !important; }
-//  .md-table-pagination .label { text-align: center; }
-//  .md-table-pagination .md-table-select .md-select-value { margin: 0 auto; width: 60px; text-align: center; }
-//  .md-table-pagination .md-button:nth-of-type(1) { margin-left: 0 !important; }
-//}
+.sj-card-grid {
+  margin: 0 auto 20px;
+  max-width: 900px;
+
+  md-card {
+    min-height: 172px;
+
+    .md-media-sm {
+      md-icon {
+        line-height: inherit;
+        font-size: 80px;
+      }
+    }
+  }
+}

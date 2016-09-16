@@ -83,12 +83,20 @@ module.exports = function(grunt) {
         // https://github.com/gruntjs/grunt-contrib-sass#compile-files-in-a-directory
         // http://gruntjs.com/configuring-tasks#building-the-files-object-dynamically
         sass: {
-            files: {
-                expand: true,
-                cwd: 'client/',
-                src: [ 'sass/**/*.scss', 'public/scripts/**/*.scss'],
-                dest: 'client/public/css',
-                ext: '.css'
+            development: {
+                files: [{
+                    expand: true,
+                    cwd: 'client/',
+                    src: [ 'sass/**/*.scss'],
+                    dest: 'client/public/css',
+                    ext: '.css'
+                }, {
+                    expand: true,
+                    cwd: 'client/public/',
+                    src: [ 'scripts/**/*.scss'],
+                    dest: 'client/public/css',
+                    ext: '.css'
+                }]
             }
         },
         useminPrepare: {

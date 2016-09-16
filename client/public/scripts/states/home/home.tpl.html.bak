@@ -1,0 +1,67 @@
+<md-content layout="column" class="home">
+    <div class="content">
+        <md-card class="search-header" layout-padding>
+            <div class="column">
+                <div>
+                    <h2>Search current job listings</h2>
+                </div>
+                <div layout="row" layout-align="start center">
+                    <md-input-container>
+                        <label>Position</label>
+                        <md-select placeholder="Position" ng-model="vm.position">
+                            <md-option ng-value="position"
+                                       ng-repeat="position in vm.positions | orderBySelectedOption:vm.position"
+                                       class="top-selector-option">{{position}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Job type</label>
+                        <md-select placeholder="Job type" ng-model="vm.jobType">
+                            <md-option ng-value="jobType"
+                                       ng-repeat="jobType in vm.jobTypes | orderBySelectedOption:vm.jobType"
+                                       class="top-selector-option">{{jobType}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>Location</label>
+                        <md-select placeholder="Select popular location" ng-model="location">
+                            <md-option ng-value="location"
+                                       ng-repeat="location in vm.locations | orderBySelectedOption:location"
+                                       class="top-selector-option">{{location.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <location-search ng-model="location" label="Search for location"></location-search>
+                </div>
+
+                <pre>{{location | json}}</pre>
+            </div>
+        </md-card>
+        <md-card flex
+                 class="item-card"
+                 ng-repeat="job in vm.jobs"
+                 ng-class="{'md-whiteframe-18dp': hover}"
+                 ng-mouseenter="hover = true"
+                 ng-mouseleave="hover = false"
+                 layout-padding>
+            <md-card-title>
+                <div layout="column">
+                    <div class="title">
+                        <h3>{{job.title}}</h3>
+                    </div>
+                    <div class="sj-secondary-text">
+                        <span>{{job.position}} - {{job.location.locality}}, {{job.location.country}}</span>
+                    </div>
+                </div>
+            </md-card-title>
+            <md-card-content class="md-body-1">
+                {{job.description}}
+            </md-card-content>
+            <md-card-actions>
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</md-content>
