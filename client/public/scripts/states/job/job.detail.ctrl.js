@@ -8,7 +8,7 @@
         var vm = this;
         var user = Auth.getMe();
 
-        // Should only be able to edit if owner can't do this at policy level because job isn't loaded
+        // Should only be able to edit if owner can't do this at policy level because searchJob isn't loaded
         // Decided to not cloud up the resolve router parameter either.
         if (job && job.author !== user._id) {
             $state.go('home');

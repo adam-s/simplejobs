@@ -4,7 +4,7 @@
 
     jobApi.$inject = ['RestApi', '$http', '$q'];
 
-    var endpoint = '/api/job-listings/';
+    var endpoint = '/api/searchJob-listings/';
     // The paradigm for ES5 inheritance.
     // @link http://stackoverflow.com/questions/15192722/javascript-extending-class
     function jobApi(RestApi, $http, $q) {

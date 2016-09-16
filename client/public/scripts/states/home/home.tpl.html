@@ -1,3 +1,52 @@
-<md-content flex class="home">
-
+<md-content flex class="home" style="background: #ececec">
+    <div layout="column" class="sj-card-grid sj-text-center">
+        <h2 class="home-headline">Connect with yacht industry professionals</h2>
+        <p class="home-subhead">We are simplifying the yacht industry hiring process</p>
+    </div>
+    <div layout-gt-xs="row" layout="column" class="sj-card-grid">
+        <div layout="column" flex>
+            <md-card class="land">
+                <img ng-src="assets/images/land.jpg" class="md-card-image" alt="something">
+                <md-button class="md-fab md-warning md-icon-button md-raised"
+                           style="margin-top: -28px; margin-bottom: -10px"
+                           aria-label="Yacht industry jobs on land">
+                    <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                </md-button>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Yacht industry jobs on land</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>Dockmaster, sales representative, marine diesel mechanic, yacht broker, crew placement, boatyard, daywork, office, ect. </p>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Job listings</md-button>
+                    <md-button>Search resumes</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div layout="column" flex>
+            <md-card class="sea">
+                <img ng-src="assets/images/sea.jpg" class="md-card-image" alt="something">
+                <md-button class="md-fab md-warning md-icon-button md-raised"
+                           style="margin-top: -28px; margin-bottom: -10px"
+                           aria-label="Yacht industry jobs on land">
+                    <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                </md-button>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Yacht industry jobs at sea</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>Captain, chef, engineer, steward, deckhand, mate, ect.</p>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Job listings</md-button>
+                    <md-button>Search resumes</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
 </md-content>

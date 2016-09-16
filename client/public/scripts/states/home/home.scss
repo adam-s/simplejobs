@@ -1,36 +1,77 @@
 .home {
-  .home-job-widget {
-    background-color: #BF9DAF;
-  }
+  //.home-searchJob-widget {
+  //  background-color: #BF9DAF;
+  //}
+  //
+  //.home-crew-widget {
+  //  background-color: #cbab7a;
+  //}
+  //
+  //.content{
+  //  width: 100%;
+  //  max-width: 960px;
+  //  margin: 0 auto;
+  //}
+  //
+  //.item-card {
+  //  position: relative;
+  //  -webkit-transition: box-shadow 0.218s;
+  //  -moz-transition: box-shadow 0.218s;
+  //  -o-transition: box-shadow 0.218s;
+  //  transition: box-shadow 0.218s;
+  //
+  //  &:hover {
+  //    z-index: 1000;
+  //  }
+  //
+  //  .title {
+  //    h3 { margin-bottom: 5px; }
+  //  }
+  //
+  //}
+  //
+  //.item-card:hover {
+  //  z-index: 1000;
+  //}
 
-  .home-crew-widget {
-    background-color: #cbab7a;
-  }
+  .home-headline {
+    color: #07c;
+    font-size: 2rem;
+    line-height: 1em;
+    font-weight: 300;
 
-  .content{
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  .item-card {
-    position: relative;
-    -webkit-transition: box-shadow 0.218s;
-    -moz-transition: box-shadow 0.218s;
-    -o-transition: box-shadow 0.218s;
-    transition: box-shadow 0.218s;
-
-    &:hover {
-      z-index: 1000;
+    @media(min-width: 41.6875em) {
+      & {
+        font-size: 3rem;
+      }
     }
 
-    .title {
-      h3 { margin-bottom: 5px; }
+    @media(min-width: 51.25em) {
+      & {
+        font-size: 3rem;
+      }
     }
-
   }
 
-  .item-card:hover {
-    z-index: 1000;
+  .home-subhead {
+    font-size: 1.50rem;
+    font-weight: 300;
+  }
+
+  md-card {
+    color: rgba(255,255,255,1);
+
+    md-card-content {
+      color: rgba(255,255,255,.70);
+      min-height: 57px;
+    }
+    &.land {
+      background: rgb(55, 141, 59);
+    }
+
+    &.sea {
+      background: rgb(0, 171, 192);
+    }
+
   }
 }

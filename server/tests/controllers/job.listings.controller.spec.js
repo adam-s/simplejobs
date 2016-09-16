@@ -22,10 +22,10 @@ describe('Job listing controller unit tests: ', function() {
         teardown(done);
     });
 
-    describe('GET /api/job-listings', function() {
+    describe('GET /api/searchJob-listings', function() {
         it('Should not throw an error', function(done) {
             request(app)
-                .get('/api/job-listings')
+                .get('/api/searchJob-listings')
                 .end(function(err, response) {
                     if (err) return done(err);
                     expect(response.body.records.length).to.equal(10);
@@ -34,11 +34,11 @@ describe('Job listing controller unit tests: ', function() {
         });
     });
 
-    describe('POST /api/job-listings', function() {
+    describe('POST /api/searchJob-listings', function() {
         describe('Unathenticated users', function() {
             it('Should deny access for unathenticated users', function(done) {
                 request(app)
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .expect(403)
                     .end(done);
             });
@@ -65,12 +65,12 @@ describe('Job listing controller unit tests: ', function() {
                     });
             });
 
-            it('Should set the job listing author to current user', function(done) {
+            it('Should set the searchJob listing author to current user', function(done) {
                 var data = fakeJobObject();
                 delete data.author;
 
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -80,10 +80,10 @@ describe('Job listing controller unit tests: ', function() {
                     });
             });
 
-            it('Should save a job listing to the database', function(done) {
+            it('Should save a searchJob listing to the database', function(done) {
                 var data = fakeJobObject();
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -96,7 +96,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.title = '';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .expect(400)
@@ -110,7 +110,7 @@ describe('Job listing controller unit tests: ', function() {
                 data.title = 'Like any other social media site Facebook has length requirements when it comes to writing on the wall, providing status, messaging and commenting. Understanding how many characters you can use, enables you to re ectively use Faceboo a business orool.';
 
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .expect(400)
@@ -123,7 +123,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.email = '';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .expect(400)
@@ -136,7 +136,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.email = 'asdfasdf';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .expect(400)
@@ -149,7 +149,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.jobType = '';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -162,7 +162,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.jobType = 'notinarray';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -174,7 +174,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.position = '';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -187,7 +187,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.position = 'notinarray';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -200,7 +200,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.languages = 'English';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -213,7 +213,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.languages = ['English', 'French', 'Bacon'];
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -226,7 +226,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.description = '';
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -241,7 +241,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.description = Array(2500 + 2).join('x');
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -254,7 +254,7 @@ describe('Job listing controller unit tests: ', function() {
                 var data = fakeJobObject();
                 data.location.coordinates = [13, 'dfgdf'];
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
@@ -266,24 +266,24 @@ describe('Job listing controller unit tests: ', function() {
             it('Should return 403 if user doesn\'t have access', function(done) {
                 var data = jobListings[0];
                 agent
-                    .put('/api/job-listings/' + data._id)
+                    .put('/api/searchJob-listings/' + data._id)
                     .send(data)
                     .expect(403)
                     .end(done);
             });
 
-            it('Should update job listing with authenticated user', function(done) {
+            it('Should update searchJob listing with authenticated user', function(done) {
                 var data = fakeJobObject();
 
                 agent
-                    .post('/api/job-listings')
+                    .post('/api/searchJob-listings')
                     .send(data)
                     .expect('Content-Type', /json/)
                     .end(function(err, response) {
                         data = response.body;
                         data.title = 'Argh!! I\'m a pirate';
                         agent
-                            .put('/api/job-listings/' + data._id)
+                            .put('/api/searchJob-listings/' + data._id)
                             .send(data)
                             .expect(200)
                             .end(function(err, response){
@@ -305,7 +305,7 @@ describe('Job listing controller unit tests: ', function() {
 
                 JobListing.create(jobs, function() {
                     agent
-                        .get('/api/job-listings/count/?userId=' + user._id)
+                        .get('/api/searchJob-listings/count/?userId=' + user._id)
                         .end(function(err, response) {
                             done();
                         })
@@ -315,11 +315,11 @@ describe('Job listing controller unit tests: ', function() {
         });
     });
 
-    describe('GET /api/job-listings/:jobListingId', function() {
-        it('Should load the first job listing by ID', function(done) {
+    describe('GET /api/searchJob-listings/:jobListingId', function() {
+        it('Should load the first searchJob listing by ID', function(done) {
             var testJob = jobListings[0];
             request(app)
-                .get('/api/job-listings/' + testJob._id)
+                .get('/api/searchJob-listings/' + testJob._id)
                 .expect(200)
                 .end(function(err, response) {
                     if (err) return done(err);
@@ -329,17 +329,17 @@ describe('Job listing controller unit tests: ', function() {
         });
     });
 
-    describe('DELETE /api/job-listings/:jobListingId', function() {
-        xit('Should delete the job listing document', function(done) {
+    describe('DELETE /api/searchJob-listings/:jobListingId', function() {
+        xit('Should delete the searchJob listing document', function(done) {
             var data = jobListings[0];
 
             request(app)
-                .del('/api/job-listings/' + data._id)
+                .del('/api/searchJob-listings/' + data._id)
                 .expect(200)
                 .end(function(err) {
                     if (err) return done(err);
                     request(app)
-                        .get('/api/job-listings')
+                        .get('/api/searchJob-listings')
                         .end(function(err, response) {
                             if (err) return done(err);
                             expect(response.body.records.length).to.equal(9);
@@ -349,10 +349,10 @@ describe('Job listing controller unit tests: ', function() {
         });
     });
 
-    describe('GET /api/job-listings/count', function() {
-        it ('Should get the count of the number of job listings', function(done) {
+    describe('GET /api/searchJob-listings/count', function() {
+        it ('Should get the count of the number of searchJob listings', function(done) {
             request(app)
-                .get('/api/job-listings/count')
+                .get('/api/searchJob-listings/count')
                 .expect(200)
                 .end(function(err, response){
                     expect(response.body.total).to.equal(10);

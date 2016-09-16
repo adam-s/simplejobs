@@ -3,20 +3,20 @@
 var jobs = require('../controllers/job.listings.controller.js');
 
 module.exports = function(app) {
-    app.get('/api/job-listings/count', jobs.count);
+    app.get('/api/searchJob-listings/count', jobs.count);
 
-    app.route('/api/job-listings')
+    app.route('/api/searchJob-listings')
         .get(jobs.index)
         .post(checkAuthenticated, jobs.create);
 
-    app.route('/api/job-listings/:jobListingId')
+    app.route('/api/searchJob-listings/:jobListingId')
         .get(jobs.detail)
         .put(checkAdminOrOwn, jobs.update)
         .delete(checkAdminOrOwn, jobs.remove);
 
     app.param('jobListingId', jobs.jobListingById);
 
-    app.route('/api/job-listings/autocomplete/:field')
+    app.route('/api/searchJob-listings/autocomplete/:field')
         .get(checkAuthenticated, jobs.autocomplete);
 };
 
