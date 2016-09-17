@@ -42,7 +42,7 @@ module.exports = function(grunt) {
             },
             sass: {
                 options: {
-                    spawn: false
+                    spawn: true
                 },
                 files: ['client/**/*.scss'],
                 tasks: ['sass']

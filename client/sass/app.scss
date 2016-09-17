@@ -123,3 +123,30 @@ md-table-pagination {
     }
   }
 }
+
+.content{
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+
+  .item-card {
+    position: relative;
+    -webkit-transition: box-shadow 0.218s;
+    -moz-transition: box-shadow 0.218s;
+    -o-transition: box-shadow 0.218s;
+    transition: box-shadow 0.218s;
+
+    &:hover {
+      z-index: 1000;
+    }
+
+    .title {
+      h3 { margin-bottom: 5px; }
+    }
+
+  }
+
+  .item-card:hover {
+    z-index: 1000;
+  }
+}
