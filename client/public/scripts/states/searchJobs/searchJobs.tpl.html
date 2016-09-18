@@ -24,25 +24,32 @@
                  layout-padding>
             <md-card-title>
                 <div layout="column">
-                    <div class="title">
-                        <h3>{{job.title}}</h3>
+                    <div class="title" layout="row" layout-align="space-between center">
+                        <div flex><h3>{{job.title}}</h3></div>
                     </div>
                     <div class="sj-secondary-text">
-                        <span>{{job.position}} - {{job.location.locality}}, {{job.location.country}}</span>
-                    </div>
-                    <div ng-if="vm.proximity">
-                        <div>Distance:
-                            <span>{{vm.distanceFn(job.location.coordinates[1], job.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}}</span>
-                        </div>
+                        <span ng-if="vm.proximity">{{vm.distanceFn(job.location.coordinates[1], job.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}} | </span>
+                        <span>{{job.location.locality}}, {{job.location.country}}</span>
                     </div>
                 </div>
             </md-card-title>
-            <md-card-content class="md-body-1">
-                {{job.description}}
+            <md-card-content>
+                <div layout-gt-sm="row" layout="column" layout-align-gt-sm="space-between center">
+                    <div class="info" flex>
+                        <div ng-if="job.position"><span class="name">Position: </span><span class="value">{{job.position}}</span></div>
+                        <div ng-if="job.jobType"><span class="name">Job type: </span><span class="value">{{job.jobType}}</span></div>
+                        <div ng-if="job.startDate"><span class="name">Start date: </span><span class="value">{{job.startDate | date : 'longDate'}}</span></div>
+                    </div>
+                    <div class="description" flex>
+                        <p>{{job.description | limitTo : 150}}{{job.description.length > 150 ? '...' : ''}}</p>
+                    </div>
+                </div>
             </md-card-content>
-            <md-card-actions>
-                <md-button>Action 1</md-button>
-                <md-button>Action 2</md-button>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-icon-button">
+                    <md-icon md-font-icon="reply">reply</md-icon>
+                    <md-tooltip md-direction="bottom">More information</md-tooltip>
+                </md-button>
             </md-card-actions>
         </md-card>
         <sj-pagination

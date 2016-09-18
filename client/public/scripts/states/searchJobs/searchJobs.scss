@@ -1,0 +1,17 @@
+.searchJobs {
+  .item-card {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .info {
+    & > div {
+      margin: .4em 0 .2em;
+    }
+    .name {
+      width: 100px;
+      display: inline-block;
+      font-weight: 500;
+    }
+  }
+}

@@ -10,7 +10,7 @@
         vm.jobs = jobs.records;
         vm.count = jobs.metadata.totalCount;
         vm.tableState = tableState = angular.copy($state.params);
-
+console.log(vm.jobs[0]);
         vm.fetchJobs = function() {
             $location.search(vm.tableState);
         };
@@ -31,6 +31,7 @@
                 }
             })
                 .then(function(tableState) {
+                    console.log(tableState);
                     vm.tableState = tableState;
                     $location.search(vm.tableState);
                 }, function(){})

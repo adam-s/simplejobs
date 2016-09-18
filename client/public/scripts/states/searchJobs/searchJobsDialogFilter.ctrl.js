@@ -15,11 +15,13 @@
         }
 
         $scope.$watch('dialog.location', function() {
-            console.log(dialog.location);
             // Set location
             if (dialog.location) {
                 dialog.tableState.latitude = dialog.location.coordinates[1];
                 dialog.tableState.longitude = dialog.location.coordinates[0];
+            } else {
+                delete dialog.tableState.latitude;
+                delete dialog.tableState.longitude;
             }
         });
 
