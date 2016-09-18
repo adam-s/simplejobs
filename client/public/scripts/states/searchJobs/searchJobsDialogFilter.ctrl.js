@@ -1,0 +1,35 @@
+(function() {
+    angular.module('simplejobs')
+        .controller('searchJobsDialogFilterCtrl', searchJobsDialogFilterCtrl);
+
+    searchJobsDialogFilterCtrl.$inject = ['$scope', 'tableState', '$mdDialog'];
+
+    function searchJobsDialogFilterCtrl($scope, tableState, $mdDialog) {
+        var dialog = this;
+        dialog.tableState = tableState;
+        // Get location
+        if (dialog.tableState.latitude && dialog.tableState.longitude) {
+            dialog.location = {
+                coordinates: [dialog.tableState.longitude, dialog.tableState.latitude]
+            };
+        }
+
+        $scope.$watch('dialog.location', function() {
+            console.log(dialog.location);
+            // Set location
+            if (dialog.location) {
+                dialog.tableState.latitude = dialog.location.coordinates[1];
+                dialog.tableState.longitude = dialog.location.coordinates[0];
+            }
+        });
+
+        dialog.close = function() {
+            dialog.tableState.page = 1;
+            $mdDialog.hide(dialog.tableState);
+        };
+
+        dialog.cancel = function() {
+            $mdDialog.cancel();
+        };
+    }
+})();

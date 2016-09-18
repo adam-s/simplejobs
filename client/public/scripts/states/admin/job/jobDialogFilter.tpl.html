@@ -10,34 +10,6 @@
         </md-toolbar>
         <md-dialog-content aria-label="Filter dialog">
             <div layout-padding layout="column">
-                <md-input-container>
-                    <md-autocomplete
-                            md-floating-label="Location"
-                            md-delay="350"
-                            md-selected-item="dialog.tableState.location"
-                            md-search-text="locationSearch"
-                            md-item-text="item"
-                            md-select-on-focus="true"
-                            md-items="item in dialog.querySearch('location.name', locationSearch)">
-                        <md-item-template>
-                            <span md-highlight-text="locationSearch">{{item}}</span>
-                        </md-item-template>
-                    </md-autocomplete>
-                </md-input-container>
-                <md-input-container>
-                    <md-autocomplete
-                            md-floating-label="Email"
-                            md-delay="350"
-                            md-selected-item="dialog.tableState.email"
-                            md-search-text="emailSearch"
-                            md-item-text="item"
-                            md-select-on-focus="true"
-                            md-items="item in dialog.querySearch('email', emailSearch)">
-                        <md-item-template>
-                            <span md-highlight-text="emailSearch">{{item}}</span>
-                        </md-item-template>
-                    </md-autocomplete>
-                </md-input-container>
                 <md-input-container flex>
                     <label>Active</label>
                     <md-select name="active"

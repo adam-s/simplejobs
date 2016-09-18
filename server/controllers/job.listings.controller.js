@@ -16,7 +16,6 @@ exports.index = function(req, res) {
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
     var tableState = req.query.tableState || {};
-    tableState.order = tableState.order || '-updated';
 
     var query = JobListing.pagination(tableState);
 
@@ -30,10 +29,24 @@ exports.index = function(req, res) {
 
     // Only admin and owner can see nonactive listings.
     var isAdmin = req.user && req.user.isAdmin();
-    console.log(isAdmin);
     var isOwner = req.user && tableState.author && req.user._id.toString() === tableState.author.toString();
     if (!(isAdmin || isOwner)) {
         query.where('active', true);
+    }
+
+    // Location proximity search
+    // The proximity search sorts so we don't want to override it
+    if (tableState.longitude && tableState.latitude) {
+        query.where('location.coordinates', {
+            $near : {
+                $geometry: {
+                    type: "Point",
+                    coordinates: [tableState.longitude, tableState.latitude]
+                }
+            }
+        });
+    } else {
+        query.sort(tableState.order || '-updated');
     }
 
     query
@@ -91,18 +104,20 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
     var jobListing = req.app.locals.jobListing;
+    var id = jobListing._id;
 
     // Protect information
     delete req.body.author;
     delete req.body.__v;
     delete req.body._id;
+    delete jobListing._id;
 
     // Merge objects
-    _.merge(jobListing, req.body);
+    _.extend(jobListing, req.body);
 
-    jobListing.save({runValidators: true}, function(err, result) {
+    JobListing.update({_id: id}, jobListing, { runValidators: true }, function(err) {
         if (err) return res.status(400).send(validationErrorHandler(err, true));
-        res.json(result);
+        res.json(jobListing);
     });
 };
 

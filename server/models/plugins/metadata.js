@@ -26,6 +26,10 @@ module.exports = function(schema, options) {
         next();
     });
 
+    schema.pre('update', function() {
+        this.update({},{ $set: { updated: new Date() } });
+    });
+
     schema.virtual('created').get(function() {
         return this._id.getTimestamp();
     });

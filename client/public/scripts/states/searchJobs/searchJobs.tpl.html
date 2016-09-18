@@ -1,5 +1,20 @@
 <md-content layout="column" class="searchJobs" flex>
     <div class="content">
+        <md-card>
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <div flex></div>
+                    <md-button class="md-raised" ng-click="vm.showFilterDialog($event)">
+                        <md-icon md-font-icon="filter_list">filter_list</md-icon>
+                        <span>Filter</span>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="vm.clearFilter()">
+                        <md-icon md-font-icon="clear">clear</md-icon>
+                        <md-tooltip md-direction="bottom">Clear filters</md-tooltip>
+                    </md-button>
+                </div>
+            </md-toolbar>
+        </md-card>
         <md-card flex
                  class="item-card"
                  ng-repeat="job in vm.jobs"
@@ -14,6 +29,11 @@
                     </div>
                     <div class="sj-secondary-text">
                         <span>{{job.position}} - {{job.location.locality}}, {{job.location.country}}</span>
+                    </div>
+                    <div ng-if="vm.proximity">
+                        <div>Distance:
+                            <span>{{vm.distanceFn(job.location.coordinates[1], job.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}}</span>
+                        </div>
                     </div>
                 </div>
             </md-card-title>

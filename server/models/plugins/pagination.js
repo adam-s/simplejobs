@@ -31,12 +31,10 @@ module.exports = function(schema) {
             this.model = model;
             this.limit = parseInt(tableState.limit) || 10;
             this.skip = tableState.page ? (tableState.page - 1) * this.limit : 0;
-            this.sort = tableState.order || '';
 
             this.query = model.find({});
             this.query.limit(this.limit);
             this.query.skip(this.skip);
-            this.query.sort(this.sort);
 
             this.countQuery = model.count({});
             return this;
@@ -52,6 +50,11 @@ module.exports = function(schema) {
             console.log(path, condition);
             this.query.where(path, condition);
             this.countQuery.where(path, condition);
+            return this;
+        };
+
+        Pagination.prototype.sort = function(order) {
+            this.query.sort(order);
             return this;
         };
 

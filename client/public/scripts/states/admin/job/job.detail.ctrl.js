@@ -29,6 +29,7 @@
             vm.submitDisabled = true;
             var add = (typeof job === 'undefined');
             var submitFn = add ? jobApi.create.bind(jobApi) : jobApi.update.bind(jobApi);
+            console.log(vm.job);
             submitFn(vm.job)
                 .then(function(response) {
                     vm.submitDisabled = false;

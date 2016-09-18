@@ -7,7 +7,7 @@
     function routes($stateProvider) {
         $stateProvider
             .state('searchJobs', {
-                url: '/search/jobs?{page:int}&{limit:int}&type',
+                url: '/search/jobs?{page:int}&{limit:int}&type&position&jobType&latitude&longitude',
                 parent: 'sidebar',
                 controller: 'searchJobsCtrl as vm',
                 templateUrl: 'scripts/states/searchJobs/searchJobs.tpl.html',
