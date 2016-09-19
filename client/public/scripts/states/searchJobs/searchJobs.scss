@@ -1,17 +1,36 @@
-.searchJobs {
+.search-jobs {
   .item-card {
     &:hover {
       cursor: pointer;
     }
   }
   .info {
-    & > div {
-      margin: .4em 0 .2em;
-    }
     .name {
-      width: 100px;
+      width: 130px;
       display: inline-block;
-      font-weight: 500;
+    }
+  }
+}
+
+.search-jobs-dialog {
+  md-toolbar {
+    background: url('/assets/images/dialog-banner-small.jpg');
+    background-size: cover;
+  }
+
+  .cool-box {
+    margin: 10px;
+    height: 36px;
+    width: 36px;
+    text-align: center;
+    background: #378d3b;
+
+    md-icon {
+      font-size: 36px;
+      height: 36px;
+      position: relative;
+      top: calc(50% - #{(36px * (1/4))});
+      color: rgba(255,255,255,.9); //rgba(0,0,0,.80);
     }
   }
 }

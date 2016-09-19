@@ -1,71 +1,73 @@
-<md-card class="user-list">
-    <div layout="column">
-        <md-toolbar class="md-table-toolbar md-default">
-            <div class="md-toolbar-tools">
-                <div flex></div>
-                <md-button class="md-icon-button" ng-click="vm.showFilterDialog($event)">
-                    <md-icon md-font-icon="filter_list">filter_list</md-icon>
-                </md-button>
-                <md-button class="md-icon-button" ng-click="vm.clearFilter()">
-                    <md-icon md-font-icon="clear">clear</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-        <md-table-container>
-            <table md-table>
-                <thead md-head>
-                <tr md-row>
-                    <th md-column>User ID</th>
-                    <th md-column>Email address</th>
-                    <th md-column>Actions</th>
-                </tr>
-                </thead>
-                <tbody md-body>
-                <tr md-row ng-repeat="user in vm.user">
-                    <td md-cell class="userid">{{user._id}}</td>
-                    <td md-cell class="email">{{user.email}}</td>
-                    <td md-cell class="actions">
-                        <md-menu md-position-mode="target-right bottom">
-                            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                                <md-icon md-font-icon="menu">menu</md-icon>
-                            </md-button>
-                            <md-menu-content>
-                                <md-menu-item>
-                                    <md-button ng-click="vm.edit(user._id)">
-                                        <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
-                                        <span>Edit</span>
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button ng-disabled="!user.profile" ng-click="vm.editCrew(user.profile)">
-                                        <md-icon md-font-icon="rowing">rowing</md-icon>
-                                        <span>Crew profile</span>
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button ng-click="vm.viewJobList(user._id)">
-                                        <md-icon md-font-icon="list">list</md-icon>
-                                        <span>Job listings</span>
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button ng-click="vm.delete(user._id, $event)">
-                                        <md-icon md-font-icon="delete">delete</md-icon>
-                                        <span>Delete</span>
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-        <md-table-pagination md-limit="vm.tableState.limit"
-                             md-limit-options="[10, 20, 30]"
-                             md-page="vm.tableState.page"
-                             md-total="{{vm.count}}"
-                             md-on-paginate="vm.fetchCrew"
-                             md-page-select></md-table-pagination>
-    </div>
-</md-card>
+<md-content>
+    <md-card class="user-list">
+        <div layout="column">
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <div flex></div>
+                    <md-button class="md-icon-button" ng-click="vm.showFilterDialog($event)">
+                        <md-icon md-font-icon="filter_list">filter_list</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="vm.clearFilter()">
+                        <md-icon md-font-icon="clear">clear</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                    <tr md-row>
+                        <th md-column>User ID</th>
+                        <th md-column>Email address</th>
+                        <th md-column>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="user in vm.user">
+                        <td md-cell class="userid">{{user._id}}</td>
+                        <td md-cell class="email">{{user.email}}</td>
+                        <td md-cell class="actions">
+                            <md-menu md-position-mode="target-right bottom">
+                                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                    <md-icon md-font-icon="menu">menu</md-icon>
+                                </md-button>
+                                <md-menu-content>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.edit(user._id)">
+                                            <md-icon md-font-icon="mode_edit">mode_edit</md-icon>
+                                            <span>Edit</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-disabled="!user.profile" ng-click="vm.editCrew(user.profile)">
+                                            <md-icon md-font-icon="rowing">rowing</md-icon>
+                                            <span>Crew profile</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.viewJobList(user._id)">
+                                            <md-icon md-font-icon="list">list</md-icon>
+                                            <span>Job listings</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.delete(user._id, $event)">
+                                            <md-icon md-font-icon="delete">delete</md-icon>
+                                            <span>Delete</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="vm.tableState.limit"
+                                 md-limit-options="[10, 20, 30]"
+                                 md-page="vm.tableState.page"
+                                 md-total="{{vm.count}}"
+                                 md-on-paginate="vm.fetchCrew"
+                                 md-page-select></md-table-pagination>
+        </div>
+    </md-card>
+</md-content>

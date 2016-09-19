@@ -10,7 +10,8 @@
         vm.jobs = jobs.records;
         vm.count = jobs.metadata.totalCount;
         vm.tableState = tableState = angular.copy($state.params);
-console.log(vm.jobs[0]);
+        console.log(vm.jobs[0]);
+
         vm.fetchJobs = function() {
             $location.search(vm.tableState);
         };
@@ -35,6 +36,22 @@ console.log(vm.jobs[0]);
                     vm.tableState = tableState;
                     $location.search(vm.tableState);
                 }, function(){})
+        };
+
+        vm.showDialog = function(job, $event) {
+            $mdDialog.show({
+                controller: 'searchJobsDialogCtrl',
+                bindToController: true,
+                controllerAs: 'dialog',
+                templateUrl: 'scripts/states/searchJobs/searchJobsDialog.tpl.html',
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                fullscreen: true,
+                locals: {
+                    job: job
+                }
+            });
         };
 
         vm.clearFilter = function() {

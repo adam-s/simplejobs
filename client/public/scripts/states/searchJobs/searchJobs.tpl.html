@@ -1,12 +1,12 @@
-<md-content layout="column" class="searchJobs" flex>
+<md-content layout="column" class="search-jobs" flex>
     <div class="content">
         <md-card>
             <md-toolbar class="md-table-toolbar md-default">
                 <div class="md-toolbar-tools">
                     <div flex></div>
-                    <md-button class="md-raised" ng-click="vm.showFilterDialog($event)">
-                        <md-icon md-font-icon="filter_list">filter_list</md-icon>
+                    <md-button ng-click="vm.showFilterDialog($event)">
                         <span>Filter</span>
+                        <md-icon md-font-icon="filter_list">filter_list</md-icon>
                     </md-button>
                     <md-button class="md-icon-button" ng-click="vm.clearFilter()">
                         <md-icon md-font-icon="clear">clear</md-icon>
@@ -18,6 +18,7 @@
         <md-card flex
                  class="item-card"
                  ng-repeat="job in vm.jobs"
+                 ng-click="vm.showDialog(job, $event)"
                  ng-class="{'md-whiteframe-18dp': hover}"
                  ng-mouseenter="hover = true"
                  ng-mouseleave="hover = false"
@@ -25,9 +26,9 @@
             <md-card-title>
                 <div layout="column">
                     <div class="title" layout="row" layout-align="space-between center">
-                        <div flex><h3>{{job.title}}</h3></div>
+                        <div flex><h3 class="md-headline">{{job.title}}</h3></div>
                     </div>
-                    <div class="sj-secondary-text">
+                    <div class="sj-secondary-text md-subhead">
                         <span ng-if="vm.proximity">{{vm.distanceFn(job.location.coordinates[1], job.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}} | </span>
                         <span>{{job.location.locality}}, {{job.location.country}}</span>
                     </div>
@@ -36,11 +37,11 @@
             <md-card-content>
                 <div layout-gt-sm="row" layout="column" layout-align-gt-sm="space-between center">
                     <div class="info" flex>
-                        <div ng-if="job.position"><span class="name">Position: </span><span class="value">{{job.position}}</span></div>
-                        <div ng-if="job.jobType"><span class="name">Job type: </span><span class="value">{{job.jobType}}</span></div>
-                        <div ng-if="job.startDate"><span class="name">Start date: </span><span class="value">{{job.startDate | date : 'longDate'}}</span></div>
+                        <div ng-if="job.position"><span class="name md-body-2">Position: </span><span class="value md-body-1">{{job.position}}</span></div>
+                        <div ng-if="job.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{job.jobType}}</span></div>
+                        <div ng-if="job.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{job.startDate | date : 'longDate'}}</span></div>
                     </div>
-                    <div class="description" flex>
+                    <div class="description md-body-1" flex>
                         <p>{{job.description | limitTo : 150}}{{job.description.length > 150 ? '...' : ''}}</p>
                     </div>
                 </div>

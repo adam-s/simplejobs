@@ -62,7 +62,7 @@
                         </div>
                     </fieldset>
                 </md-card>
-                <div layout="row" layout-align="end">
+                <div layout-gt-xs="row" layout-xs="column" layout-align="end">
                     <md-button ng-click="goBack()">Cancel</md-button>
                     <md-button ng-disabled="vm.submitDisabled || userForm.$invalid || userForm.$pristine"
                                class="md-primary md-raised"

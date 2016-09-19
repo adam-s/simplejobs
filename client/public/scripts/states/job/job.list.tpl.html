@@ -1,6 +1,6 @@
-<div layout="column" flex>
-    <md-content flex style="background: #ececec">
-        <md-card>
+<md-content>
+    <md-card>
+        <div layout="column">
             <md-toolbar class="md-table-toolbar md-default">
                 <div class="md-toolbar-tools">
                     <div flex></div>
@@ -47,14 +47,12 @@
                     </tbody>
                 </table>
             </md-table-container>
-        </md-card>
-    </md-content>
-    <div>
-        <md-table-pagination md-limit="vm.tableState.limit"
-                             md-limit-options="[10, 20, 30]"
-                             md-page="vm.tableState.page"
-                             md-total="{{vm.count}}"
-                             md-on-paginate="vm.fetch"
-                             md-page-select></md-table-pagination>
-    </div>
-</div>
+            <md-table-pagination md-limit="vm.tableState.limit"
+                                 md-limit-options="[10, 20, 30]"
+                                 md-page="vm.tableState.page"
+                                 md-total="{{vm.count}}"
+                                 md-on-paginate="vm.fetch"
+                                 md-page-select></md-table-pagination>
+        </div>
+    </md-card>
+</md-content>

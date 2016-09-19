@@ -1,5 +1,5 @@
 <div layout="row" layout-align="center center">
-    <div ng-if="!vm.getMe()" layout="row">
+    <div ng-if="!vm.getMe() && !$mdMedia('xs')" layout="row">
         <md-button ui-sref="login">Login</md-button>
         <md-button class="md-raised" ui-sref="register">Register</md-button>
     </div>

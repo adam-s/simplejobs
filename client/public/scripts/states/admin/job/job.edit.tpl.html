@@ -123,7 +123,6 @@
                                   ng-model="vm.job.description"
                                   md-maxlength="2500"
                                   required></textarea>
-
                         <div ng-messages="jobForm.description.$error" role="alert">
                             <div ng-message="required">Description is a required field</div>
                             <div ng-message="md-maxlength">The description must be shorter than 2500 characters</div>
@@ -247,7 +246,7 @@
                         </div>
                     </md-input-container>
                 </md-card>
-                <div layout-xs="row" layout-align="end">
+                <div layout-gt-xs="row" layout-xs="column" layout-align="end">
                     <md-button ng-click="goBack()">Cancel</md-button>
                     <md-button ng-disabled="vm.submitDisabled || jobForm.$invalid || jobForm.$pristine"
                                class="md-primary md-raised"

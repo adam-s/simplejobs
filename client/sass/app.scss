@@ -53,6 +53,11 @@ body {
   cursor: pointer;
 }
 
+// http://stackoverflow.com/questions/19684708/preserve-line-breaks-in-angularjs
+.with-newlines {
+  white-space: pre-line;
+}
+
 .top-selector-option[selected] {
   background-color: #fff!important;
   border-bottom: 1px solid #e0e0e0;

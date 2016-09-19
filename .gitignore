@@ -3,7 +3,7 @@
 .tmp/
 /node_modules
 /client/public/bower_components
-/client/public/assets/images
+#/client/public/assets/images
 /client/public/css
 /build
 /client/files
