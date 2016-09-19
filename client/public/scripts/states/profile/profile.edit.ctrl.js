@@ -6,8 +6,10 @@
 
     function profileEditCtrl($scope, $mdToast, Auth, $state, profileApi, profile, errorHandler) {
         var vm = this;
-        vm.file = {};
         var user = Auth.getMe();
+        var newProfile = !profile;
+        console.log(newProfile);
+        vm.file = {};
 
         // Only edit own here because angular permission module doesn't wait for resolved object ;(
         if (profile && profile.author !== user._id) {
@@ -37,9 +39,10 @@
         vm.submitDisabled = false;
         vm.submit = function() {
             vm.submitDisabled = true;
-            var submitFn = !profile ? profileApi.create.bind(profileApi) : profileApi.update.bind(profileApi);
+            var submitFn = newProfile ? profileApi.create.bind(profileApi) : profileApi.update.bind(profileApi);
             submitFn(vm.profile)
                 .then(function() {
+                    newProfile = false;
                     vm.submitDisabled = false;
                     var toast = $mdToast.simple().textContent('Your profile is updated');
                     $mdToast.show(toast);

@@ -1,1 +1,62 @@
-<h1>Search resumes</h1>
+<md-content layout="column" class="search" flex>
+    <div class="content">
+        <md-card>
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <div flex></div>
+                    <md-button ng-click="vm.showFilterDialog($event)">
+                        <span>Filter</span>
+                        <md-icon md-font-icon="filter_list">filter_list</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="vm.clearFilter()">
+                        <md-icon md-font-icon="clear">clear</md-icon>
+                        <md-tooltip md-direction="bottom">Clear filters</md-tooltip>
+                    </md-button>
+                </div>
+            </md-toolbar>
+        </md-card>
+        <md-card flex
+                 class="item-card"
+                 ng-repeat="resume in vm.resumes"
+                 ng-click="vm.showDialog(resume, $event)"
+                 ng-class="{'md-whiteframe-18dp': hover}"
+                 ng-mouseenter="hover = true"
+                 ng-mouseleave="hover = false"
+                 layout-padding>
+            <md-card-title>
+                <div layout="column">
+                    <div class="title" layout="row" layout-align="space-between center">
+                        <div flex><h3 class="md-headline">{{resume.title}}</h3></div>
+                    </div>
+                    <div class="sj-secondary-text md-subhead">
+                        <span ng-if="vm.proximity">{{vm.distanceFn(resume.location.coordinates[1], resume.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}} | </span>
+                        <span>{{resume.location.locality}}, {{resume.location.country}}</span>
+                    </div>
+                </div>
+            </md-card-title>
+            <md-card-content>
+                <div layout-gt-sm="row" layout="column" layout-align-gt-sm="space-between center">
+                    <div class="info" flex>
+                        <div ng-if="resume.position"><span class="name md-body-2">Position: </span><span class="value md-body-1">{{resume.position}}</span></div>
+                        <div ng-if="resume.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{resume.jobType}}</span></div>
+                        <div ng-if="resume.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{resume.startDate | date : 'longDate'}}</span></div>
+                    </div>
+                    <div class="description md-body-1" flex>
+                        <p>{{resume.description | limitTo : 150}}{{resume.description.length > 150 ? '...' : ''}}</p>
+                    </div>
+                </div>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-icon-button">
+                    <md-icon md-font-icon="reply">reply</md-icon>
+                    <md-tooltip md-direction="bottom">More information</md-tooltip>
+                </md-button>
+            </md-card-actions>
+        </md-card>
+        <sj-pagination
+                page="vm.tableState.page"
+                limit="vm.tableState.limit"
+                count="vm.count"
+                on-pagination="vm.fetchResumes"></sj-pagination>
+    </div>
+</md-content>

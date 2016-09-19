@@ -1,0 +1,38 @@
+<md-dialog class="search-dialog search" flex="50">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout-align="end center">
+            <md-button class="md-icon-button" ng-click="dialog.close()">
+                <md-icon md-font-icon="clear">clear</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content aria-label="Filter dialog" layout-padding>
+        <div layout="row" layout-align="start start" layout-padding>
+            <div class="cool-box" hide show-gt-sm>
+                <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
+            </div>
+            <div layout="column">
+                <div class="md-headline">{{dialog.resume.title}}</div>
+                <div class="sj-secondary-text md-subhead">
+                    <span>{{dialog.resume.location.locality}}, {{dialog.resume.location.country}}</span>
+                </div>
+            </div>
+        </div>
+        <md-divider></md-divider>
+        <div class="info" style="padding-bottom: 16px">
+            <div ng-if="dialog.resume.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{dialog.resume.startDate | date : 'longDate'}}</span></div>
+            <div ng-if="dialog.resume.position"><span class="name md-body-2">Position: </span><span class="value md-body-1">{{dialog.resume.position}}</span></div>
+            <div ng-if="dialog.resume.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{dialog.resume.jobType}}</span></div>
+            <div ng-if="dialog.resume.flag"><span class="name md-body-2">Flag: </span><span class="value md-body-1">{{dialog.resume.flag}}</span></div>
+            <div ng-if="dialog.resume.length"><span class="name md-body-2">Vessel length: </span><span class="value md-body-1">{{dialog.resume.length}} meters</span></div>
+            <div ng-if="dialog.resume.papers"><span class="name md-body-2">Papers required: </span><span class="value md-body-1">Yes</span></div>
+            <div ng-if="dialog.resume.smoking"><span class="name md-body-2">Smoking allowed: </span><span class="value md-body-1">Yes</span></div>
+            <div ng-if="dialog.resume.phone"><span class="name md-body-2">Phone: </span><span class="value md-body-1">{{dialog.resume.phone}}</span></div>
+            <div ng-if="dialog.resume.email"><span class="name md-body-2">Email: </span><span class="value md-body-1">{{dialog.resume.email}}</span></div>
+        </div>
+        <div layout-padding ng-if="dialog.resume.description">
+            <md-divider></md-divider>
+            <div class="description with-newlines md-body-1">{{dialog.resume.description}}</div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

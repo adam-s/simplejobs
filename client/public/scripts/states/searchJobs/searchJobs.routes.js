@@ -13,8 +13,7 @@
                 templateUrl: 'scripts/states/searchJobs/searchJobs.tpl.html',
                 resolve: {
                     jobs: ['$stateParams', 'jobApi', function($stateParams, jobApi) {
-                        var jobs = jobApi.index($stateParams);
-                        return jobs;
+                        return jobApi.index($stateParams);
                     }]
                 },
                 params: {

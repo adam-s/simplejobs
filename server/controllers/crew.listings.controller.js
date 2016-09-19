@@ -20,7 +20,6 @@ exports.index = function(req, res) {
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
     var tableState = req.query.tableState || {};
-    tableState.order = tableState.order || '-updated';
 
     var query = CrewListing.pagination(tableState);
 
@@ -30,10 +29,25 @@ exports.index = function(req, res) {
     if (tableState.jobType) query.where('jobType', tableState.jobType);
     if (tableState.position) query.where('position', tableState.position);
 
+    // Location proximity search
+    // The proximity search sorts so we don't want to override it
+    if (tableState.longitude && tableState.latitude) {
+        query.where('location.coordinates', {
+            $near : {
+                $geometry: {
+                    type: "Point",
+                    coordinates: [tableState.longitude, tableState.latitude]
+                }
+            }
+        });
+    } else {
+        query.sort(tableState.order || '-updated');
+    }
+
     query
-        .exec(function(err, results) {
-            if (err) return res.status(400).send(validationErrorHandler(err,true));
-            res.json(results);
+        .exec(function(err, result) {
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
+            res.json(result);
         });
 };
 
@@ -126,16 +140,18 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
     var crewListing = req.app.locals.crewListing;
+    var id = crewListing._id;
 
     // Protect information
     delete req.body.author;
     delete req.body.__v;
     delete req.body._id;
+    delete crewListing._id;
 
     // Merge objects
-    _.merge(crewListing, req.body);
+    _.extend(crewListing, req.body);
 
-    crewListing.save({runValidators: true}, function(err, result) {
+    CrewListing.update({_id: id}, crewListing, {runValidators: true}, function(err, result) {
         if (req.file) {
             if (err) {
                 // Delete the req file

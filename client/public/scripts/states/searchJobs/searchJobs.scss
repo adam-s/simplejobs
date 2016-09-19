@@ -1,4 +1,4 @@
-.search-jobs {
+.search {
   .item-card {
     &:hover {
       cursor: pointer;
@@ -12,7 +12,7 @@
   }
 }
 
-.search-jobs-dialog {
+.search-dialog {
   md-toolbar {
     background: url('/assets/images/dialog-banner-small.jpg');
     background-size: cover;
