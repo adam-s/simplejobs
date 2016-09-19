@@ -131,7 +131,7 @@ exports.create = function(req, res) {
         } else {
             // Move the req file
             fs.move(req.file.path, config.dir + crewListing.resume, {clobber: true}, function(err) {
-                if (err) return res.status(400).send({message: 'Unexpected error has occurred'})
+                if (err) return res.status(400).send({message: 'Unexpected error has occurred'});
                 res.json(crewListing);
             });
         }

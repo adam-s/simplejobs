@@ -8,8 +8,6 @@
         var vm = this;
         var user = Auth.getMe();
         var newProfile = !profile;
-        console.log(newProfile);
-        vm.file = {};
 
         // Only edit own here because angular permission module doesn't wait for resolved object ;(
         if (profile && profile.author !== user._id) {
@@ -31,6 +29,7 @@
         }
 
         $scope.$watch('vm.profile.file', function(file) {
+            console.log(file);
             if (file) {
                 vm.profile.resume = file.name || '';
             }
