@@ -42,13 +42,9 @@
                             </md-button>
                             <div>{{vm.profile.resume | fileName}}</div>
                         </div>
-                        <div ng-messages="profileForm.resume.$error"
-                             ng-if="profileForm.resume.$error && (profileForm.$submitted || profileForm.resume.$dirty)"
-                             role="alert">
-                            <div ng-if="profileForm.resume.$error.maxSize"
-                                 ng-message="maxSize">Max file size is 10MB</div>
-                            <div ng-if="profileForm.resume.$error.required"
-                                 ng-message="required">Resume is a required field</div>
+                        <div ng-messages="profileForm.resume.$error" ng-if="profileForm.resume.$error" role="alert">
+                            <div ng-message="maxSize">Max file size is 10MB</div>
+                            <div ng-message="required">Resume is a required field</div>
                         </div>
                     </md-input-container>
                 </md-card>
