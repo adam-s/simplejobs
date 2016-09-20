@@ -17,11 +17,5 @@
                     }]
                 }
             })
-            .state('test', {
-                parent: 'sidebar',
-                url: '/test',
-                controller: 'test as vm',
-                templateUrl: 'scripts/states/home/test.tpl.html'
-            })
     }
 })();

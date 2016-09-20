@@ -39,13 +39,7 @@ var UserSchema = new Schema({
         type: String,
         validate: [validatePresenceOf, 'Password cannot be blank']
     },
-    salt: String,
-    provider: {
-        type: String,
-        default: 'local'
-    },
-    providerData: {},
-    additionalProvidersData: {}
+    salt: String
 });
 
 /**

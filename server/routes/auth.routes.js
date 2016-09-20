@@ -14,8 +14,4 @@ module.exports = function(app) {
     app.route('/auth/email').post(auth.email);
     app.route('/auth/change-password').post(auth.passwordChange);
 
-    app.route('/auth/facebook').get(auth.facebookOauth, auth.facebookOauth);
-    app.route('/auth/facebook/callback').get(auth.facebookOauth, auth.facebookLogin);
-    app.route('/auth/facebook/failure-callback').get(auth.facebookLoginError);
-
 };
