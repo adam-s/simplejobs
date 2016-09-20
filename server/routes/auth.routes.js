@@ -1,6 +1,7 @@
 'use strict';
 
-var auth = require('../controllers/auth.controller.js');
+var auth = require('../controllers/auth.controller.js'),
+    passport = require('passport');
 
 module.exports = function(app) {
 
@@ -12,4 +13,9 @@ module.exports = function(app) {
     // Changing stuff
     app.route('/auth/email').post(auth.email);
     app.route('/auth/change-password').post(auth.passwordChange);
+
+    app.route('/auth/facebook').get(auth.facebookOauth, auth.facebookOauth);
+    app.route('/auth/facebook/callback').get(auth.facebookOauth, auth.facebookLogin);
+    app.route('/auth/facebook/failure-callback').get(auth.facebookLoginError);
+
 };

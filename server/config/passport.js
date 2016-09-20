@@ -2,6 +2,7 @@
 
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
     mongoose = require('mongoose'),
     User = mongoose.model('User');
 
@@ -39,6 +40,18 @@ module.exports = function(app) {
             // Everything is A-OK :)
             return done(null, user);
         })
+    }));
+
+    passport.use(new FacebookStrategy({
+        clientID: '304924313210944',
+        clientSecret: '6f22ecde393724111b177aeecd809768',
+        callbackURL: 'http://localhost:3000/auth/facebook/callback'
+    }, function(accessToken, refreshToken, profile, done) {
+        console.log(profile.emails);
+        console.log(accessToken);
+        console.log(refreshToken);
+        console.log(profile);
+        return done(null, '');
     }));
 
     // Add passport's middleware

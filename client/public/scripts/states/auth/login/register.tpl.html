@@ -5,20 +5,7 @@
     <div class="sj-whiteframe-wrap">
         <div class="md-whiteframe-z1">
             <md-content flex layout-padding>
-                <h4 class="sj-text-center">Register using social accounts</h4>
-                <social-login>
-                    <div layout layout-align="space-around center">
-                        <md-button class="sj-social-login-btn md-raised md-primary" aria-label="Facebook" style="background-color:#3b5998">
-                            <md-icon md-svg-icon="facebook"></md-icon>
-                            <span hide-xs>Facebook</span>
-                        </md-button>
-                        <md-button class="sj-social-login-btn md-raised md-primary" aria-label="Google" style="background-color:#dd4b39">
-                            <md-icon md-svg-icon="google"></md-icon>
-                            <span hide-xs>Google</span>
-                        </md-button>
-                    </div>
-                </social-login>
-                <h4 class=" sj-text-center">or via email</h4>
+                <h4 class=" sj-text-center">Register via email</h4>
                 <form name="loginForm" novalidate ng-submit="vm.register()">
                     <md-input-container class="md-block">
                         <input type="email"
@@ -90,6 +77,15 @@
                                    aria-label="Create account">Create account</md-button>
                     </div>
                 </form>
+                <h4 class="sj-text-center">Or using social Facebook</h4>
+                <social-login>
+                    <div layout layout-align="space-around center">
+                        <md-button class="sj-social-login-btn md-raised md-primary" aria-label="Facebook" style="background-color:#3b5998">
+                            <md-icon md-svg-icon="facebook"></md-icon>
+                            <span hide-xs>Facebook</span>
+                        </md-button>
+                    </div>
+                </social-login>
             </md-content>
         </div>
     </div>

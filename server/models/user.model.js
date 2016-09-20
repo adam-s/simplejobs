@@ -43,7 +43,9 @@ var UserSchema = new Schema({
     provider: {
         type: String,
         default: 'local'
-    }
+    },
+    providerData: {},
+    additionalProvidersData: {}
 });
 
 /**

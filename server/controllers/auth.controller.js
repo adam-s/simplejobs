@@ -108,3 +108,21 @@ exports.passwordChange = function(req, res, next) {
 
     })(req, res, next);
 };
+
+exports.facebookOauth = passport.authenticate('facebook', {
+    display: 'popup',
+    scope: ['email', 'public_profile'],
+    profileFields: ['id', 'displayName', 'emails'],
+    failureRedirect: '/auth/facebook/failure-callback'
+});
+
+exports.facebookLogin = function(req, res, next) {
+    console.log('fuck')
+    // http://stackoverflow.com/a/2731189/494664
+    res.render('facebookLogin', {user: {name: 'adam'}});
+};
+
+exports.facebookLoginError = function (req, res, next) {
+
+    res.render('facebookLoginError', {error: "'Something went wrong'"});
+};
