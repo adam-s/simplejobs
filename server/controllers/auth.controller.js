@@ -108,3 +108,11 @@ exports.passwordChange = function(req, res, next) {
 
     })(req, res, next);
 };
+
+exports.forgotPassword = function(req, res, next) {
+
+};
+
+exports.resetPassword = function(req, res, next) {
+
+};

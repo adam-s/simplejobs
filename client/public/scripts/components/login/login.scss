@@ -1,0 +1,82 @@
+md-dialog.auth {
+  max-width: 320px;
+  flex-grow: 1;
+
+  div.md-caption {
+    text-align: center;
+    margin-top: 20px;
+
+    a {
+      font-weight: 400;
+      font-size: 13px;
+      border-bottom: none;
+      color: rgba(32,37,42,.7);
+      -moz-transition: color .2s;
+      -o-transition: color .2s;
+      -webkit-transition: color .2s;
+      transition: color .2s;
+
+      &:hover {
+        color: #20252a
+      }
+    }
+  }
+
+
+  .login-content {
+    margin: 10px;
+
+    .password-confirm {
+      transition: none;
+    }
+  }
+
+  .dialog-hero {
+    background: url('/assets/images/sea_sailors_windlass_background.jpg');
+    height: 200px;
+    background-size: cover;
+    color: white;
+    display: block;
+
+    .clear-button-container {
+      height: 49px;
+    }
+
+    .title {
+      font-size: 50px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+    }
+
+    .toolbar-link {
+      font-weight: 400;
+      font-size: 13px;
+      border-bottom: none;
+      color: rgba(255, 255, 255, .7);
+      -moz-transition: color .2s;
+      -o-transition: color .2s;
+      -webkit-transition: color .2s;
+      transition: color .2s;
+
+      &:hover {
+        color: white;
+      }
+
+      .toolbar-link-text {
+        vertical-align: middle;
+      }
+    }
+
+    md-toolbar:not(.md-menu-toolbar) md-icon {
+      color: rgba(255,255,255,0.9);
+      fill: rgba(255,255,255,0.9);
+
+      &:hover {
+        color: white;
+        fill: white;
+      }
+    }
+  }
+}

@@ -1,16 +1,18 @@
 (function() {
     angular.module('simplejobs')
-        .controller('LoginCtrl', LoginCtrl);
+        .controller('loginCtrl', loginCtrl);
 
-    LoginCtrl.$inject = ['$location', 'Auth', '$mdDialog'];
+    loginCtrl.$inject = ['$location', 'Auth', '$mdDialog'];
 
-    function LoginCtrl($location, Auth, $mdDialog) {
+    function loginCtrl($location, Auth, $mdDialog) {
         var vm = this;
         vm.auth = Auth;
         vm.credentials = {};
         vm.register = register;
         vm.login = login;
         vm.disableFlag = false;
+        vm.isLogin = true;
+        vm.hideDialog = hideDialog;
 
         if (vm.auth.me) {
             $location.path('/');
@@ -21,9 +23,12 @@
             Auth.register(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $location.path('/');
+                    $mdDialog.hide()
+                        .then(function() {
+                            $location.path('/');
+                        });
                 }, function reject(response) {
-                    handleValdationErrors(response);
+                    handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
         }
@@ -33,12 +38,19 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $location.path('/account');
+                    $mdDialog.hide()
+                        .then(function() {
+                            $location.path('/account');
+                        });
                 }, function reject(response) {
                     handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
 
+        }
+
+        function hideDialog() {
+            $mdDialog.hide();
         }
 
         function handleValidationErrors(response) {

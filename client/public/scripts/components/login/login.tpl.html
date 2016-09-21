@@ -1,0 +1,84 @@
+<md-dialog class="auth" ng-class="{login: vm.isLogin, register: !vm.isLogin}">
+    <md-dialog-content>
+        <div class="dialog-hero" layout-fill>
+            <md-toolbar style="background: transparent">
+                <md-toolbar-tools layout="row" layout-align="space-between center">
+                    <div class="register-button-container" flex>
+                        <md-button ng-click="vm.isLogin = !vm.isLogin" class="toolbar-link">
+                            <md-icon md-font-icon="add">{{vm.isLogin ? 'add' : 'arrow_back'}}</md-icon>
+                            <span class="toolbar-link-text">{{vm.isLogin ? 'CREATE ACCOUNT' : 'LOGIN'}}</span>
+                        </md-button>
+                    </div>
+                    <md-button class="md-icon-button">
+                        <md-icon md-font-icon="clear" ng-click="vm.hideDialog()">clear</md-icon>
+                    </md-button>
+                </md-toolbar-tools>
+            </md-toolbar>
+            <div>
+                <div class="md-primary title sj-text-center">{{vm.isLogin ? 'Login' : 'Register'}}</div>
+                <div class="md-primary subtitle sj-text-center">{{vm.isLogin ? 'to your account' : 'a new account'}}</div>
+            </div>
+        </div>
+        <div class="login-content" layout-padding>
+            <form name="loginForm" novalidate ng-submit="vm.login()">
+                <md-input-container class="md-block">
+                    <input type="email"
+                           name="email"
+                           ng-model="vm.credentials.email"
+                           placeholder="Email"
+                           ng-pattern=/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-z0-9-]+)*(\.[a-zA-Z]{2,4})$/
+                               required
+                           aria-label="Email"
+                           aria-invalid="false"/>
+                    <div ng-messages="loginForm.email.$error"
+                         role="alert"
+                         aria-live="assertive">
+                        <div ng-message="required"><span>Email field is required</span></div>
+                        <div ng-message="pattern"><span>Email must be a valid e-mail address</span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="password"
+                           name="password"
+                           ng-model="vm.credentials.password"
+                           placeholder="Password"
+                           required
+                           aria-label="Password"
+                           aria-invalid="false"/>
+                    <div ng-messages="loginForm.password.$error"
+                         role="alert"
+                         aria-live="assertive">
+                        <div ng-message="required"><span>Password field is required</span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container ng-if="!vm.isLogin" class="md-block password-confirm">
+                    <input type="password"
+                           name="passwordConfirm"
+                           ng-model="vm.credentials.passwordConfirm"
+                           placeholder="Password confirm"
+                           required
+                           match="vm.credentials.password"
+                           aria-label="Password confirm"
+                           aria-invalid="false"/>
+                    <div ng-messages="loginForm.passwordConfirm.$error"
+                         role="alert"
+                         aria-live="assertive">
+                        <div ng-message="required"><span>Password confirm field is required</span></div>
+                        <div ng-message="match"><span>The passwords do not match</span></div>
+                    </div>
+                </md-input-container>
+                <div layout="column">
+                    <md-button class="md-raised md-primary submit"
+                               type="submit"
+                               ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                               disabled="disabled || vm.disabledFlag"
+                               aria-label="Log in">Log in</md-button>
+                    <div class="sj-text-center md-caption"><a href="#">Forgot your password?</a></div>
+                    <div class="sj-text-center md-caption">
+                        <a href ng-click="vm.isLogin = !vm.isLogin">{{vm.isLogin ? 'Need a new account?' : 'Already have an account?'}}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+</md-dialog>
