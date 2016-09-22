@@ -12,7 +12,8 @@
         'angular-loading-bar',
         'angularMoment',
         'ngFileUpload',
-        'checklist-model'
+        'checklist-model',
+        'vcRecaptcha'
     ]);
 })();
 

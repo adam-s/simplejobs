@@ -13,6 +13,7 @@
         vm.disableFlag = false;
         vm.isLogin = true;
         vm.hideDialog = hideDialog;
+        vm.size = 200;
 
         if (vm.auth.me) {
             $location.path('/');
