@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', 'Auth', '$mdDialog'];
+    loginCtrl.$inject = ['$location', 'Auth', '$mdDialog', 'errorHandler'];
 
-    function loginCtrl($location, Auth, $mdDialog) {
+    function loginCtrl($location, Auth, $mdDialog, errorHandler) {
         var vm = this;
         vm.auth = Auth;
         vm.credentials = {};
@@ -23,12 +23,9 @@
             Auth.register(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $mdDialog.hide()
-                        .then(function() {
-                            $location.path('/');
-                        });
+                    $location.path('/');
                 }, function reject(response) {
-                    handleValidationErrors(response);
+                    errorHandler.handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
         }
@@ -38,18 +35,16 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $mdDialog.hide()
-                        .then(function() {
-                            $location.path('/account');
-                        });
+                    $location.path('/account');
                 }, function reject(response) {
-                    handleValidationErrors(response);
+                    errorHandler.handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
 
         }
 
         function hideDialog() {
+            console.log('is hide being called');
             $mdDialog.hide();
         }
 

@@ -11,7 +11,7 @@
 
         function handleValidationErrors(response, callback) {
             var alert;
-
+console.log('hello');
             if (response && response.message === 'Validation error') {
                 if (response.errors) {
                     var content = response.errors.reduce(function(string, value) {
@@ -21,18 +21,27 @@
                     alert = $mdDialog.alert({
                         title: response.message,
                         htmlContent: '<ul>' + content + '</ul>',
-                        ok: 'Close'
+                        ok: 'Close',
+                        skipHide: true,
+                        preserveScope: true,
+                        autoWrap: true
                     });
                 }
             } else if (response && response.message) {
                 alert = $mdDialog.alert({
                     title: response.message,
-                    ok: 'Close'
+                    ok: 'Close',
+                    skipHide: true,
+                    preserveScope: true,
+                    autoWrap: true
                 })
             } else {
                 alert = $mdDialog.alert({
                     title: 'An error occurred. Sorry :(',
-                    ok: 'Close'
+                    ok: 'Close',
+                    skipHide: true,
+                    preserveScope: true,
+                    autoWrap: true
                 })
             }
 

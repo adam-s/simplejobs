@@ -9,14 +9,20 @@
 
         return {
             getMe: getMe,
+            setMe: setMe,
             register: register,
             login: login,
             logout: logout,
             email: email,
             passwordChange: passwordChange,
+            forgotPassword: forgotPassword,
+            forgotPasswordReset: forgotPasswordReset,
             hasRole: hasRole
         };
 
+        function setMe(user) {
+            me = user;
+        }
         function getMe() {
             return me;
         }
@@ -92,6 +98,38 @@
             }).success(function(response) {
                 me = response;
                 deferred.resolve();
+            }).error(function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function forgotPassword(email) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/auth/forgot-password',
+                data: {email: email}
+            }).success(function(response) {
+                deferred.resolve(response);
+            }).error(function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function forgotPasswordReset(body) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/auth/forgot-password-reset',
+                data: body
+            }).success(function(response) {
+                deferred.resolve(response);
             }).error(function(response) {
                 deferred.reject(response);
             });

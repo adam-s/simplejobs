@@ -14,14 +14,15 @@
         });
     }
 
-    run.$inject = ['$rootScope', '$window'];
+    run.$inject = ['$rootScope', '$window', '$mdDialog'];
 
-    function run($rootScope, $window) {
-        // $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-        //     event.preventDefault();
-        // })
-        //
-        // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-        // })
+    function run($rootScope, $window, $mdDialog) {
+
+        // https://github.com/angular/material/issues/1978
+        $rootScope.$on('$locationChangeStart', function(event) {
+            // Check if there is a dialog active
+            var dialogs = angular.element(document).find('md-dialog');
+            angular.forEach(dialogs, function() { $mdDialog.hide()})
+        })
     };
 })();

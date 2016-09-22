@@ -39,7 +39,11 @@ var UserSchema = new Schema({
         type: String,
         validate: [validatePresenceOf, 'Password cannot be blank']
     },
-    salt: String
+    salt: String,
+    reset: {
+        token: String,
+        expires: Date
+    }
 });
 
 /**

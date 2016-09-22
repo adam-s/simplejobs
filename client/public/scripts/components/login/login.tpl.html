@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="login-content" layout-padding>
-            <form name="loginForm" novalidate ng-submit="vm.login()">
+            <form name="loginForm" novalidate ng-submit="vm.isLogin ? vm.login() : vm.register()">
                 <md-input-container class="md-block">
                     <input type="email"
                            name="email"
@@ -72,8 +72,10 @@
                                type="submit"
                                ng-disabled="loginForm.$invalid || loginForm.$pristine"
                                disabled="disabled || vm.disabledFlag"
-                               aria-label="Log in">Log in</md-button>
-                    <div class="sj-text-center md-caption"><a href="#">Forgot your password?</a></div>
+                               aria-label="Log in">{{vm.isLogin ? 'LOG IN' : 'REGISTER'}}</md-button>
+                    <div class="sj-text-center md-caption">
+                        <a href ui-sref="forgotPassword">Forgot your password?</a>
+                    </div>
                     <div class="sj-text-center md-caption">
                         <a href ng-click="vm.isLogin = !vm.isLogin">{{vm.isLogin ? 'Need a new account?' : 'Already have an account?'}}</a>
                     </div>

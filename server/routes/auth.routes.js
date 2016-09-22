@@ -15,6 +15,6 @@ module.exports = function(app) {
     app.route('/auth/change-password').post(auth.passwordChange);
 
     app.route('/auth/forgot-password').post(auth.forgotPassword);
-    app.route('/auth/reset/:token').post(auth.resetPassword)
+    app.route('/auth/forgot-password-reset').post(auth.forgotPasswordReset)
 
 };

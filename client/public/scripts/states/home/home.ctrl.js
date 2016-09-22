@@ -2,10 +2,10 @@
     angular.module('simplejobs')
         .controller('homeCtrl', homeCtrl);
 
-    homeCtrl.$inject = ['$window', 'Auth'];
+    homeCtrl.$inject = [];
 
-    function homeCtrl($window, Auth) {
+    function homeCtrl() {
         var vm = this;
-        console.log(Auth.me)
+
     }
 })();
