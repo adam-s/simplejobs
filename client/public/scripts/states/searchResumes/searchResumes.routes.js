@@ -21,7 +21,7 @@
                         value: 1
                     },
                     limit: {
-                        value: 25
+                        value: 15
                     }
                 },
                 data: {
