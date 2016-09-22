@@ -11,22 +11,56 @@
         </md-toolbar>
         <md-content flex>
             <md-list>
-                <md-list-item ui-sref="home">
-                    <md-icon md-font-icon="home">home</md-icon>
-                    <p>Home</p>
-                </md-list-item>
-                <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminJobList">
-                    <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
-                    <p>Jobs</p>
-                </md-list-item>
-                <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminCrewList">
-                    <md-icon md-font-icon="rowing">rowing</md-icon>
-                    <p>Crew</p>
-                </md-list-item>
-                <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminUserList">
-                    <md-icon md-font-icon="person">person</md-icon>
-                    <p>Users</p>
-                </md-list-item>
+                <section class="main">
+                    <md-list-item ui-sref="home">
+                        <md-icon md-font-icon="home">home</md-icon>
+                        <p>Home</p>
+                    </md-list-item>
+                </section>
+                <section class="account">
+                    <md-divider></md-divider>
+                    <md-subheader>Account</md-subheader>
+                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminJobList">
+                        <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
+                        <p>My profile</p>
+                    </md-list-item>
+                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminCrewList">
+                        <md-icon md-font-icon="rowing">rowing</md-icon>
+                        <p>My job listings</p>
+                    </md-list-item>
+                </section>
+                <section class="guides">
+                    <md-divider></md-divider>
+                    <md-subheader>Guides</md-subheader>
+                    <md-list-item ui-sref="adminJobList">
+                        <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
+                        <p>How to create an accunt</p>
+                    </md-list-item>
+                    <md-list-item ui-sref="adminJobList">
+                        <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
+                        <p>Job listing</p>
+                    </md-list-item>
+                    <md-list-item ui-sref="adminCrewList">
+                        <md-icon md-font-icon="rowing">rowing</md-icon>
+                        <p>Crew profile</p>
+                    </md-list-item>
+                </section>
+                <section class="administration">
+                    <md-divider></md-divider>
+                    <md-subheader>Administration</md-subheader>
+                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminJobList">
+                        <md-icon md-font-icon="directions_boat">directions_boat</md-icon>
+                        <p>Jobs</p>
+                    </md-list-item>
+                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminCrewList">
+                        <md-icon md-font-icon="rowing">rowing</md-icon>
+                        <p>Crew</p>
+                    </md-list-item>
+                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminUserList">
+                        <md-icon md-font-icon="person">person</md-icon>
+                        <p>Users</p>
+                    </md-list-item>
+                </section>
             </md-list>
         </md-content>
     </md-sidenav>
