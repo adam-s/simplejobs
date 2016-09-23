@@ -8,6 +8,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+:focus {
+  outline: none;
+}
+
 .sj-text-center {
   text-align: center;
 }
