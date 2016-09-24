@@ -1,6 +1,6 @@
 <div layout="column">
     <md-sidenav md-component-id="left" flex
-                ng-click="vm.closeSidenav()"
+                ng-click="sidenav.closeSidenav()"
                 md-is-locked-open="$mdMedia('gt-sm')"
                 layout="column"
                 class="site-sidenav md-sidenav-left md-whiteframe-z2">
@@ -15,30 +15,30 @@
                     <md-list-item ui-sref="home">
                         <p>Home</p>
                         <md-button class="md-secondary md-icon-button"
-                                    ng-show="vm.currentState === 'home'">
+                                    ng-show="sidenav.currentState === 'home'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                 </section>
                 <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="account">
                     <md-list-item ui-sref="adminJobList">
-                        <p>{{vm.currentState}}</p>
+                        <p>{{sidenav.currentState}}</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminJobList'">
+                                   ng-show="sidenav.currentState === 'adminJobList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminUserList">
                         <p>Users</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminUserList'">
+                                   ng-show="sidenav.currentState === 'adminUserList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminCrewList">
                         <p>My job listings</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminCrewList'">
+                                   ng-show="sidenav.currentState === 'adminCrewList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
@@ -47,21 +47,21 @@
                     <md-list-item ui-sref="adminJobList">
                         <p>How to create an accunt</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminJobList'">
+                                   ng-show="sidenav.currentState === 'adminJobList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminJobList">
                         <p>Job listing</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminJobList'">
+                                   ng-show="sidenav.currentState === 'adminJobList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminCrewList">
                         <p>Crew profile</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminCrewList'">
+                                   ng-show="sidenav.currentState === 'adminCrewList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
@@ -70,14 +70,14 @@
                     <md-list-item ui-sref="adminJobList">
                         <p>Jobs</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminJobList'">
+                                   ng-show="sidenav.currentState === 'adminJobList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item  ui-sref="adminUserList">
                         <p>Users</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="vm.currentState === 'adminUserList'">
+                                   ng-show="sidenav.currentState === 'adminUserList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>

@@ -5,17 +5,17 @@
     SidenavCtrl = ['$scope', '$mdSidenav', '$state', 'Auth'];
 
     function SidenavCtrl($scope, $mdSidenav, $state, Auth) {
-        vm = this;
+        sidenav = this;
 
-        vm.currentState = $state.current.name;
-        vm.isLoggedIn = Auth.isLoggedIn;
-        vm.toggleSidenav = toggleSidenav;
-        vm.closeSidenav = closeSidenav;
+        sidenav.currentState = $state.current.name;
+        sidenav.isLoggedIn = Auth.isLoggedIn;
+        sidenav.toggleSidenav = toggleSidenav;
+        sidenav.closeSidenav = closeSidenav;
 
         $scope.$watch(function() {
             return $state.current.name;
         }, function(newValue) {
-            vm.currentState = newValue;
+            sidenav.currentState = newValue;
         });
 
         function closeSidenav() {

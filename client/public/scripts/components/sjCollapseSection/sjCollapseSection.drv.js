@@ -50,7 +50,7 @@
 
             isActive(); // Initialize isActive();
 
-            $rootScope.$on('$stateChangeSuccess', function() {
+            scope.$on('$stateChangeSuccess', function() {
                 activeState = false; // Reset
                 ctrl.collapsed = true;
                 isActive();

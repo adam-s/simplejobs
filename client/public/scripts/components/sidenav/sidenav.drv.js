@@ -9,7 +9,7 @@
             restrict: 'E',
             replace: true,
             controller: 'SidenavCtrl',
-            controllerAs: 'vm',
+            controllerAs: 'sidenav',
             templateUrl: 'scripts/components/sidenav/sidenav.tpl.html',
             bindToController: true,
             scope: {}
