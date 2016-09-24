@@ -58,6 +58,10 @@ var BaseListingSchema = new Schema({
         type: String,
         validate: validators.position
     },
+    vesselType: {
+        type: String,
+        validate: validators.vesselType
+    },
     languages: {
         type: [String],
         validate: validators.languages

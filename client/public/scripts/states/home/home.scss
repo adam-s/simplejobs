@@ -26,16 +26,36 @@
   md-card {
     color: rgba(255,255,255,1);
 
+    .fab-container {
+      margin-top: -28px;
+      margin-bottom: -10px;
+
+      .md-button {
+        float: right;
+        margin-right: 15px;
+      }
+
+    }
+
     md-card-content {
       color: rgba(255,255,255,.70);
       min-height: 57px;
     }
     &.land {
       background: rgb(55, 141, 59);
+
+      .md-raised:not([disabled]) md-icon{
+        color:  rgb(55, 141, 59);
+      }
+
     }
 
     &.sea {
       background: rgb(0, 171, 192);
+
+      .md-raised:not([disabled]) md-icon{
+        color: rgb(0, 171, 192);
+      }
     }
 
   }

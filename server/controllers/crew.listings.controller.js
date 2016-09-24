@@ -27,6 +27,7 @@ exports.index = function(req, res) {
     if (tableState.name) query.where('name', tableState.name);
     if (tableState.location) query.where('location.name', tableState.location);
     if (tableState.jobType) query.where('jobType', tableState.jobType);
+    if (tableState.vesselType) query.where('vesselType', tableState.vesselType);
     if (tableState.position) query.where('position', tableState.position);
 
     // Location proximity search

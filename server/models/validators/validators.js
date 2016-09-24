@@ -47,6 +47,24 @@ exports.jobType = [
     })
 ];
 
+exports.vesselType = [
+    validate({
+        validator: function(value) {
+            return values.vesselTypes.some(function(item) {
+                return item === value;
+            })
+        },
+        passIfEmpty: true,
+        message: 'Vessel type is not a valid value'
+    }),
+    validate({
+        validator: function(value) {
+            return _.isString(value);
+        },
+        message: 'Vessel type field is not valid'
+    })
+];
+
 exports.position = [
     validate({
         validator: function(value) {

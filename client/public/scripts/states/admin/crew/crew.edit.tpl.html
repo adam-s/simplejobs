@@ -148,6 +148,16 @@
                         </div>
                     </md-input-container>
                     <md-input-container flex>
+                        <label>Vessel type</label>
+                        <md-select name="vesselType"
+                                   ng-model="vm.profile.vesselType"
+                                   vessel-types-extend>
+                            <md-option ng-value="opt"
+                                       ng-repeat="opt in vesselTypes | orderBySelectedOption:vm.profile.vesselType"
+                                       class="top-selector-option">{{opt}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex>
                         <label>Languages</label>
                         <md-select placeholder="Select languages" ng-model="vm.profile.languages" languages-input-extend multiple>
                             <md-optgroup>
