@@ -20,6 +20,22 @@
                         </md-button>
                     </md-list-item>
                 </section>
+                <sj-collapse-section section="User guide">
+                    <md-list-item ui-sref="guideOverview">
+                        <p>App overview</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'guideOverview'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ui-sref="guideFaq">
+                        <p>Frequently asked questions</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'guideFaq'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
+                </sj-collapse-section>
                 <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
                     <md-list-item ui-sref="adminJobList">
                         <p>Job list</p>
