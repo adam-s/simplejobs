@@ -1,13 +1,11 @@
-<div>
-    <md-subheader class='md-no-sticky' ng-click='ctrl.collapsed = !ctrl.collapsed'>
-        <div layout='row' layout-align='space-between center'>
-            <div>{{ctrl.section}}</div>
-            <md-button class='md-icon-button'>
-                <md-icon md-font-icon='{{ctrl.collapsed ? "expand_more" : "expand_less"}}'>
-                    {{ctrl.collapsed ? "expand_more" : "expand_less"}}
-                </md-icon>
-            </md-button>
-        </div>
-    </md-subheader>
-    <div class='ht' ng-transclude></div>
-</div>
+<md-subheader class='md-no-sticky' ng-click='ctrl.toggle($event)'>
+    <div layout='row' layout-align='space-between center'>
+        <div>{{ctrl.section}}</div>
+        <md-button class='md-icon-button'>
+            <md-icon md-font-icon='{{ctrl.collapsed ? "expand_more" : "expand_less"}}'>
+                {{ctrl.collapsed ? "expand_more" : "expand_less"}}
+            </md-icon>
+        </md-button>
+    </div>
+</md-subheader>
+<div class='ht' ng-transclude></div>

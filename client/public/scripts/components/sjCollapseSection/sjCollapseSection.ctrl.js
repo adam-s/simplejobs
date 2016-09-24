@@ -8,5 +8,10 @@
         var ctrl = this;
 
         ctrl.collapsed = true;
+
+        ctrl.toggle = function($event) {
+            $event.stopImmediatePropagation();
+            ctrl.collapsed = !ctrl.collapsed;
+        }
     }
 })();
