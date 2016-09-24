@@ -2,34 +2,20 @@
     angular.module('simplejobs')
         .directive('sjCollapseSection', sjCollapseSection);
 
-    sjCollapseSection.$inject = ['$rootScope', '$animateCss', '$timeout', '$state'];
+    sjCollapseSection.$inject = ['$rootScope', '$animateCss', '$timeout', '$state', '$compile', '$templateCache'];
 
-    function sjCollapseSection($rootScope, $animateCss, $timeout, $state) {
+    function sjCollapseSection($rootScope, $animateCss, $timeout, $state, $compile, $templateCache) {
         return {
             controller: 'sjCollapseSectionCtrl',
             controllerAs: 'ctrl',
-            template: template,
+            templateUrl: 'scripts/components/sjCollapseSection/sjCollapseSection.tpl.html',
             link: link,
             bindToController: true,
-            scope: {}
+            transclude: true,
+            scope: {
+                section: '@'
+            }
         };
-
-        function template(element, attr) {
-
-            var html = element.html();
-
-            return "<md-subheader ng-click='ctrl.collapsed = !ctrl.collapsed'>" +
-                    "    <div layout='row' layout-align='space-between center'>" +
-                    "       <div>" + attr.section + "</div>" +
-                    "       <md-button class='md-icon-button'>" +
-                    "           <md-icon md-font-icon='{{ctrl.collapsed ? \"expand_more\" : \"expand_less\"}}'>" +
-                    "               {{ctrl.collapsed ? \"expand_more\" : \"expand_less\"}}" +
-                    "           </md-icon>" +
-                    "       </md-button>" +
-                    "   </div>" +
-                    "</md-subheader>" +
-                    "<div class='ht'>" + html + "</div>";
-        }
 
         function link(scope, element, attrs, ctrl) {
             var activeState = false; // Store whether this element slider is open {active} or closed
@@ -67,7 +53,6 @@
             $rootScope.$on('$stateChangeSuccess', function() {
                 activeState = false; // Reset
                 ctrl.collapsed = true;
-
                 isActive();
             });
 

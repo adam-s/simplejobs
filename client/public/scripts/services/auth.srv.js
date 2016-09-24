@@ -17,7 +17,8 @@
             passwordChange: passwordChange,
             forgotPassword: forgotPassword,
             forgotPasswordReset: forgotPasswordReset,
-            hasRole: hasRole
+            hasRole: hasRole,
+            isLoggedIn: isLoggedIn
         };
 
         function setMe(user) {
@@ -52,7 +53,7 @@
                 url: '/auth/login',
                 data: credentials
             }).success(function(response) {
-                me = response;
+                me = window.me = response;
                 deferred.resolve();
             }).error(function(response) {
                 deferred.reject(response);
@@ -66,8 +67,8 @@
                 method: 'GET',
                 url: '/auth/logout'
             }).then(function() {
-                me = "";
-                $state.go('home');
+                me = window.me = "";
+                $state.go('home',{}, {reload: true});
             })
         }
 
@@ -140,8 +141,13 @@
         function hasRole(rollToCheck) {
             var roles = me.roles || [];
             return roles.some(function(role) {
+                console.log(role);
                 return role === rollToCheck;
             });
+        }
+
+        function isLoggedIn() {
+            return hasRole('authenticated')
         }
     }
 })();

@@ -6,45 +6,80 @@
                 class="site-sidenav md-sidenav-left md-whiteframe-z2">
         <md-toolbar class="md-whiteframe-z1">
             <div class="md-toolbar-tools">
-                <h3>Simple Yacht Jobs</h3>
+                <h3></h3>
             </div>
         </md-toolbar>
         <md-content flex>
             <md-list>
                 <section class="main">
                     <md-list-item ui-sref="home">
-                        <md-icon md-font-icon="home">home</md-icon>
                         <p>Home</p>
+                        <md-button class="md-secondary md-icon-button"
+                                    ng-show="vm.currentState === 'home'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
                 </section>
-                <sj-collapse-section section="account">
-                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminJobList">
-                        <p>My profile</p>
+                <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="account">
+                    <md-list-item ui-sref="adminJobList">
+                        <p>{{vm.currentState}}</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminJobList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
-                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminUserList">
+                    <md-list-item ui-sref="adminUserList">
                         <p>Users</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminUserList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
-                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminCrewList">
+                    <md-list-item ui-sref="adminCrewList">
                         <p>My job listings</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminCrewList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
                 </sj-collapse-section>
                 <sj-collapse-section section="guide">
-                    <md-list-item ui-sref="adminJobList" ui-sref-active="active-state">
+                    <md-list-item ui-sref="adminJobList">
                         <p>How to create an accunt</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminJobList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminJobList">
                         <p>Job listing</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminJobList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminCrewList">
                         <p>Crew profile</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminCrewList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
                 </sj-collapse-section>
-                <sj-collapse-section section="Administration">
-                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminJobList">
+                <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
+                    <md-list-item ui-sref="adminJobList">
                         <p>Jobs</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminJobList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
-                    <md-list-item permission permission-only="['ADMINISTRATOR']" ui-sref="adminUserList">
+                    <md-list-item  ui-sref="adminUserList">
                         <p>Users</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="vm.currentState === 'adminUserList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
                     </md-list-item>
                 </sj-collapse-section>
             </md-list>

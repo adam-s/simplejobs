@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', 'Auth', '$mdDialog', 'errorHandler'];
+    loginCtrl.$inject = ['$location', 'Auth', '$mdDialog', 'errorHandler', '$state'];
 
-    function loginCtrl($location, Auth, $mdDialog, errorHandler) {
+    function loginCtrl($location, Auth, $mdDialog, errorHandler, $state) {
         var vm = this;
         vm.auth = Auth;
         vm.credentials = {};
@@ -36,7 +36,7 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $location.path('/account');
+                    $state.go('account', {}, {reload: true})
                 }, function reject(response) {
                     errorHandler.handleValidationErrors(response);
                     vm.disableFlag = false;
