@@ -29,7 +29,6 @@
         }
 
         $scope.$watch('vm.profile.file', function(file) {
-            console.log(file);
             if (file) {
                 vm.profile.resume = file.name || '';
             }

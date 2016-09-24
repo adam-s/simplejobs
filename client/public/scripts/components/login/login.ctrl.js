@@ -25,6 +25,7 @@
                 .then(function success() {
                     vm.disableFlag = false;
                     $location.path('/');
+                    $mdDialog.hide();
                 }, function reject(response) {
                     errorHandler.handleValidationErrors(response);
                     vm.disableFlag = false;
@@ -36,7 +37,8 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $state.go('account', {}, {reload: true})
+                    $state.go('account', {}, {reload: true});
+                    $mdDialog.hide();
                 }, function reject(response) {
                     errorHandler.handleValidationErrors(response);
                     vm.disableFlag = false;

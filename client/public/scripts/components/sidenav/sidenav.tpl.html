@@ -20,64 +20,25 @@
                         </md-button>
                     </md-list-item>
                 </section>
-                <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="account">
+                <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
                     <md-list-item ui-sref="adminJobList">
-                        <p>{{sidenav.currentState}}</p>
+                        <p>Job list</p>
                         <md-button class="md-secondary md-icon-button"
                                    ng-show="sidenav.currentState === 'adminJobList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminUserList">
-                        <p>Users</p>
+                        <p>User list</p>
                         <md-button class="md-secondary md-icon-button"
                                    ng-show="sidenav.currentState === 'adminUserList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="adminCrewList">
-                        <p>My job listings</p>
+                        <p>Crew list</p>
                         <md-button class="md-secondary md-icon-button"
                                    ng-show="sidenav.currentState === 'adminCrewList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                </sj-collapse-section>
-                <sj-collapse-section section="guide">
-                    <md-list-item ui-sref="adminJobList">
-                        <p>How to create an accunt</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminJobList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="adminJobList">
-                        <p>Job listing</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminJobList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="adminCrewList">
-                        <p>Crew profile</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminCrewList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                </sj-collapse-section>
-                <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
-                    <md-list-item ui-sref="adminJobList">
-                        <p>Jobs</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminJobList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item  ui-sref="adminUserList">
-                        <p>Users</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminUserList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>

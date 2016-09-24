@@ -5,7 +5,7 @@ var positions = ['Chef', 'Captain', 'Engineer', 'Steward', 'Deckhand', 'Daywork'
 var languages = ['English', 'Spanish', 'French', 'Italian', 'German', 'Mandarin', 'Hindi', 'Portuguese',
     'Russian', 'Japanese', 'Korean', 'Arabic', 'Other'];
 var jobTypes = ['Yacht', 'Commercial', 'Marina', 'Office', 'Technician', 'Other'];
-var vesselTypes = ['Sail', 'Sportfish', 'Commercial', 'Other'];
+var vesselTypes = ['Motor', 'Sail', 'Sportfish', 'Commercial', 'Other'];
 var popularPorts = [
     {
         name: 'Fort Lauderdale',

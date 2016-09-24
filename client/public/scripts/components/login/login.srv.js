@@ -23,7 +23,6 @@
             })
                 .then(function(ev) {
                     console.log(ev);
-                    console.log('shitsfasdfsadf');
                 }, function(ev) {
                     console.log(ev);console.log('hidden');
                 })

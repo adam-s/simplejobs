@@ -105,18 +105,16 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
     var jobListing = req.app.locals.jobListing;
-    var id = jobListing._id;
 
     // Protect information
     delete req.body.author;
     delete req.body.__v;
     delete req.body._id;
-    delete jobListing._id;
+    delete jobListing.kind;
 
-    // Merge objects
-    _.extend(jobListing, req.body);
+    _.merge(jobListing, req.body);
 
-    JobListing.update({_id: id}, jobListing, { runValidators: true }, function(err) {
+    jobListing.save({ runValidators: true }, function(err) {
         if (err) return res.status(400).send(validationErrorHandler(err, true));
         res.json(jobListing);
     });
@@ -134,6 +132,7 @@ exports.remove = function(req, res) {
 exports.jobListingById = function(req, res, next, id) {
     JobListing
         .findById(id)
+        .select('-__v')
         .exec(function(err, jobListing) {
             if (err) return res.status(400).send(validationErrorHandler(err, true));
             req.app.locals.jobListing = jobListing;

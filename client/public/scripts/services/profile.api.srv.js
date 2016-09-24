@@ -24,7 +24,6 @@
 
             $http.get(detailEndpoint)
                 .then(function success(response) {
-                    console.log(response.data);
                     deferred.resolve(response.data);
                 }, function error(response) {
                     deferred.reject(response.data);

@@ -91,29 +91,6 @@ exports.autocomplete = function(req, res) {
 
         res.json(results);
     });
-
-    // CrewListing
-    //     .find()
-    //     .where(field, match)
-    //     .limit(10)
-    //     .select(field)
-    //     .sort(field)
-    //     .group(field)
-    //     .exec(function(err, results) {
-    //         if (err) return res.status(400).send(validationErrorHandler(err, true));
-    //
-    //         // http://stackoverflow.com/questions/6393943/convert-javascript-string-in-dot-notation-into-an-object-reference
-    //         results = field.split('.')
-    //             .reduce(function(obj, i) {
-    //                 var arr = [];
-    //                 obj.forEach(function(item) {
-    //                     arr.push(item[i]);
-    //                 });
-    //                 return arr;
-    //             }, results);
-    //
-    //         res.json(results);
-    //     });
 };
 
 exports.detail = function(req, res) {
@@ -141,18 +118,17 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
     var crewListing = req.app.locals.crewListing;
-    var id = crewListing._id;
 
     // Protect information
     delete req.body.author;
     delete req.body.__v;
     delete req.body._id;
-    delete crewListing._id;
+    delete crewListing.kind;
 
     // Merge objects
-    _.extend(crewListing, req.body);
+    _.merge(crewListing, req.body);
 
-    CrewListing.update({_id: id}, crewListing, {runValidators: true}, function(err, result) {
+    crewListing.save({runValidators: true}, function(err, result) {
         if (req.file) {
             if (err) {
                 // Delete the req file
@@ -183,6 +159,7 @@ exports.remove = function(req, res) {
 exports.crewListingById = function(req, res, next, id) {
     CrewListing
         .findById(id)
+        .select('-__v')
         .exec(function(err, crewListing) {
             if (!crewListing) return res.status(404).send({message: "File not found"});
             if (err) return res.status(400).send(err);
@@ -195,6 +172,7 @@ exports.crewListingByUserId = function (req, res, next, id) {
     CrewListing
         .findOne()
         .where('author', id)
+        .select('-__v')
         .exec(function(err, crewListing) {
             if (!crewListing) return res.status(404).send({message: "File not found"});
             if (err) return res.status(400).send(err);
@@ -208,6 +186,7 @@ exports.crewListingBySession = function(req, res, next) {
     CrewListing
         .findOne()
         .where('author', req.user._id)
+        .select('-__v')
         .exec(function(err, crewListing) {
             if (err) return res.status(400).send({message: 'An error occurred'});
             req.app.locals.crewListing = crewListing;
@@ -274,7 +253,6 @@ exports.fileHandler = function(req, res, next) {
         // Make sure that if there is a resume file but no new file, the resume exists in the file system.
         if (req.body.resume && typeof req.file === 'undefined') {
             fs.stat(config.dir + req.body.resume, function(err, stats) {
-                console.log(err);
                 if (err) {
                     return res.status(400).send({message: 'Resume doesn\'t exist on file server'});
                 } else {

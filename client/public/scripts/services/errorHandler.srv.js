@@ -11,7 +11,7 @@
 
         function handleValidationErrors(response, callback) {
             var alert;
-console.log('hello');
+
             if (response && response.message === 'Validation error') {
                 if (response.errors) {
                     var content = response.errors.reduce(function(string, value) {

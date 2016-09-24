@@ -52,8 +52,6 @@ module.exports = function(app) {
                     var files = ['test.doc', 'test.docx', 'test.odt', 'test.pdf', 'test.txt'];
                     var fileName = files[Math.floor(Math.random() * files.length)];
                     var path = 'files/resumes/' + user._id + '/' + fileName;
-                    console.log('1: ', user._id);
-                    console.log('2: ', path);
                     fs.copy(__dirname + '/../tests/fixtures/' + fileName, 'client/' + path, function() {
                         var profileData = {
                             startDate: Date.now(),
@@ -73,6 +71,7 @@ module.exports = function(app) {
                                 coordinates: [faker.address.longitude(), faker.address.latitude()]
                             },
                             jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
+                            vesselType: values.vesselTypes[Math.floor(Math.random() * values.vesselTypes.length)],
                             resume: path,
                             author: user._id
                         };
@@ -120,6 +119,7 @@ module.exports = function(app) {
                                 smoking: false,
                                 papers: false,
                                 jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
+                                vesselType: values.vesselTypes[Math.floor(Math.random() * values.vesselTypes.length)],
                                 flag: 'American',
                                 length: faker.random.number({min: 80, max: 300}),
                                 author: user._id

@@ -135,7 +135,6 @@ describe('/api/crew-listings', function() {
                         .field('author', '57bb59aa513d0e0f4f72ef9b')
                         .attach('file', __dirname + '/../fixtures/test.odt')
                         .end(function(err, response) {
-                            console.log(response.body);
                             expect(response.status).to.equal(200);
                             done();
                         });

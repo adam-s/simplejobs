@@ -47,7 +47,6 @@ module.exports = function(schema) {
         };
 
         Pagination.prototype.where = function(path, condition) {
-            console.log(path, condition);
             this.query.where(path, condition);
             this.countQuery.where(path, condition);
             return this;
