@@ -94,6 +94,14 @@ UserSchema.methods.isAdmin = function() {
 };
 
 /**
+ *
+ * @returns {boolean}
+ */
+UserSchema.methods.isAuthenticated = function() {
+    return this.roles.indexOf('authenticated') !== -1;
+};
+
+/**
  * Authenticate - check if the passwords are the same
  *
  * @param {String} plainText

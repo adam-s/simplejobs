@@ -37,6 +37,10 @@ exports.index = function(req, res) {
         query.where('active', true);
     }
 
+    // Only allow authenticated users to see protect fields email and phone number
+    query.select('-__v -kind');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+
     // Location proximity search
     // The proximity search sorts so we don't want to override it
     if (tableState.longitude && tableState.latitude) {
@@ -132,9 +136,14 @@ exports.remove = function(req, res) {
 };
 
 exports.jobListingById = function(req, res, next, id) {
-    JobListing
-        .findById(id)
-        .select('-__v')
+
+    var query = JobListing.findById(id);
+
+    // Only allow authenticated users to see protect fields email and phone number
+    query.select('-__v -kind');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+
+    query
         .exec(function(err, jobListing) {
             if (err) return res.status(400).send(validationErrorHandler(err, true));
             req.app.locals.jobListing = jobListing;

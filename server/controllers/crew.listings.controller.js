@@ -32,6 +32,10 @@ exports.index = function(req, res) {
     if (tableState.vesselType) query.where('vesselType', tableState.vesselType);
     if (tableState.position) query.where('position', tableState.position);
 
+    // Only allow authenticated users to see protect fields email and phone number
+    query.select('-__v -kind');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+
     // Location proximity search
     // The proximity search sorts so we don't want to override it
     if (tableState.longitude && tableState.latitude) {
@@ -129,7 +133,7 @@ exports.update = function(req, res) {
 
     // Merge objects
     _.assignIn(crewListing, req.body);
-console.log(crewListing);
+
     crewListing.save({runValidators: true}, function(err, result) {
         if (req.file) {
             if (err) {
@@ -159,9 +163,13 @@ exports.remove = function(req, res) {
 };
 
 exports.crewListingById = function(req, res, next, id) {
-    CrewListing
-        .findById(id)
-        .select('-__v')
+    var query = CrewListing.findById(id);
+
+    // Only allow authenticated users to see protect fields email and phone number
+    query.select('-__v -kind');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+
+    query
         .exec(function(err, crewListing) {
             if (!crewListing) return res.status(404).send({message: "File not found"});
             if (err) return res.status(400).send(err);
@@ -171,10 +179,13 @@ exports.crewListingById = function(req, res, next, id) {
 };
 
 exports.crewListingByUserId = function (req, res, next, id) {
-    CrewListing
-        .findOne()
-        .where('author', id)
-        .select('-__v')
+    var query = CrewListing.findOne();
+
+    // Only allow authenticated users to see protect fields email and phone number
+    query.select('-__v -kind');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+
+    query
         .exec(function(err, crewListing) {
             if (!crewListing) return res.status(404).send({message: "File not found"});
             if (err) return res.status(400).send(err);
@@ -185,10 +196,15 @@ exports.crewListingByUserId = function (req, res, next, id) {
 
 exports.crewListingBySession = function(req, res, next) {
     if (!req.user) return res.status(400).send({message: 'User is not set'});
-    CrewListing
-        .findOne()
+
+    var query = CrewListing.findOne();
+
+    // Only allow authenticated users to see protect fields email and phone number
+    query.select('-__v -kind');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+
+    query
         .where('author', req.user._id)
-        .select('-__v')
         .exec(function(err, crewListing) {
             if (err) return res.status(400).send({message: 'An error occurred'});
             req.app.locals.crewListing = crewListing;

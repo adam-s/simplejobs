@@ -33,7 +33,7 @@
             Auth.register(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $location.path('/');
+                    $state.go('account', {}, {reload: true});
                     $mdDialog.hide();
                 }, function reject(response) {
                     // The first recaptcha needs to be refreshed so invalidate it.

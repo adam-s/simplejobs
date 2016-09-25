@@ -10,12 +10,7 @@
                 parent: 'sidebar',
                 url: '/',
                 templateUrl: 'scripts/states/home/home.tpl.html',
-                controller: 'homeCtrl as vm',
-                resolve: {
-                    jobs: ['jobApi', function(jobApi) {
-                        return jobApi.index();
-                    }]
-                }
+                controller: 'homeCtrl as vm'
             })
     }
 })();
