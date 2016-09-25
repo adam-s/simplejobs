@@ -10,7 +10,6 @@
         vm.resumes = resumes.records;
         vm.count = resumes.metadata.totalCount;
         vm.tableState = tableState = angular.copy($state.params);
-        console.log(vm.resumes[0]);
 
         vm.fetchResumes = function() {
             $location.search(vm.tableState);

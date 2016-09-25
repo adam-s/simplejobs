@@ -26,7 +26,9 @@ exports.index = function(req, res) {
     if (tableState.active) query.where('active', tableState.active);
     if (tableState.name) query.where('name', tableState.name);
     if (tableState.location) query.where('location.name', tableState.location);
-    if (tableState.jobType) query.where('jobType', tableState.jobType);
+    if (tableState.jobType) query.where('jobType', {
+        "$in" : Array.isArray(tableState.jobType) ? tableState.jobType : [tableState.jobType]
+    });
     if (tableState.vesselType) query.where('vesselType', tableState.vesselType);
     if (tableState.position) query.where('position', tableState.position);
 
@@ -126,8 +128,8 @@ exports.update = function(req, res) {
     delete crewListing.kind;
 
     // Merge objects
-    _.merge(crewListing, req.body);
-
+    _.assignIn(crewListing, req.body);
+console.log(crewListing);
     crewListing.save({runValidators: true}, function(err, result) {
         if (req.file) {
             if (err) {

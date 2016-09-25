@@ -14,12 +14,11 @@
                     <h4>Filter requirements</h4>
                     <md-input-container flex>
                         <label>Job type</label>
-                        <md-select name="jobType"
-                                   ng-model="dialog.tableState.jobType"
-                                   job-types-extend>
-                            <md-option ng-value="opt"
-                                       ng-repeat="opt in jobTypes | orderBySelectedOption:dialog.tableState.jobType"
-                                       class="top-selector-option">{{opt}}</md-option>
+                        <md-select job-types-multiple-extend placeholder="Job types" ng-model="dialog.tableState.jobType" multiple>
+                            <md-optgroup>
+                                <md-option ng-value="opt"
+                                           ng-repeat="opt in jobTypes">{{opt}}</md-option>
+                            </md-optgroup>
                         </md-select>
                     </md-input-container>
                     <md-input-container flex>

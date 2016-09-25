@@ -23,6 +23,9 @@
                     },
                     page: {
                         value: 1
+                    },
+                    jobType: {
+                        array: true
                     }
                 },
                 reloadOnSearch: true,

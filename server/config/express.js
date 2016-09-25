@@ -23,7 +23,7 @@ module.exports = function (db) {
 
     // Use the 'NODE_ENV' variable to activate the 'morgan' logger or 'compress' middleware
     if (process.env.NODE_ENV === 'development') {
-        //app.use(morgan('dev'));
+        // app.use(morgan('dev'));
     } else if (process.env.NODE_ENV === 'production') {
         app.use(compress());
     }

@@ -22,8 +22,8 @@
                     <p>Dockmaster, sales representative, marine diesel mechanic, yacht broker, crew placement, boatyard, daywork, office, ect. </p>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button ui-sref="searchJobs({type: 'land'})">Job listings</md-button>
-                    <md-button ui-sref="searchResumes({type: 'land'})">Search resumes</md-button>
+                    <md-button ui-sref="searchJobs({jobType: ['Commercial', 'Marina', 'Office', 'Technician', 'Other']})">Job listings</md-button>
+                    <md-button ui-sref="searchResumes({jobType: ['Commercial', 'Marina', 'Office', 'Technician', 'Other']})">Search resumes</md-button>
                 </md-card-actions>
             </md-card>
         </div>
@@ -45,8 +45,8 @@
                     <p>Captain, chef, engineer, steward, deckhand, mate, ect.</p>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button ui-sref="searchJobs({type: 'sea'})">Job listings</md-button>
-                    <md-button ui-sref="searchResumes({type: 'sea'})">Search resumes</md-button>
+                    <md-button ui-sref="searchJobs({jobType: ['Yacht', 'Commercial']})">Job listings</md-button>
+                    <md-button ui-sref="searchResumes({jobType: ['Yacht', 'Commercial']})">Search resumes</md-button>
                 </md-card-actions>
             </md-card>
         </div>

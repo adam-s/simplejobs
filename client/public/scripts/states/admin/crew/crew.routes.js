@@ -7,7 +7,7 @@
     function router($stateProvider) {
         $stateProvider
             .state('adminCrewList', {
-                url: '/crew/list?{limit:int}&{page:int}&active&name&location&jobType&position',
+                url: '/crew/list?{limit:int}&{page:int}&active&name&location&jobType:array&position',
                 parent: 'admin',
                 controller: 'adminCrewListCtrl as vm',
                 templateUrl: 'scripts/states/admin/crew/crew.list.tpl.html',
@@ -23,6 +23,9 @@
                     },
                     page: {
                         value: 1
+                    },
+                    jobType: {
+                        array: true
                     }
                 },
                 reloadOnSearch: true,
