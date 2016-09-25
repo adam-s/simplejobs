@@ -35,6 +35,27 @@
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
+                    <md-list-item>
+                        <p>Account guide</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'adminCrewList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item>
+                        <p>Profile guide</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'adminCrewList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item>
+                        <p>Job listing guide</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'adminCrewList'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
                 </sj-collapse-section>
                 <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
                     <md-list-item ui-sref="adminJobList">

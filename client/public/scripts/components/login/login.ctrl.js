@@ -33,7 +33,7 @@
             Auth.register(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $state.go('account', {}, {reload: true});
+                    $state.go('.', {}, {reload: true});
                     $mdDialog.hide();
                 }, function reject(response) {
                     // The first recaptcha needs to be refreshed so invalidate it.
@@ -48,7 +48,7 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $state.go('account', {}, {reload: true});
+                    $state.go('.', {}, {reload: true});
                     $mdDialog.hide();
                 }, function reject(response) {
                     errorHandler.handleValidationErrors(response);
