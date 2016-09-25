@@ -1,5 +1,7 @@
 'use strict';
 
+var config = require('./config.js');
+
 var positions = ['Chef', 'Captain', 'Engineer', 'Steward', 'Deckhand', 'Daywork', 'Technician',
     'Mechanic', 'Electrician', 'Carpenter', 'Administration', 'Broker', 'Sales', 'Other'];
 var languages = ['English', 'Spanish', 'French', 'Italian', 'German', 'Mandarin', 'Hindi', 'Portuguese',
@@ -78,5 +80,6 @@ module.exports = {
     languages: languages,
     jobTypes: jobTypes,
     popularPorts: popularPorts,
-    vesselTypes: vesselTypes
+    vesselTypes: vesselTypes,
+    recaptchaSiteKey: config.recaptcha.siteKey
 };

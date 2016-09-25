@@ -27,5 +27,10 @@ module.exports = {
                 domain: 'sandboxa4466e139c804af5a7c0fb969a38f9f4.mailgun.org' || 'MAILGUN_DOMAIN'
             }
         }
+    },
+    recaptcha: {
+        siteKey: '6LfzWgcUAAAAAEv7EeHdFTQEuCFAQVwIjDyOFFHV' || 'RECAPTCHA_SITEKEY',
+        secret: '6LfzWgcUAAAAAM5Mfz_iOSheRL_3HorrcPRElta_' || 'RECAPTCHA_SECRET',
+        url: 'https://www.google.com/recaptcha/api/siteverify' || 'RECAPTCHA_URL'
     }
 };

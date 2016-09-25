@@ -2,18 +2,27 @@
     angular.module('simplejobs')
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', 'Auth', '$mdDialog', 'errorHandler', '$state'];
+    loginCtrl.$inject = ['$window', '$location', '$state', '$mdDialog', 'vcRecaptchaService', 'Auth', 'errorHandler'];
 
-    function loginCtrl($location, Auth, $mdDialog, errorHandler, $state) {
+    function loginCtrl($window, $location, $state, $mdDialog, vcRecaptchaService, Auth, errorHandler) {
         var vm = this;
+
+        // Private variables
+        var widgetId; // Private variable to hold id from callback;
+
+        // Shared variables
         vm.auth = Auth;
         vm.credentials = {};
-        vm.register = register;
-        vm.login = login;
         vm.disableFlag = false;
         vm.isLogin = true;
-        vm.hideDialog = hideDialog;
+        vm.recaptchaSiteKey = $window.values.recaptchaSiteKey;
         vm.size = 200;
+
+        // Shared methods
+        vm.register = register;
+        vm.login = login;
+        vm.setWidgetId = setWidgetId;
+        vm.hideDialog = hideDialog;
 
         if (vm.auth.me) {
             $location.path('/');
@@ -27,6 +36,8 @@
                     $location.path('/');
                     $mdDialog.hide();
                 }, function reject(response) {
+                    // The first recaptcha needs to be refreshed so invalidate it.
+                    vcRecaptchaService.reload(widgetId);
                     errorHandler.handleValidationErrors(response);
                     vm.disableFlag = false;
                 })
@@ -49,6 +60,11 @@
         function hideDialog() {
             console.log('is hide being called');
             $mdDialog.hide();
+        }
+
+        function setWidgetId(_widgetId) {
+            console.log(_widgetId);
+            widgetId = _widgetId;
         }
 
         function handleValidationErrors(response) {

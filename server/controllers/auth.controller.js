@@ -9,31 +9,44 @@ var passport = require('passport'),
     async = require('async'),
     crypto = require('crypto'),
     util = require('util'),
+    request = require('request'),
     validationErrorHandler = require('../lib/validationErrorHandler.js');
 
-exports.register = function(req, res, next) {
-
+exports.register = function(req, res) {
     req.assert('password', 'You must enter a password').notEmpty();
     req.assert('passwordConfirm', 'Passwords must match').equals(req.body.password);
     req.assert('email', 'You must enter a valid email address').isEmail();
+    req.assert('recaptcha', 'reCaptcha is required').notEmpty();
 
     var errors = req.validationErrors();
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
-    var user = new User();
-    user.email = req.body.email;
-    user.password = req.body.password;
+    var payload = {
+        secret: config.recaptcha.secret,
+        response: req.body.recaptcha,
+        remoteip: req.app.locals.ipAddress
+    };
 
-    user.save(function(err) {
-        if (err) return res.status(400).send(validationErrorHandler(err, true));
+    request.post({url: config.recaptcha.url, form:payload}, function(err, response, body) {
+        body = JSON.parse(body);
 
-        user.password = user.passwordConfirm = undefined;
-        user.salt = undefined;
+        if (!body.success) return res.status(400).send({message: 'The reCaptcha didn\'t validate'});
 
-        req.login(user, function(err) {
-            if (err) return res.status(400).send(err);
-            res.json(user);
-        })
+        var user = new User();
+        user.email = req.body.email;
+        user.password = req.body.password;
+
+        user.save(function(err) {
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
+
+            user.password = user.passwordConfirm = undefined;
+            user.salt = undefined;
+
+            req.login(user, function(err) {
+                if (err) return res.status(400).send(err);
+                res.json(user);
+            })
+        });
     });
 };
 

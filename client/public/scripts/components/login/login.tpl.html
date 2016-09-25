@@ -68,7 +68,13 @@
                     </div>
                 </md-input-container>
                 <div ng-if="!vm.isLogin">
-                    <div layout="row" layout-align="center center" class="capture" vc-recaptcha key="'6LfzWgcUAAAAAEv7EeHdFTQEuCFAQVwIjDyOFFHV'"></div>
+                    <div layout="row"
+                         layout-align="center center"
+                         class="capture"
+                         vc-recaptcha
+                         ng-model="vm.credentials.recaptcha"
+                         on-create="vm.setWidgetId(widgetId)"
+                         key="vm.recaptchaSiteKey"></div>
                 </div>
                 <div layout="column">
                     <md-button class="md-raised md-primary submit"

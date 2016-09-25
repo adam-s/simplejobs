@@ -8,6 +8,7 @@ var config = require('./config'),
     bodyParser = require('body-parser'),
     expressValidator = require('express-validator'),
     customValidators = require('./customValidators.js'),
+    getClientIp = require('../lib/getClientIp'),
     consolidate = require('consolidate'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
@@ -73,6 +74,9 @@ module.exports = function (db) {
     // @link https://github.com/ctavan/express-validator
     app.use(expressValidator());
     app.use(customValidators());
+
+    // Get the client IP address and attach it at req.app.locals.ipAddress
+    app.use(getClientIp());
 
     // Load and initialize passport
     // Initializing the session has to come after the statics
