@@ -15,7 +15,21 @@
                     <md-list-item ui-sref="home">
                         <p>Home</p>
                         <md-button class="md-secondary md-icon-button"
-                                    ng-show="sidenav.currentState === 'home'">
+                                   ng-show="sidenav.currentState === 'home'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ui-sref="searchJobs">
+                        <p>Search jobs</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'searchJobs'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ui-sref="searchResumes">
+                        <p>Search resumes</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'searchResumes'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>

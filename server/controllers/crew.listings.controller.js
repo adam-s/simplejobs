@@ -34,7 +34,7 @@ exports.index = function(req, res) {
 
     // Only allow authenticated users to see protect fields email and phone number
     query.select('-__v -kind');
-    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone -resume');
 
     // Location proximity search
     // The proximity search sorts so we don't want to override it
@@ -167,7 +167,7 @@ exports.crewListingById = function(req, res, next, id) {
 
     // Only allow authenticated users to see protect fields email and phone number
     query.select('-__v -kind');
-    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone -resume');
 
     query
         .exec(function(err, crewListing) {
@@ -183,7 +183,7 @@ exports.crewListingByUserId = function (req, res, next, id) {
 
     // Only allow authenticated users to see protect fields email and phone number
     query.select('-__v -kind');
-    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone -resume');
 
     query
         .exec(function(err, crewListing) {
@@ -201,7 +201,7 @@ exports.crewListingBySession = function(req, res, next) {
 
     // Only allow authenticated users to see protect fields email and phone number
     query.select('-__v -kind');
-    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone');
+    if (!(req.user && req.user.isAuthenticated())) query.select('-email -phone -resume');
 
     query
         .where('author', req.user._id)

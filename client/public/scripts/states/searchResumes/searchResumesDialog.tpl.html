@@ -27,8 +27,23 @@
             <div ng-if="dialog.resume.length"><span class="name md-body-2">Vessel length: </span><span class="value md-body-1">{{dialog.resume.length}} meters</span></div>
             <div ng-if="dialog.resume.papers"><span class="name md-body-2">Papers required: </span><span class="value md-body-1">Yes</span></div>
             <div ng-if="dialog.resume.smoking"><span class="name md-body-2">Smoking allowed: </span><span class="value md-body-1">Yes</span></div>
-            <div ng-if="dialog.resume.phone"><span class="name md-body-2">Phone: </span><span class="value md-body-1">{{dialog.resume.phone}}</span></div>
-            <div ng-if="dialog.resume.email"><span class="name md-body-2">Email: </span><span class="value md-body-1">{{dialog.resume.email}}</span></div>
+            <div>
+                <span class="name md-body-2">Phone: </span>
+                <span ng-if="dialog.resume.phone" class="value md-body-1">{{dialog.resume.phone}}</span>
+                <span ng-if="!dialog.resume.phone" class="value md-body-1">Login</span>
+            </div>
+            <div>
+                <span class="name md-body-2">Email: </span>
+                <span ng-if="dialog.resume.email"class="value md-body-1">{{dialog.resume.email}}</span>
+                <span ng-if="!dialog.resume.email" class="value md-body-1">Login</span>
+            </div>
+            <div>
+                <span class="name md-body-2">Resume: </span>
+                <span ng-if="dialog.resume.resume" class="value md-body-1">
+                    <a href="/{{dialog.resume.resume}}" target="_blank" download>Download</a>
+                </span>
+                <span ng-if="!dialog.resume.resume" class="value md-body-1">Login</span>
+            </div>
         </div>
         <div layout-padding ng-if="dialog.resume.description">
             <md-divider></md-divider>
