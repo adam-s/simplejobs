@@ -1,39 +1,5 @@
 <md-content class=""flex style="background: #ececec">
     <div layout-gt-xs="row" layout="column" class="sj-account sj-card-grid">
-        <div class="sj-account-column" layout="column"  flex>
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Email</span>
-                        <span class="md-subhead">{{vm.me.email}}</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-sm" card-media>
-                            <md-icon md-font-icon="email">email</md-icon>
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button ui-sref="email">Change</md-button>
-                </md-card-actions>
-            </md-card>
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Password</span>
-                        <span class="md-subhead">************</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-sm" card-media>
-                            <md-icon md-font-icon="lock">lock</md-icon>
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button ui-sref="password">Change</md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
         <div class="sj-account-column" layout="column" flex>
             <md-card ng-if="!vm.profile._id">
                 <md-card-title>
@@ -112,6 +78,40 @@
                 <md-card-actions layout="row" layout-align="start center">
                     <md-button ui-sref="jobEdit({id: 'add'})">Create</md-button>
                     <md-button ui-sref="myJobList">List</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div class="sj-account-column" layout="column"  flex>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Email</span>
+                        <span class="md-subhead">{{vm.me.email}}</span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-sm" card-media>
+                            <md-icon md-font-icon="email">email</md-icon>
+                        </div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button ui-sref="email">Change</md-button>
+                </md-card-actions>
+            </md-card>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Password</span>
+                        <span class="md-subhead">************</span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-sm" card-media>
+                            <md-icon md-font-icon="lock">lock</md-icon>
+                        </div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button ui-sref="password">Change</md-button>
                 </md-card-actions>
             </md-card>
         </div>

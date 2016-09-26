@@ -18,7 +18,7 @@
                     }]
                 },
                 data: {
-                    title: 'My crew profile',
+                    title: 'My resume profile',
                     permissions: {
                         only: ['editProfile'],
                         redirectTo: 'login'
