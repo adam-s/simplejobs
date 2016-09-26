@@ -15,6 +15,8 @@
         vm.edit = edit;
         vm.remove = remove;
         vm.addJob = addJob;
+        vm.showFilterDialog = showFilterDialog;
+        vm.clearFilter = clearFilter;
 
         function fetch() {
             vm.promise = jobApi
@@ -70,6 +72,36 @@
 
         function addJob() {
             $state.go('jobEdit', {id: 'add'});
+        }
+
+        function showFilterDialog ($event) {
+            $mdDialog.show({
+                controller: 'jobDialogFilterCtrl',
+                bindToController: true,
+                controllerAs: 'dialog',
+                templateUrl: 'scripts/states/admin/job/jobDialogFilter.tpl.html',
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                fullscreen: true,
+                locals: {
+                    tableState: angular.copy(vm.tableState)
+                }
+            })
+                .then(function(tableState) {
+                    vm.tableState = tableState;
+                    console.log(vm.tableState);
+                    $location.search(vm.tableState);
+                }, function(){})
+        }
+
+        function clearFilter() {
+            vm.tableState = {
+                limit: vm.tableState.limit,
+                page: vm.tableState.page
+            };
+
+            $location.search(vm.tableState);
         }
     }
 })();

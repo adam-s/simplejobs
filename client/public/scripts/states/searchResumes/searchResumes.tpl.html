@@ -24,9 +24,13 @@
                  ng-mouseleave="hover = false"
                  layout-padding>
             <md-card-title>
-                <div layout="column">
-                    <div class="title" layout="row" layout-align="space-between center">
+                <div layout="column" flex>
+                    <div layout="row" layout-align="space-between center">
                         <div flex><h3 class="md-headline">{{resume.title}}</h3></div>
+                        <md-button class="md-icon-button">
+                            <md-icon md-font-icon="zoom_in">zoom_in</md-icon>
+                            <md-tooltip md-direction="top">More information</md-tooltip>
+                        </md-button>
                     </div>
                     <div class="sj-secondary-text md-subhead">
                         <span ng-if="vm.proximity">{{vm.distanceFn(resume.location.coordinates[1], resume.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}} | </span>
@@ -48,10 +52,6 @@
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
                 <span class="md-caption updated">Updated: {{resume.updated | date : 'longDate'}}</span>
-                <md-button class="md-fab md-mini md-primary md-raised md-icon-button">
-                    <md-icon md-font-icon="reply">reply</md-icon>
-                    <md-tooltip md-direction="top">More information</md-tooltip>
-                </md-button>
             </md-card-actions>
         </md-card>
         <sj-pagination

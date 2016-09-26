@@ -16,4 +16,14 @@
   md-content {
     background-color: rgba(250,250,250, 1);
   }
+
+  .sidebar-bg {
+    height: 200px;
+    background: url('/assets/images/yacht_sunset_small.jpg');
+    background-size: cover;
+  }
+  .sj-sidenav-header {
+    height: 200px;
+    background: rgb(0, 171, 192);
+  }
 }

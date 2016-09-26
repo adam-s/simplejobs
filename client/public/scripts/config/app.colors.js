@@ -4,69 +4,66 @@
     colors.$inject = ['$mdThemingProvider'];
 
     function colors ($mdThemingProvider) {
-        var customPrimary = {
-            '50': '#a8bac3',
-            '100': '#99aeb8',
-            '200': '#8aa2ae',
-            '300': '#7a96a3',
-            '400': '#6b8a99',
-            '500': '#607D8B',
-            '600': '#566f7c',
-            '700': '#4b626d',
-            '800': '#41545e',
-            '900': '#36474f',
-            'A100': '#b7c6cd',
-            'A200': '#c6d2d8',
-            'A400': '#d5dee2',
-            'A700': '#2c3940'
-        };
-        $mdThemingProvider
-            .definePalette('customPrimary',
-            customPrimary);
 
-        var customAccent = {
-            '50': '#0040aa',
-            '100': '#0049c3',
-            '200': '#0053dd',
-            '300': '#005cf6',
-            '400': '#116aff',
-            '500': '#2a7aff',
-            '600': '#5d9aff',
-            '700': '#77aaff',
-            '800': '#90baff',
-            '900': '#aacaff',
-            'A100': '#5d9aff',
-            'A200': '#448AFF',
-            'A400': '#2a7aff',
-            'A700': '#c3daff'
+        var greenCustomPrimary = {
+            '50': '#79cb7d',
+            '100': '#66c46b',
+            '200': '#54bc59',
+            '300': '#45b24a',
+            '400': '#3e9f43',
+            '500': 'rgb(55, 141, 59)',
+            '600': '#307b33',
+            '700': '#29682c',
+            '800': '#225624',
+            '900': '#1a441c',
+            'A100': '#8bd28e',
+            'A200': '#9ed9a0',
+            'A400': '#b0e0b2',
+            'A700': '#133115',
+            'contrastDefaultColor': 'light',
+            'contrastDarkColors': '50 100 200 300 400 A100',
+            'contrastStrongLightColors': '500 600 700 A200 A400 A700'
         };
-        $mdThemingProvider
-            .definePalette('customAccent',
-            customAccent);
 
-        var customWarn = {
-            '50': '#fbb4af',
-            '100': '#f99d97',
-            '200': '#f8877f',
-            '300': '#f77066',
-            '400': '#f55a4e',
-            '500': '#F44336',
-            '600': '#f32c1e',
-            '700': '#ea1c0d',
-            '800': '#d2190b',
-            '900': '#ba160a',
-            'A100': '#fccbc7',
-            'A200': '#fde1df',
-            'A400': '#fff8f7',
-            'A700': '#a21309'
+        $mdThemingProvider
+            .definePalette('greenCustomPrimary',
+            greenCustomPrimary);
+
+        $mdThemingProvider
+            .theme('green')
+            .primaryPalette('greenCustomPrimary')
+            .accentPalette('orange')
+            .warnPalette('red')
+            .backgroundPalette('grey');
+
+        var blueCustomPrimary = {
+            '50': '#40eaff',
+            '100': '#27e7ff',
+            '200': '#0de5ff',
+            '300': '#00d8f3',
+            '400': '#00c2d9',
+            '500': 'rgb(0, 171, 192)',
+            '600': '#0094a6',
+            '700': '#007e8d',
+            '800': '#006773',
+            '900': '#00505a',
+            'A100': '#5aedff',
+            'A200': '#73f0ff',
+            'A400': '#8df3ff',
+            'A700': '#003940',
+            'contrastDefaultColor': 'light',
+            'contrastDarkColors': '50 100 200 A100',
+            'contrastStrongLightColors': '300 400 500 600 700 A200 A400 A700'
         };
-        $mdThemingProvider
-            .definePalette('customWarn',
-            customWarn);
 
-        $mdThemingProvider.theme('default')
-            .primaryPalette('customPrimary')
-            .accentPalette('customAccent')
-            .warnPalette('customWarn')
+        $mdThemingProvider
+            .definePalette('blueCustomPrimary', blueCustomPrimary);
+
+        $mdThemingProvider
+            .theme('default')
+            .primaryPalette('blueCustomPrimary')
+            .accentPalette('orange')
+            .warnPalette('red')
+            .backgroundPalette('grey');
     }
 })();

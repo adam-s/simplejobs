@@ -23,17 +23,17 @@
             var target = angular.element(element[0].querySelector('.ht'))[0]; // Find the div that contains the link
             target = angular.element(target); // Unlike jquery a wrapped DOM object wasn't returned above.
 
-            var getTargetHeight = function() { // This doesn't return a targetHeight value until after the DOM is rendered
-                var targetHeight;
+            var getTargetHeight = function() {
+                var targetHeight,
+                    body = angular.element(document.querySelector('body')).eq(0);
 
-                target.addClass('no-transition');
-                target.css('margin-top', '');
+                var cloneTarget = angular.copy(target)
+                        .css('position', 'absolute')
+                        .css('top', '-1000');
 
-                targetHeight = target.prop('clientHeight');
-
-                target.css('margin-top', 0);
-                target.removeClass('no-transition');
-
+                body.append(cloneTarget);
+                targetHeight = cloneTarget.prop('clientHeight');
+                cloneTarget.remove();
                 return targetHeight;
             };
 

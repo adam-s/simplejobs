@@ -4,8 +4,17 @@
             <md-toolbar class="md-table-toolbar md-default">
                 <div class="md-toolbar-tools">
                     <div flex></div>
-                    <md-button class="md-icon-button md-raised md-primary" ng-click="vm.addJob()">
+                    <md-button class="md-icon-button" ng-click="vm.showFilterDialog($event)">
+                        <md-icon md-font-icon="filter_list">filter_list</md-icon>
+                        <md-tooltip md-direction="bottom">Filters</md-tooltip>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="vm.clearFilter()">
+                        <md-icon md-font-icon="clear">clear</md-icon>
+                        <md-tooltip md-direction="bottom">Clear filters</md-tooltip>
+                    </md-button>
+                    <md-button class="md-icon-button md-raised md-mini md-primary" ng-click="vm.addJob()">
                         <md-icon md-font-icon="add">add</md-icon>
+                        <md-tooltip md-direction="bottom">Add job listing</md-tooltip>
                     </md-button>
                 </div>
             </md-toolbar>
@@ -17,6 +26,7 @@
                         <th md-column md-order-by="startDate" md-desc>Starting date</th>
                         <th md-column>Name</th>
                         <th md-column>Location</th>
+                        <th md-column>Job type</th>
                         <th md-column>Position</th>
                         <th md-column>Actions</th>
                     </tr>
@@ -25,6 +35,7 @@
                     <tr md-row ng-repeat="job in vm.jobs">
                         <td md-cell style="width: 40px" cg-busy="vm.promise">
                             <md-switch ng-model="job.active"
+                                       class="md-primary"
                                        aria-label="Job listing active"
                                        ng-disabled="vm.switchIsDisabled[$index]"
                                        ng-change="vm.activeChange(job, $index)"></md-switch>
@@ -32,6 +43,7 @@
                         <td md-cell style="width: 100px;">{{job.startDate | date}}</td>
                         <td md-cell style="min-width: 200px">{{job.title}}</td>
                         <td md-cell style="min-width: 200px">{{job.location.name}}</td>
+                        <td md-cell class="jobType">{{job.jobType}}</td>
                         <td md-cell style="min-width: 100px">{{job.position}}</td>
                         <td md-cell style="width: 100px">
                             <div layout="row">

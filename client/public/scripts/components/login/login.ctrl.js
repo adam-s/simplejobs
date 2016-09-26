@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$window', '$location', '$state', '$mdDialog', 'vcRecaptchaService', 'Auth', 'errorHandler'];
+    loginCtrl.$inject = ['$window', '$location', '$state', '$mdDialog', '$mdToast', 'vcRecaptchaService', 'Auth', 'errorHandler'];
 
-    function loginCtrl($window, $location, $state, $mdDialog, vcRecaptchaService, Auth, errorHandler) {
+    function loginCtrl($window, $location, $state, $mdDialog, $mdToast, vcRecaptchaService, Auth, errorHandler) {
         var vm = this;
 
         // Private variables
@@ -33,7 +33,11 @@
             Auth.register(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $state.go('.', {}, {reload: true});
+
+                    var toast = $mdToast.simple().textContent('Registration successful');
+                    $mdToast.show(toast);
+
+                    $state.go('account', {}, {reload: true});
                     $mdDialog.hide();
                 }, function reject(response) {
                     // The first recaptcha needs to be refreshed so invalidate it.
@@ -48,7 +52,11 @@
             Auth.login(vm.credentials)
                 .then(function success() {
                     vm.disableFlag = false;
-                    $state.go('.', {}, {reload: true});
+
+                    var toast = $mdToast.simple().textContent('Login successful');
+                    $mdToast.show(toast);
+
+                    $state.go('account', {}, {reload: true});
                     $mdDialog.hide();
                 }, function reject(response) {
                     errorHandler.handleValidationErrors(response);
