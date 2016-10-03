@@ -98,7 +98,8 @@
         function clearFilter() {
             vm.tableState = {
                 limit: vm.tableState.limit,
-                page: vm.tableState.page
+                page: vm.tableState.page,
+                author: vm.tableState.author
             };
 
             $location.search(vm.tableState);

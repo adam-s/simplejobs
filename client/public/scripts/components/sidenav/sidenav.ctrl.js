@@ -7,7 +7,6 @@
     function SidenavCtrl($scope, $mdSidenav, $state, Auth) {
         sidenav = this;
 
-        sidenav.currentState = $state.current.name;
         sidenav.isLoggedIn = Auth.isLoggedIn;
         sidenav.toggleSidenav = toggleSidenav;
         sidenav.closeSidenav = closeSidenav;

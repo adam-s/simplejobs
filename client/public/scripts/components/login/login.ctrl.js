@@ -66,12 +66,10 @@
         }
 
         function hideDialog() {
-            console.log('is hide being called');
             $mdDialog.hide();
         }
 
         function setWidgetId(_widgetId) {
-            console.log(_widgetId);
             widgetId = _widgetId;
         }
 

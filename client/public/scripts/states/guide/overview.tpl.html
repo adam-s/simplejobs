@@ -1,28 +1,39 @@
-<md-content style="background: #ececec" class="sj-section-wrapper" flex>
-    <section class="sj-section">
-        <div class="sj-section-content" flex>
-            <md-card layout-padding>
-                <h1>Welcome to Simple Yacht Jobs</h1>
-                <md-divider></md-divider>
-                <p class="md-body-2" flex-gt-md="70">Finding marine industry work and crew should be simple and easy. Our goal is to connect people. The yachting, marine industry is a small community with a population about the size of a single town. Yet, we are spread apart across all the oceans of the Earth. Nonetheless, we reconnect with each other in Nantucket during the summer and then again six months later when you anchor 100 yards from me in St. Barts, 1,450 nautical miles from where we last met.</p>
-
-                <p class="md-body-1" flex-gt-md="70">Equally as important as finding the best qualified crew or employee is the current physical location of human resources. Quite often a yacht will happily flew qualified crew to join their team in Saint Martin or Fiji. However, it would be helpful for a yacht whose chef just caught the flu a day before a charter to know if a qualified person is already close by on St. Johns, for a yacht broker in Jupiter or Ft. Meyers to know a firm in Fort Lauderdale is growing in size about to hire a employee with his skills, or for a retired yacht captain living in Falmouth, MA who wants to work part time to know a marina Hyannis is hiring. We also want to encourage everyone looking for only daywork to create a profile too.</p>
-
-                <p class="md-body-1" flex-gt-md="70">The foundation of Simple Yacht Jobs is location, location, location. We do not just ask everybody to state their location from a drop down list of a handful of cities each in frequented cruising ground, we geocode every location of crew, employee, and job so users searching for crew, employees, and jobs can leverage the state of the art proximity location search engine.</p>
-
-                <p class="md-body-1" flex-gt-md="70">But, why does this app not have a single map? We don't need maps. Most people accessing this app will either be using a mobile phone or will be in an isolated region with limited internet access. During development we decided not send huge amounts of map data (or, massive images and video which don't add useful value). Instead just tell us where you are and we will find either the closest crew and employees or closest jobs from you and their distance.</p>
-
-                <p class="md-body-1" flex-gt-md="70">Some of the code Simple Yacht Jobs uses is developed by Google including <a href="https://angularjs.org/">AngularJS</a> and <a href="https://material.angularjs.org/latest/">Angular Material Design.</a> Our lightning fast server has been built on top of <a href="https://nodejs.org/en/">Node.js</a> with <a href="https://expressjs.com/">Express.js</a> and <a href="https://www.mongodb.com/">MongoDB</a> which powers the geolocation database.</p>
-                <md-divider></md-divider>
-                <h3>Topics covered in the user guide include:</h3>
-                <div>
-                    <ol>
-                        <li>One</li>
-                        <li>Two</li>
-                        <li>Three</li>
-                    </ol>
-                </div>
-            </md-card>
+<md-content layout-padding flex>
+    <div class="guide">
+        <div layout="row">
+            <h1 class="md-display-1 guide-title" md-colors="{color: 'primary-500'}">Welcome to Simple Yacht Jobs</h1>
         </div>
-    </section>
+        <div layout="row">
+            <p class="md-body-2" flex="80">The yacht industry is a very small community the size of a single medium town spread across the Earth and oceans. As we travel from the Mediterranean and New England to the Caribbean across thousands of nautical miles of open space we continuously keep running into each other. I might be at the same dock as you in Halifax Harbor in July, six months later I see you at Foxy's on Jost Van Dyke, and yet after another year passes I see you pulling into the dock on Spanish Cay on a different yacht. We were the only yacht there for a week in November until you arrived! What's the chance? It's a small world and we are not just in Palma de Mallorca, Newport, Fort Lauderdale, St. Thomas, and St. Martin; we are everywhere and we are one community. </p>
+        </div>
+        <div layout="row">
+            <h4 class="md-headline" md-colors="{color: 'primary-500'}">Location, location, location</h4>
+        </div>
+        <div layout="row">
+            <p class="md-body-1" flex="66">Yachting has a lot of turnover. It is not a bad thing. A person might do daywork for only one day or a week, a two week freelance charter as the chef, a several week Atlantic crossing from the Mediterranean to the Caribbean, or just one season in the New England. Within this small dispersed yachting community, there are qualified and talented crew and employees everywhere. <span class="md-body-2">This app's single purpose is to make it as simple and easy for yacht related businesses, yacht industry professionals, yacht owners, captains, and crew who are close to each other, one town or island apart, to find each other.</span></p>
+        </div>
+        <div layout="row">
+            <p class="md-body-1 module" flex-gt-md="66">I wanted to do a location proximity search on a crew placement website for yacht chef jobs near my location and didn't use that technology. They didn't have the technology. So I built an app that does does use it. This app makes a search index of job, crew, and employee locations. The user can use an autocomplete widget to geocode their location to search for the closest jobs, crew, and employees. Simple!</p>
+            <div class="figure" flex-gt-md="33">
+                <img ng-src="/assets/guide/images/guide_location_filter.png">
+                <p class="md-caption">Location search tool</p>
+            </div>
+        </div>
+        <div layout="row">
+            <p class="md-body-1" flex-gt-md="66">Some of the code Simple Yacht Jobs uses is developed by Google including <a ng-href="https://angularjs.org/">AngularJS</a>, <a ng-href="https://material.angularjs.org/latest/">Angular Material Design</a>, and <a ng-href="https://developers.google.com/maps/documentation/javascript/">Google Maps Javascript API.</a> Our lightning fast server is built on top of <a ng-href="https://nodejs.org/en/">Node.js</a> with <a href="https://expressjs.com/">Express.js</a> and <a ng-href="https://www.mongodb.com/">MongoDB</a> which powers the geolocation database.</p>
+        </div>
+        <div layout="row">
+            <h4 class="md-headline" md-colors="{color: 'primary-500'}">Topics covered in the user guide</h4>
+        </div>
+        <div layout="row">
+            <nav class="steps">
+                <ol>
+                    <li class="link"><span ui-sref="guideFaq">Frequently asked questions</span></li>
+                    <li>Account guide</li>
+                    <li>Profile guide</li>
+                    <li>Job listing guide</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 </md-content>

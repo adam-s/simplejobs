@@ -148,7 +148,7 @@ exports.forgotPassword = function(req, res) {
         // Look up user by email address and save token and expiration to user
         function(token, done) {
             User.findOne({email: email}, function (err, user) {
-                if (err || !user) return done('User does not exist');
+                if (err || !user) return done({message: 'User does not exist'});
                 done(null, user, token);
             })
         },

@@ -1,0 +1,93 @@
+<md-content layout-padding flex>
+    <div class="guide">
+        <div layout="row">
+            <h1 class="md-display-1 guide-title" md-colors="{color: 'primary-500'}">Account guide</h1>
+        </div>
+        <div layout="row">
+            <nav class="contents">
+                <div class="content-title">Contents</div>
+                <ul>
+                    <li class="link"><a ng-href="#register">Register account</a></li>
+                    <li class="link"><a ng-href="#password">Forgotten password</a></li>
+                    <li class="link"><a ng-href="#dashboard">Account dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div layout="row">
+            <h4 id="register" class="md-headline" md-colors="{color: 'primary-500'}">Register a new account</h4>
+        </div>
+        <div layout="row">
+            <div class="steps">
+                <ol>
+                    <li>Click the login button <img ng-src="/assets/guide/images/account_login_button.png"> or <img ng-src="/assets/guide/images/account_login_mobile.png"> in the top right corner</li>
+                    <li>Click either create new account button <img ng-src="/assets/guide/images/account_create_button.png"> or link <img ng-src="/assets/guide/images/account_create_link.png"></li>
+                    <li>Fill in the email field, password field, and password confirm field.</li>
+                    <li>Click the <b>I'm not a robot</b> check box. Sometimes reCaptcha will ask to select images as a test.</li>
+                    <li>Once the form is valid, click the register button.</li>
+                </ol>
+            </div>
+        </div>
+        <div layout="row">
+            <h4 id="password" class="md-headline" md-colors="{color: 'primary-500'}">Forgotten password</h4>
+        </div>
+        <div layout-gt-xs="row" layout="column">
+            <div flex-gt-xs="66" flex class="module">
+                <ol>
+                    <li>Click the login button <img ng-src="/assets/guide/images/account_login_button.png"> or <img ng-src="/assets/guide/images/account_login_mobile.png"> in the top right corner</li>
+                    <li>Click the forgot password link <img ng-src="/assets/guide/images/account_forgot_link.png"> at the bottom of login form.</li>
+                    <li>Enter your email address into the field.</li>
+                    <li>Once the form is valid, click the submit button.</li>
+                    <li>An alert will show saying an email has been sent to you successfully.</li>
+                    <li>Go to your email client, open the email, click the <b>reset password</b> link.</li>
+                    <li>The link will redirect you back to the website. The reset password form will be visible.</li>
+                    <li>Type your new password once and then twice to confirm.</li>
+                    <li>Once the form is valid, click the submit button.</li>
+                </ol>
+            </div>
+            <div flex-gt-xs="33" flex class="figure">
+                <div>
+                    <img class="responsive-320" src="/assets/guide/images/account_forgot_screen.png">
+                    <p class="md-caption">Password reset form</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4 id="dashboard" class="md-headline" md-colors="{color: 'primary-500'}">Account dashboard</h4>
+            <p>Once the resume profile is created the user will be allowed to check in every 24 hours so that their profile is pushed to the top of lists for searches.</p>
+        </div>
+        <div>
+            <h4>Resume profile</h4>
+            <div layout-gt-xs="row" layout="column">
+                <div flex-gt-xs="66" class="module">
+                    <ol>
+                        <li>Log into your account to access your resume profile. Click either the user menu icon <img ng-src="/assets/guide/images/nav_user.png"> in the top right of the screen and then the resume profile link <img ng-src="/assets/guide/images/nav_user_account.png">. Or, the <b>Account&nbsp;&rarr;&nbsp;Account&nbsp;dashboard</b> menu item in the side navigation.</li>
+                        <li>From the account dashboard you can create your resume profile.</li>
+                        <li>Click the <b>create</b> button to start making your resume profile listing.</li>
+                        <li>Once your resume profile is created click <b>check in</b> to push your resume profile to top of the list. You can do this once every 24 hours.</li>
+                        <li>If the resume profile is <b>active</b> you can click the <b>deactivate</b> button to prevent it being listed.</li>
+                        <li>If the resume profile is <b>deactivate</b> you click the <b>activate</b> button to start listing it again. If the action is performed longer than 24 hours since the last time of a check in, the resume profile will once again be at the top of the list in searches.</li>                    </ol>
+                </div>
+                <div flex-gt-xs="33" class="figure">
+                    <img class="responsive-320" ng-src="/assets/guide/images/account_dashboard_resume.png">
+                    <div class="md-caption">Resume profile widget</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>My job listings</h4>
+            <div layout-gt-xs="row" layout="column">
+                <div flex-gt-xs="66" class="module">
+                    <ol>
+                        <li>Click the <b>create</b> button to start creating a new job listing</li>
+                        <li>The <b>list</b> button will take you to the table list of your job listings</li>
+                    </ol>
+                </div>
+                <div flex-gt-xs="33" class="figure">
+                    <img class="responsive-320" ng-src="/assets/guide/images/account_dashboard_listings.png">
+                    <div class="md-caption">Job listings widget</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</md-content>

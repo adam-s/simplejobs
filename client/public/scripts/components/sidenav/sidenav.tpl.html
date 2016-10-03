@@ -46,7 +46,7 @@
                         </md-button>
                     </md-list-item>
                     <md-list-item ui-sref="myJobList">
-                        <p>My job list</p>
+                        <p>My job listings</p>
                         <md-button class="md-secondary md-icon-button"
                                    ng-show="sidenav.currentState === 'myJobList'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
@@ -89,24 +89,24 @@
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
-                    <md-list-item>
+                    <md-list-item ui-sref="guideAccount">
                         <p>Account guide</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminCrewList'">
+                                   ng-show="sidenav.currentState === 'guideAccount'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
-                    <md-list-item>
-                        <p>Profile guide</p>
+                    <md-list-item ui-sref="guideProfile">
+                        <p>Resume profile guide</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminCrewList'">
+                                   ng-show="sidenav.currentState === 'guideProfile'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
-                    <md-list-item>
+                    <md-list-item ui-sref="guideJob">
                         <p>Job listing guide</p>
                         <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminCrewList'">
+                                   ng-show="sidenav.currentState === 'guideJob'">
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>

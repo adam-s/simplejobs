@@ -1,0 +1,77 @@
+<md-content flex>
+    <div class="guide">
+        <div layout="row">
+            <h1 class="md-display-1 guide-title" md-colors="{color: 'primary-500'}">Job listing guide</h1>
+        </div>
+        <div layout="row">
+            <nav class="contents">
+                <div class="content-title">Contents</div>
+                <ul>
+                    <li class="link"><a ng-href="#search">Search job listings</a></li>
+                    <li class="link"><a ng-href="#create">Create a job listing</a></li>
+                    <li class="link"><a ng-href="#manage">Manage your job listings</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div layout="row">
+            <h4 id="search" class="md-headline" md-colors="{color: 'primary-500'}">Search job listings</h4>
+        </div>
+        <div layout-gt-xs="row" layout="column">
+            <div flex-gt-xs="66" flex class="module">
+                <ol>
+                    <li>Click the <b>search jobs</b> button on the side nav.</li>
+                    <li>Use the pager <img ng-src="/assets/guide/images/pager.png"> by scrolling to the page bottom to see more listings.</li>
+                    <li>Open the listings filter by clicking the filter icon <img ng-src="/assets/guide/images/filter_icon.png"> in the subheader.</li>
+                    <li>After the listings filter is opened use the job types filter or the job position filter to narrow your search.</li>
+                    <li>It is possible to sort job listings by proximity.</li>
+                    <li>There are several popular ports to choose from in the <b>select location</b> select box.</li>
+                    <li>If your location is not contained in the <b>select location</b> select box, use the Google places autocomplete search to look up your location. Once you select your location, it will update the proximity sort.</li>
+                    <li>Once the filters and proximity sort is chosen, click the <b>submit filter</b> button to activate.</li>
+                </ol>
+            </div>
+            <div flex-gt-xs="33" flex class="figure">
+                <div>
+                    <img class="responsive-320" ng-src="/assets/guide/images/filter_dialog.png">
+                    <p class="md-caption">Filter form</p>
+                </div>
+            </div>
+        </div>
+        <div layout="row">
+            <h4 id="create" class="md-headline" md-colors="{color: 'primary-500'}">Create a job listing</h4>
+        </div>
+        <div layout-gt-xs="row" layout="column">
+            <div flex-gt-xs="66" flex class="module">
+                <ol>
+                    <li>To create a job listing.
+                        <ul>
+                            <li>Open the user menu <img ng-src="/assets/guide/images/nav_user.png"> and click <b>my job listings</b> or click the <b>my job listings</b> button in the side nav.</li>
+                            <li>Click the <b>add</b> button <img ng-src="/assets/guide/images/job_listing_add.png"> in top right.</li>
+                        </ul>
+                    </li>
+                    <li>Fill out every field in the form. Click the <b>submit</b> button when all require fields are completed.</li>
+                </ol>
+            </div>
+        </div>
+        <div layout="row">
+            <h4 id="manage" class="md-headline" md-colors="{color: 'primary-500'}">Manage job listings</h4>
+        </div>
+        <div layout-gt-xs="row" layout="column">
+            <div flex-gt-xs="66" flex class="module">
+                <ol>
+                    <li>Open the user menu <img ng-src="/assets/guide/images/nav_user.png"> and click <b>my job listings</b> or click the <b>my job listings</b> button in the side nav.</li>
+                    <li>To add a job listing click the <b>add fab</b> button <img ng-src="/assets/guide/images/job_listing_add.png"> in top right.</li>
+                    <li>To edit a job listing click the <b>edit icon</b> <img ng-src="/assets/guide/images/job_listing_edit.png"> button.</li>
+                    <li>Click the <b>filter icon</b> button <img ng-src="/assets/guide/images/filter_icon.png"> to filter job listings.</li>
+                    <li>The clear all the filters using the X icon button.</li>
+                    <li>Job listings can be deactivated and made active again. Click the active toggle switch <img ng-src="/assets/guide/images/job_listing_toggle.png"> to turn a job listing off or on.</li>
+                </ol>
+            </div>
+            <div flex-gt-xs="33" flex class="figure">
+                <div>
+                    <img class="responsive-320" ng-src="/assets/guide/images/job_listing_page.png">
+                    <p class="md-caption">Manage job listings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-content>

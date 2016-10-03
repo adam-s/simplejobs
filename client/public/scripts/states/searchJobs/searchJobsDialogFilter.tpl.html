@@ -35,12 +35,12 @@
                 <div class="location-search-filter" layout="column">
                     <h4>Proximity filter by location</h4>
                     <p>Either select a location from the drop down list of popular ports OR use the autocomplete Google Places service to geocode your address.</p>
-                    <div layout-gt-xs="row">
-                        <md-input-container flex-gt-sm="50" flex>
+                    <div layout="row">
+                        <md-input-container flex="50" flex>
                             <label>Latitude</label>
                             <input name="latitude" ng-model="dialog.location.coordinates[1]" disabled>
                         </md-input-container>
-                        <md-input-container flex-gt-sm="50" flex>
+                        <md-input-container flex="50" flex>
                             <label>Longitude</label>
                             <input name="longitude" ng-model="dialog.location.coordinates[0]" disabled>
                         </md-input-container>

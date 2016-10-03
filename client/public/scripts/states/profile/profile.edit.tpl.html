@@ -250,6 +250,7 @@
                     </div>
                 </md-card>
                 <div layout-gt-xs="row" layout-xs="column" layout-align="end">
+                    <md-button ng-click="goBack()">Cancel</md-button>
                     <md-button ng-disabled="vm.submitDisabled || profileForm.$invalid || profileForm.$pristine"
                                class="md-primary md-raised"
                                type="submit">Submit</md-button>

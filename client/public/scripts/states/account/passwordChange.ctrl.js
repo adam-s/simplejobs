@@ -25,6 +25,7 @@
                     var toast = $mdToast.simple().textContent('Password updated');
                     $mdToast.show(toast);
                 }, function(response) {
+                    console.log(response);
                     errorHandler.handleValidationErrors(response);
                     vm.submitDisabled = false;
                 })
