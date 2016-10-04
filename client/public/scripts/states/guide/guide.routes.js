@@ -46,5 +46,14 @@
                     title: 'Job listing guide'
                 }
             })
+            .state('terms', {
+                parent: 'sidebar',
+                url: '/guide/terms',
+                templateUrl: 'scripts/states/guide/terms.tpl.html',
+                data: {
+                    title: 'Privacy and Terms'
+                }
+            })
+
     }
 })();

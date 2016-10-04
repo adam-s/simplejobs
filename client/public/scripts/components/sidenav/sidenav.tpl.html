@@ -110,6 +110,13 @@
                             <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
                         </md-button>
                     </md-list-item>
+                    <md-list-item ui-sref="terms">
+                        <p>Privacy and Terms</p>
+                        <md-button class="md-secondary md-icon-button"
+                                   ng-show="sidenav.currentState === 'terms'">
+                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                        </md-button>
+                    </md-list-item>
                 </sj-collapse-section>
                 <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
                     <md-list-item ui-sref="adminJobList">
