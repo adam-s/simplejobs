@@ -13,7 +13,8 @@
         'angularMoment',
         'ngFileUpload',
         'checklist-model',
-        'vcRecaptcha'
+        'vcRecaptcha',
+        'angular-google-analytics'
     ]);
 })();
 

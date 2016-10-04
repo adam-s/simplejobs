@@ -20,12 +20,12 @@
                 clickOutsideToClose: true,
                 escapeToClose: true,
                 fullscreen: fullscreen
-            })
-                .then(function(ev) {
-                    console.log(ev);
-                }, function(ev) {
-                    console.log(ev);console.log('hidden');
-                })
+            });
+                // .then(function(ev) {
+                //     console.log(ev);
+                // }, function(ev) {
+                //     console.log(ev);console.log('hidden');
+                // })
         }
     }
 })();

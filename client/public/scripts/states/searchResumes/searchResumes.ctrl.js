@@ -31,7 +31,6 @@
                 }
             })
                 .then(function(tableState) {
-                    console.log(tableState);
                     vm.tableState = tableState;
                     $location.search(vm.tableState);
                 }, function(){})

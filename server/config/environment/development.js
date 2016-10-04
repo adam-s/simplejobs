@@ -32,5 +32,8 @@ module.exports = {
         siteKey: '6LfzWgcUAAAAAEv7EeHdFTQEuCFAQVwIjDyOFFHV' || 'RECAPTCHA_SITEKEY',
         secret: '6LfzWgcUAAAAAM5Mfz_iOSheRL_3HorrcPRElta_' || 'RECAPTCHA_SECRET',
         url: 'https://www.google.com/recaptcha/api/siteverify' || 'RECAPTCHA_URL'
+    },
+    googleAnalytics: {
+        trackingId: 'UA-85182124-1' || 'GOOGLE_ANALYTICS_TRACKING_ID'
     }
 };

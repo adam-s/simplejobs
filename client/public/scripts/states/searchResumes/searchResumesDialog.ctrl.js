@@ -2,12 +2,17 @@
     angular.module('simplejobs')
         .controller('searchResumesDialogCtrl', searchResumesDialogCtrl);
 
-    searchResumesDialogCtrl.$inject = ['$window', '$mdDialog', 'resume'];
+    searchResumesDialogCtrl.$inject = ['$window', '$mdDialog', 'Analytics', 'resume'];
 
-    function searchResumesDialogCtrl($window, $mdDialog, resume) {
+    function searchResumesDialogCtrl($window, $mdDialog, Analytics, resume) {
         var dialog = this;
 
         dialog.resume = resume;
+
+        Analytics.trackEvent('Resume', 'view', resume._id, 2, false, {
+            dimension1: resume.position,
+            dimension2: resume.jobType
+        });
 
         dialog.close = function() {
             $mdDialog.hide();

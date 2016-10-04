@@ -32,5 +32,8 @@ module.exports = {
         siteKey: process.env.RECAPTCHA_SITEKEY || 'RECAPTCHA_SITEKEY',
         secret: process.env.RECAPTCHA_SECRET || 'RECAPTCHA_SECRET',
         url: process.env.RECAPTCHA_URL || 'RECAPTCHA_URL'
+    },
+    googleAnalytics: {
+        trackingId: 'UA-85182124-1' || 'GOOGLE_ANALYTICS_TRACKING_ID'
     }
 };
