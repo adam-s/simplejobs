@@ -161,6 +161,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['env:test', 'mochaTest']);
 
     grunt.registerTask('build', [
+        'sass',
         'copy',
         'useminPrepare',
         'ngtemplates',
