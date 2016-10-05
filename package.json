@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Why does getting a job on a yacht have to be so damn complicated?",
   "main": "server.js",
+  "engines": {
+    "node": "6.3.1"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "NODE_ENV=test mocha --reporter spec server/tests/*.spec.js",
