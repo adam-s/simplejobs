@@ -65,7 +65,17 @@ module.exports = function(grunt) {
                 src: '**/*.tpl.html',
                 dest: '.tmp/template.js',
                 options: {
-                    usemin: 'js/app.js'
+                    usemin: 'js/app.js',
+                    htmlmin: {
+                        collapseBooleanAttributes:      true,
+                        collapseWhitespace:             true,
+                        removeAttributeQuotes:          true,
+                        removeComments:                 true, // Only if you don't use comment directives!
+                        removeEmptyAttributes:          true,
+                        removeRedundantAttributes:      true,
+                        removeScriptTypeAttributes:     true,
+                        removeStyleLinkTypeAttributes:  true
+                    }
                 }
             }
         },
