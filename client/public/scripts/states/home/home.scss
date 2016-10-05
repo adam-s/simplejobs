@@ -1,26 +1,24 @@
 .home {
   .home-headline {
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1em;
     font-weight: 300;
 
-    @media(min-width: 41.6875em) {
-      & {
-        font-size: 3rem;
-      }
-    }
-
-    @media(min-width: 51.25em) {
-      & {
-        font-size: 3rem;
-      }
+    @media(min-width: 960px) {
+      font-size: 3rem;
     }
   }
 
   .home-subhead {
-    font-size: 1.50rem;
+    font-size: 1.25rem;
     font-weight: 300;
+
+    @media(min-width: 960px) {
+      font-size: 1.5rem;
+    }
   }
+
+
 
   md-card {
     color: rgba(255,255,255,1);
@@ -33,9 +31,7 @@
         float: right;
         margin-right: 15px;
       }
-
     }
-
     md-card-content {
       color: rgba(255,255,255,.70);
       min-height: 57px;

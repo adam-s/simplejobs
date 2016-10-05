@@ -10,7 +10,10 @@
                 parent: 'sidebar',
                 url: '/',
                 templateUrl: 'scripts/states/home/home.tpl.html',
-                controller: 'homeCtrl as vm'
+                controller: 'homeCtrl as vm',
+                data: {
+                    title: 'Home'
+                }
             })
     }
 })();

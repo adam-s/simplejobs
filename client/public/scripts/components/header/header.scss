@@ -5,12 +5,14 @@
 //  margin: 16px;
 //  width: 36px;
 //}
-//
-//md-toolbar h3 {
-//  margin: auto;
-//  font-weight: 500;
-//}
-//
+.header {
+  .page-title {
+    @media (max-width: 375px) {
+      font-size: 14px;
+    }
+  }
+}
+
 //button#main {
 //  margin-bottom: 10px;
 //}

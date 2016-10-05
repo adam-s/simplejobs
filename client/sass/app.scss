@@ -1,3 +1,11 @@
+/**
+ *  Sizes:
+ *         xs:     600px !default;
+ *         sm:     960px !default;
+ *         md:     1280px !default;
+ *         lg:     1920px !default;
+ */
+
 html, body {
   height: 100%;
   color: rgba(0, 0, 0, 0.87);
@@ -41,6 +49,10 @@ a {
   width: 100%;
 }
 
+.sj-padding-sides {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .main {
   background: #ebeef0;
 }
@@ -105,6 +117,12 @@ a {
   .sj-section-content {
     //    background-color: yellow;
   }
+
+  //@media (max-width: 1036px) {
+  //  margin-left: 8px;
+  //  margin-right: 8px;
+  //}
+
 }
 
 @media screen and (min-width: 720px) {
@@ -124,6 +142,11 @@ md-table-pagination {
 .sj-card-grid {
   margin: 0 auto 20px;
   max-width: 900px;
+
+  @media (max-width: 900px) {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
 
   md-card {
     min-height: 172px;
