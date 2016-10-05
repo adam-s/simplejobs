@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="simplejobs">
+<html ng-app="simplejobs" ng-strict-di>
     <head>
         <base href="/" />
         <meta charset="utf-8"/>
@@ -33,9 +33,9 @@
         <link rel="stylesheet" href="css/scripts/states/searchJobs/searchJobs.css">
         <link rel="stylesheet" href="css/scripts/states/searchResumes/searchResumes.css">
         <!-- endinjector -->
+        <!-- endbuild -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,700,400italic">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <!-- endbuild -->
         <style>[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
             display: none !important;
         }</style>
@@ -71,7 +71,7 @@
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/checklist-model/checklist-model.js"></script>
     <script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
-    <script src="bower_components/angular-google-analytics/dist/angular-google-analytics.js"></script>
+    <script src="bower_components/angular-google-analytics/dist/angular-google-analytics.min.js"></script>
     <!-- endbower -->
     <!-- injector:js -->
     <script src="scripts/app.js"></script>
@@ -157,9 +157,23 @@
     <script src="scripts/states/searchResumes/searchResumesDialogFilter.ctrl.js"></script>
     <!-- endinjector -->
     <!-- Include the JS ReCaptcha API -->
+    <!-- endbuild -->
     <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDagVt-mdNAQX_8srijJppnz-jluAv5pMU&libraries=places"></script>
-    <!-- endbuild -->
-
+    <script>
+        (function() {
+            var _fbq = window._fbq || (window._fbq = []);
+            if (!_fbq.loaded) {
+                var fbds = document.createElement('script');
+                fbds.async = true;
+                fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(fbds, s);
+                _fbq.loaded = true;
+            }
+            _fbq.push(['addPixelId', window.values.facebookPixelId]);
+            _fbq.push(['track', 'PixelInitialized', {}]);
+        })();
+    </script>
     </body>
 </html>

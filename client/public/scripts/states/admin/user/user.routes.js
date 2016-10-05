@@ -2,7 +2,7 @@
     angular.module('simplejobs')
         .config(router);
 
-    router.$inject = ['$stateProvider', '$urlRouterProvider'];
+    router.$inject = ['$stateProvider'];
 
     function router($stateProvider) {
         $stateProvider

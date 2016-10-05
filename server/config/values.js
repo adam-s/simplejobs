@@ -82,5 +82,6 @@ module.exports = {
     popularPorts: popularPorts,
     vesselTypes: vesselTypes,
     recaptchaSiteKey: config.recaptcha.siteKey,
-    googleAnalyticsId: config.googleAnalytics.trackingId
+    googleAnalyticsId: config.googleAnalytics.trackingId,
+    facebookPixelId: config.facebook.pixelId
 };

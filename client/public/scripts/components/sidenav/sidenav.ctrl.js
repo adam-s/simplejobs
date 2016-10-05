@@ -2,7 +2,7 @@
     angular.module('simplejobs')
         .controller('SidenavCtrl', SidenavCtrl);
 
-    SidenavCtrl = ['$scope', '$mdSidenav', '$state', 'Auth'];
+    SidenavCtrl.$inject = ['$scope', '$mdSidenav', '$state', 'Auth'];
 
     function SidenavCtrl($scope, $mdSidenav, $state, Auth) {
         sidenav = this;

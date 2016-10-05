@@ -60,7 +60,7 @@ module.exports = function(grunt) {
             }
         },
         ngtemplates: {
-            live: {
+            simplejobs: {
                 cwd: 'client/public',
                 src: '**/*.tpl.html',
                 dest: '.tmp/template.js',
@@ -102,7 +102,8 @@ module.exports = function(grunt) {
         useminPrepare: {
             html: 'client/index.html',
             options: {
-                dest: 'build'
+                dest: 'build/public',
+                root: 'client/public'
             }
         },
         usemin: {
@@ -113,6 +114,16 @@ module.exports = function(grunt) {
             'index.html': {
                 src: 'client/index.html',
                 dest: 'build/index.html'
+            },
+            'assets': {
+                cwd: 'client/public/assets',
+                src: '**/*',
+                dest: 'build/public/assets',
+                expand: true
+            },
+            'favicon': {
+                src: 'client/public/favicon.ico',
+                dest: 'build/public/favicon.ico'
             }
         },
         karma: {
@@ -140,7 +151,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['env:test', 'mochaTest']);
 
     grunt.registerTask('build', [
-        'copy:index.html',
+        'copy',
         'useminPrepare',
         'ngtemplates',
         'concat',

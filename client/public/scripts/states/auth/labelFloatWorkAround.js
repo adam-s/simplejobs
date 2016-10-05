@@ -7,7 +7,7 @@
     configFn.$inject = ['$provide'];
 
     function configFn($provide) {
-        $provide.decorator('mdInputContainerDirective', function ($mdTheming, $delegate, $interval) {
+        $provide.decorator('mdInputContainerDirective', ['$mdTheming', '$delegate', '$interval', function ($mdTheming, $delegate, $interval) {
             var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
             var directive = $delegate[0];
 
@@ -37,6 +37,6 @@
             };
 
             return $delegate;
-        });
+        }]);
     }
 })();

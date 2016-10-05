@@ -2,7 +2,7 @@
     angular.module('simplejobs')
         .run(config);
     
-    config.inject = ['$window', '$rootScope'];
+    config.$inject = ['$window', '$rootScope'];
     /**
      * Pulled this idea for a way to go back to previous state
      * @link http://stackoverflow.com/a/27349525

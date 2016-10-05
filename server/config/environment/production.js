@@ -9,7 +9,7 @@ module.exports = {
     db: process.env.MONGODB_URI,
     // set this to build
     // dir: 'build/',
-    dir: 'client/',
+    dir: 'build/',
     fileDir: 'files/',
     sessionSecret: process.env.SESSION_SECRET || 'MEAN',
     admin: {
@@ -40,6 +40,9 @@ module.exports = {
         url: process.env.RECAPTCHA_URL || 'RECAPTCHA_URL'
     },
     googleAnalytics: {
-        trackingId: 'UA-85182124-1' || 'GOOGLE_ANALYTICS_TRACKING_ID'
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
+    },
+    facebook: {
+        pixelId: process.env.FACEBOOK_PIXEL_ID || 'FACEBOOK_PIXEL_ID'
     }
 };

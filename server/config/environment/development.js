@@ -35,5 +35,8 @@ module.exports = {
     },
     googleAnalytics: {
         trackingId: 'UA-85182124-1' || 'GOOGLE_ANALYTICS_TRACKING_ID'
+    },
+    facebook: {
+        pixelId: '445162528985871' || 'FACEBOOK_PIXEL_ID'
     }
 };

@@ -11,8 +11,6 @@
             .setAccount(window.values.googleAnalyticsId)
             .setDomainName('none')
             .setPageEvent('$stateChangeSuccess');
-
-        console.log(AnalyticsProvider);
     }
 
     function run(Analytics) {}

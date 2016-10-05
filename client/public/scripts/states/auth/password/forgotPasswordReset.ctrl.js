@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('forgotPasswordResetCtrl', forgotPasswordResetCtrl);
 
-    forgotPasswordResetCtrl.$inject = ['$scope', '$mdToast', '$state', 'Auth', 'errorHandler'];
+    forgotPasswordResetCtrl.$inject = ['$mdToast', '$state', 'Auth', 'errorHandler'];
 
-    function forgotPasswordResetCtrl($scope, $mdToast, $state, Auth, errorHandler) {
+    function forgotPasswordResetCtrl($mdToast, $state, Auth, errorHandler) {
         var vm = this;
         vm.submit = submit;
         vm.submitDisabled = false;
