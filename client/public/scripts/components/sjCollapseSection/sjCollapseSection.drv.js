@@ -23,6 +23,9 @@
             var target = angular.element(element[0].querySelector('.ht'))[0]; // Find the div that contains the link
             target = angular.element(target); // Unlike jquery a wrapped DOM object wasn't returned above.
 
+            // Hide element until after processing
+            target.css('display', 'hidden');
+
             isActive(); // Initialize isActive();
 
             scope.$on('$stateChangeSuccess', function() {

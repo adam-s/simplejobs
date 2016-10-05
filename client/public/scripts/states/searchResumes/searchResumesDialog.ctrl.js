@@ -14,11 +14,11 @@
             dimension2: resume.jobType
         });
 
-        $window._fbq.push(['track', 'ViewListing', {
+        $window.fbq('trackCustom', 'ViewListing', {
             kind: 'Resume',
             position: resume.position,
             jobType: resume.jobType
-        }]);
+        });
 
         dialog.close = function() {
             $mdDialog.hide();

@@ -27,8 +27,8 @@
 
         // Let mark events to facebook pixel
         // http://stackoverflow.com/questions/26236204/facebook-custom-audience-pixel-on-singlepageapplication-spa
-        $rootScope.$on('$stateChangeSuccess', function() {
+        // $rootScope.$on('$stateChangeSuccess', function() {
             // _fbq.push(['track', 'PixelInitialized', {}]);
-        })
+        // })
     }
 })();

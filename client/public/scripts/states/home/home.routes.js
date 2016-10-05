@@ -12,7 +12,8 @@
                 templateUrl: 'scripts/states/home/home.tpl.html',
                 controller: 'homeCtrl as vm',
                 data: {
-                    title: 'Home'
+                    title: 'Home',
+                    description: 'Why does getting a job on a yacht have to be so damn complicated?'
                 }
             })
     }

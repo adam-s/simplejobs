@@ -28,7 +28,8 @@
                     }
                 },
                 data: {
-                    title: 'Search jobs'
+                    title: 'Search jobs',
+                    description: 'Search the database for marine industry and yacht jobs.'
                 },
                 reloadOnSearch: true
             })

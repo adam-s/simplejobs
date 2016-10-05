@@ -28,7 +28,8 @@
                     }
                 },
                 data: {
-                    title: 'Search resumes'
+                    title: 'Search resumes',
+                    description: 'Search the database of resumes for marine industry employees and yacht crew.'
                 },
                 reloadOnSearch: true
             })

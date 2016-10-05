@@ -15,11 +15,11 @@
             dimension2: job.jobType
         });
 
-        $window._fbq.push(['track', 'ViewListing', {
+        $window.fbq('trackCustom', 'ViewListing', {
             kind: 'Job',
             position: job.position,
             jobType: job.jobType
-        }]);
+        });
 
         dialog.close = function() {
             $mdDialog.hide();
