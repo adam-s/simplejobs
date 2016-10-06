@@ -18,16 +18,22 @@
   }
 
   .sidebar-bg {
-    height: 200px;
+    height: 140px;
     background: url('/assets/images/yacht_sunset_small.jpg');
     background-size: cover;
   }
   .sj-sidenav-header {
-    height: 200px;
+    height: 140px;
     background: rgb(0, 171, 192);
   }
 
   md-list {
     margin-bottom: 30px;
   }
+}
+
+md-sidenav,
+md-sidenav.md-locked-open,
+md-sidenav.md-closed.md-locked-open-add-active {
+  max-width: 300px;
 }
