@@ -49,12 +49,6 @@
                             duration: 0.3
                         }).start();
                     }, 0, false)
-                } else {
-                    if (!activeState) {
-                        $timeout(function() {
-                            target.css('margin-top', (-getTargetHeight() + 'px')); // hide the panel
-                        });
-                    }
                 }
             });
 
@@ -64,16 +58,18 @@
 
                 var cloneTarget = angular.copy(target)
                     .css('position', 'absolute')
-                    .css('top', '-1000');
+                    .css('top', '-1000')
+                    .css('display', 'table');
 
                 body.append(cloneTarget);
                 targetHeight = cloneTarget.prop('clientHeight');
                 cloneTarget.remove();
+                console.log(cloneTarget);
                 return targetHeight;
             }
 
             function isActive() {
-                var items = angular.element(target[0].querySelectorAll('md-list-item a')); // Find each link
+                var items = target[0].querySelectorAll('md-list-item a'); // Find each link
 
                 angular.forEach(items, function(item) {
                     if ($state.current.name == item.attributes['ui-sref'].value) {
@@ -81,6 +77,10 @@
                         ctrl.collapsed = false;
                     }
                 });
+
+                if (!activeState) {
+                    target.css('margin-top', (-getTargetHeight() + 'px')); // hide the panel
+                }
             }
         }
     }
