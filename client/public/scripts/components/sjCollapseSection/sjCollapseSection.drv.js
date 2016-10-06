@@ -64,7 +64,6 @@
                 body.append(cloneTarget);
                 targetHeight = cloneTarget.prop('clientHeight');
                 cloneTarget.remove();
-                console.log(cloneTarget);
                 return targetHeight;
             }
 

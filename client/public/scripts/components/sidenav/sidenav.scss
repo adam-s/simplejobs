@@ -31,3 +31,8 @@
     margin-bottom: 30px;
   }
 }
+
+md-backdrop ~ md-content {
+  position: fixed;
+  overflow: hidden;
+}

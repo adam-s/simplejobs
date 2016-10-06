@@ -1,148 +1,145 @@
-<div layout="column">
-    <md-sidenav md-component-id="left" flex
-                ng-click="sidenav.closeSidenav()"
-                md-is-locked-open="$mdMedia('gt-sm')"
+<md-sidenav md-component-id="left" flex md-disable-scroll-target="#main > md-content"
+            ng-click="sidenav.closeSidenav()"
+            md-is-locked-open="$mdMedia('gt-sm')"
+            layout="column"
+            class="site-sidenav md-sidenav-left md-whiteframe-z2">
+    <div class="sidebar-bg"></div>
+    <md-toolbar md-colors="{background: 'default-accent-500-1'}"
                 layout="column"
-                class="site-sidenav md-sidenav-left md-whiteframe-z2">
-        <div class="sidebar-bg"></div>
-        <md-toolbar md-colors="{background: 'default-accent-500-1'}"
-                    layout="column"
-                    layout-align="start center">
-            <div class="md-toolbar-tools" style="color: white" layout="row" layout-align="space-between center">
-                <h1>Simple Yacht Jobs</h1>
-            </div>
-        </md-toolbar>
-        <md-content flex>
-            <md-list>
-                <section class="main">
-                    <md-list-item ui-sref="home">
-                        <p>Home</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'home'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="searchJobs">
-                        <p>Search jobs</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'searchJobs'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="searchResumes">
-                        <p>Search resumes</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'searchResumes'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                </section>
-                <sj-collapse-section permission permission-only="['AUTHENTICATED']" section="Account">
-                    <md-list-item ui-sref="account">
-                        <p>Account dashboard</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'account'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="myJobList">
-                        <p>My job listings</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'myJobList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="profileEdit">
-                        <p>My resume profile</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'profileEdit'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="email">
-                        <p>Change email</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'email'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="password">
-                        <p>Change password</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'password'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                </sj-collapse-section>
-                <sj-collapse-section section="User guide">
-                    <md-list-item ui-sref="guideOverview">
-                        <p>App overview</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'guideOverview'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="guideFaq">
-                        <p>Frequently asked questions</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'guideFaq'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="guideAccount">
-                        <p>Account guide</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'guideAccount'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="guideProfile">
-                        <p>Resume profile guide</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'guideProfile'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="guideJob">
-                        <p>Job listing guide</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'guideJob'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="terms">
-                        <p>Privacy and Terms</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'terms'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                </sj-collapse-section>
-                <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
-                    <md-list-item ui-sref="adminJobList">
-                        <p>Job list</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminJobList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="adminUserList">
-                        <p>User list</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminUserList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                    <md-list-item ui-sref="adminCrewList">
-                        <p>Crew list</p>
-                        <md-button class="md-secondary md-icon-button"
-                                   ng-show="sidenav.currentState === 'adminCrewList'">
-                            <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
-                        </md-button>
-                    </md-list-item>
-                </sj-collapse-section>
-            </md-list>
-        </md-content>
-    </md-sidenav>
-
-</div>
+                layout-align="start center">
+        <div class="md-toolbar-tools" style="color: white" layout="row" layout-align="space-between center">
+            <h1>Simple Yacht Jobs</h1>
+        </div>
+    </md-toolbar>
+    <md-content flex>
+        <md-list>
+            <section class="main">
+                <md-list-item ui-sref="home">
+                    <p>Home</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'home'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="searchJobs">
+                    <p>Search jobs</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'searchJobs'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="searchResumes">
+                    <p>Search resumes</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'searchResumes'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+            </section>
+            <sj-collapse-section permission permission-only="['AUTHENTICATED']" section="Account">
+                <md-list-item ui-sref="account">
+                    <p>Account dashboard</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'account'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="myJobList">
+                    <p>My job listings</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'myJobList'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="profileEdit">
+                    <p>My resume profile</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'profileEdit'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="email">
+                    <p>Change email</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'email'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="password">
+                    <p>Change password</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'password'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+            </sj-collapse-section>
+            <sj-collapse-section section="User guide">
+                <md-list-item ui-sref="guideOverview">
+                    <p>App overview</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'guideOverview'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="guideFaq">
+                    <p>Frequently asked questions</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'guideFaq'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="guideAccount">
+                    <p>Account guide</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'guideAccount'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="guideProfile">
+                    <p>Resume profile guide</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'guideProfile'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="guideJob">
+                    <p>Job listing guide</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'guideJob'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="terms">
+                    <p>Privacy and Terms</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'terms'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+            </sj-collapse-section>
+            <sj-collapse-section permission permission-only="['ADMINISTRATOR']" section="Administration">
+                <md-list-item ui-sref="adminJobList">
+                    <p>Job list</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'adminJobList'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="adminUserList">
+                    <p>User list</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'adminUserList'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+                <md-list-item ui-sref="adminCrewList">
+                    <p>Crew list</p>
+                    <md-button class="md-secondary md-icon-button"
+                               ng-show="sidenav.currentState === 'adminCrewList'">
+                        <md-icon md-font-icon="arrow_forward">arrow_forward</md-icon>
+                    </md-button>
+                </md-list-item>
+            </sj-collapse-section>
+        </md-list>
+    </md-content>
+</md-sidenav>

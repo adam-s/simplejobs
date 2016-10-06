@@ -11,8 +11,7 @@
             controller: 'SidenavCtrl',
             controllerAs: 'sidenav',
             templateUrl: 'scripts/components/sidenav/sidenav.tpl.html',
-            bindToController: true,
-            scope: {}
+            bindToController: true
         };
 
         return directive;
