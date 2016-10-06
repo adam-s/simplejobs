@@ -1,5 +1,4 @@
 #usermenu {
-  height: 64px;
   padding: 0;
 
   md-menu.md-open > button {
@@ -7,23 +6,33 @@
   }
 
   .usermenu-button {
-    margin: 0;
-    padding: 0 16px;
-    height: 64px;
     text-transform: none;
+    padding: 0;
+    margin: 0;
+    min-width: 38px;
 
-    .avatar {
-      width: 40px;
-      min-width: 40px;
-      height: 40px;
-      line-height: 40px;
-      margin: 0 8px 0 0;
-      border-radius: 50%;
-      font-size: 17px;
-      font-weight: 500;
-      text-align: center;
-      color: #ffffff;
-      vertical-align: top;
+    @media (max-width: 400px) {
+      height: 55px;
+    }
+
+    @media (min-width: 401px) and (max-width: 959px) {
+      height: 50px;
+    }
+
+    @media (min-width: 960px) {
+      height: 64px;
+    }
+
+    .person {
+      margin-left: 6px;
+      padding-left: 8px;
+      margin-right: 0;
+    }
+
+    .drop-down {
+      margin-left: 0;
+      margin-right: 6px;
+      padding-right: 8px;
     }
 
     .username {
