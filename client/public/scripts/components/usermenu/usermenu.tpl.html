@@ -1,7 +1,7 @@
 <div layout="row" layout-align="center center">
     <div ng-if="!vm.getMe() && !$mdMedia('xs')" layout="row">
         <md-button hide-xs class="md-raised" md-colors="{color: 'default-primary-500-1'}" ng-click="vm.login($event)">Login</md-button>
-        <md-button hide-gt-xs class="md-icon-button" ng-click="vm.login($event)">
+        <md-button hide-gt-xs class="md-fab md-mini md-primary" ng-click="vm.login($event)">
             <md-icon md-font-icon="person">person</md-icon>
         </md-button>
     </div>

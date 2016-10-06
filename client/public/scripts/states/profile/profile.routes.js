@@ -21,7 +21,7 @@
                     title: 'My resume profile',
                     permissions: {
                         only: ['editProfile'],
-                        redirectTo: 'login'
+                        redirectTo: 'home'
                     }
                 }
             })

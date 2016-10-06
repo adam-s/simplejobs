@@ -8,7 +8,12 @@
 .header {
   .page-title {
     @media (max-width: 375px) {
-      font-size: 14px;
+      font-size: 17px;
+    }
+  }
+  .md-toolbar-tools {
+    @media (max-width: 375px) {
+      padding: 0;
     }
   }
 }
