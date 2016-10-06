@@ -3,15 +3,17 @@
         .config(config)
         .run(run);
 
-    config.$inject = ['$locationProvider', '$urlRouterProvider'];
+    config.$inject = ['$locationProvider', '$urlRouterProvider', '$mdGestureProvider'];
 
-    function config($locationProvider, $urlRouterProvider) {
+    function config($locationProvider, $urlRouterProvider, $mdGestureProvider) {
         $locationProvider.html5Mode(true);
         $urlRouterProvider.when('', '/');
         $urlRouterProvider.otherwise( function($injector) {
             var $state = $injector.get("$state");
             $state.go('home');
         });
+
+        $mdGestureProvider.skipClickHijack();
     }
 
     run.$inject = ['$rootScope', '$window', '$location', '$mdDialog'];
