@@ -9,7 +9,7 @@
 
         dialog.resume = resume;
 
-        Analytics.trackEvent('Resume', 'view', resume._id, 2, false, {
+        Analytics.trackEvent('ViewListing', 'view', 'Resume', 1, false, {
             dimension1: resume.position,
             dimension2: resume.jobType
         });

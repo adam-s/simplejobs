@@ -10,7 +10,7 @@
         dialog.job = job;
 
         // Track what people are looking at
-        Analytics.trackEvent('Job', 'view', job._id, 1, false, {
+        Analytics.trackEvent('ViewListing', 'view', 'Job', 1, false, {
             dimension1: job.position,
             dimension2: job.jobType
         });

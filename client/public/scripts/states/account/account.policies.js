@@ -8,7 +8,10 @@
 
         PermRoleStore
             .defineRole('ADMINISTRATOR', function(roleName, transitionProperties) {
-                var roles = Auth.getMe().roles || [];
+                var user = Auth.getMe();
+                if (!user) return false;
+
+                var roles = user.roles || [];
 
                 return roles.some(function(role) {
                     return role === 'administrator';
@@ -18,7 +21,10 @@
 
         PermRoleStore
             .defineRole('AUTHENTICATED', function(roleName, transitionProperties) {
-                var roles = Auth.getMe().roles || [];
+                var user = Auth.getMe();
+                if (!user) return false;
+
+                var roles = user.roles || [];
 
                 return roles.some(function(role) {
                     return role === 'authenticated';
@@ -27,7 +33,11 @@
 
         PermPermissionStore
             .definePermission('manageOwnAccount', function() {
-                var roles = Auth.getMe().roles || [];
+                var user = Auth.getMe();
+                if (!user) return false;
+
+                var roles = user.roles || [];
+
                 return roles.some(function(role) {
                     return role === 'authenticated';
                 });

@@ -48,14 +48,17 @@ module.exports = function(app) {
 
 // Access check.
 function checkAuthenticated(req, res, next) {
+
     // user is logged in and is authenticated
-    if (req.user && userHasRole('authenticated', req.user)) return next();
+    if (!req.user) return res.status(401).send({message: 'User is not authenticated'});
+    if (userHasRole('authenticated', req.user)) return next();
     return res.status(403).send({message: 'User is not authorized'});
 }
 
 function checkAdministrator(req, res, next) {
     // user is logged in and is authenticated
-    if (req.user && userHasRole('administrator', req.user)) return next();
+    if (!req.user) return res.status(401).send({message: 'User is not authenticated'});
+    if (userHasRole('administrator', req.user)) return next();
     return res.status(403).send({message: 'User is not authorized'});
 }
 

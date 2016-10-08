@@ -85,6 +85,7 @@ exports.email = function(req, res, next) {
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
     passport.authenticate('local', function(err, user, info) {
+        console.log(user);
         if (err || !user) return res.status(400).send(info);
 
         user.email = req.body.newEmail;
@@ -112,6 +113,7 @@ exports.passwordChange = function(req, res, next) {
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
     passport.authenticate('local', function(err, user, info) {
+        console.log(user);
         if (err || !user) return res.status(400).send(info);
 
         user.password = req.body.newPassword;
@@ -214,4 +216,8 @@ exports.forgotPasswordReset = function(req, res) {
             });
         });
     });
+};
+
+exports.fetchMe = function(req, res) {
+    res.send(req.user);
 };

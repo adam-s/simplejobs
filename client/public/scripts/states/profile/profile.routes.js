@@ -20,8 +20,14 @@
                 data: {
                     title: 'My resume profile',
                     permissions: {
-                        only: ['editProfile'],
-                        redirectTo: 'home'
+                        only: ['AUTHENTICATED'],
+                        redirectTo: {
+                            AUTHENTICATED: {
+                                state: 'home',
+                                options: { reload: true }
+                            },
+                            default: 'home'
+                        }
                     }
                 }
             })

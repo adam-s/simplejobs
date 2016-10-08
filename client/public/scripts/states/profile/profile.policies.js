@@ -8,7 +8,11 @@
 
         PermPermissionStore
             .definePermission('editProfile', function() {
-                var roles = Auth.getMe().roles || [];
+                var user = Auth.getMe();
+                if (!user) return false;
+
+                var roles = user.roles || [];
+
 
                 return roles.some(function(role) {
                     return role === 'authenticated';

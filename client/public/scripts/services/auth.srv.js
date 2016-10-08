@@ -10,6 +10,7 @@
         return {
             getMe: getMe,
             setMe: setMe,
+            fetchMe: fetchMe,
             register: register,
             login: login,
             logout: logout,
@@ -26,6 +27,26 @@
         }
         function getMe() {
             return me;
+        }
+
+        function fetchMe() {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/auth/me'
+            }).success(function(response) {
+                if (response._id) {
+                    me = window.me = response;
+                } else {
+                    me = window.me = '';
+                }
+                deferred.resolve(response)
+            }).error(function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
         }
 
         function register(credentials) {

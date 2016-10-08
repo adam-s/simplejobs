@@ -14,8 +14,14 @@
                 data: {
                     title: 'My Account',
                     permissions: {
-                        only: ['manageOwnAccount'],
-                        redirectTo: 'login'
+                        only: ['AUTHENTICATED'],
+                        redirectTo: {
+                            AUTHENTICATED: {
+                                state: 'home',
+                                options: { reload: true }
+                            },
+                            default: 'home'
+                        }
                     }
                 },
                 resolve: {
@@ -36,8 +42,14 @@
                 data: {
                     title: 'Change Email',
                     permissions: {
-                        only: ['manageOwnAccount'],
-                        redirectTo: 'login'
+                        only: ['AUTHENTICATED'],
+                        redirectTo: {
+                            AUTHENTICATED: {
+                                state: 'home',
+                                options: { reload: true }
+                            },
+                            default: 'home'
+                        }
                     }
                 }
             })
@@ -49,8 +61,14 @@
                 data: {
                     title: 'Change password',
                     permissions: {
-                        only: ['manageOwnAccount'],
-                        redirectTo: 'login'
+                        only: ['AUTHENTICATED'],
+                        redirectTo: {
+                            AUTHENTICATED: {
+                                state: 'home',
+                                options: { reload: true }
+                            },
+                            default: 'home'
+                        }
                     }
                 }
             });

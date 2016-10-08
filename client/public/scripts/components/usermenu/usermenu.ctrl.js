@@ -4,11 +4,11 @@
 
     usermenuCtrl.$inject = ['$mdMedia', 'Auth', 'loginService'];
 
-    function usermenuCtrl($mdMedia, Auth, loginDialog) {
+    function usermenuCtrl($mdMedia, Auth, loginService) {
         var vm = this;
         vm.getMe = Auth.getMe;
         vm.openMenu = openMenu;
-        vm.login = loginDialog.open;
+        vm.login = loginService.open;
         vm.logout = logout;
         vm.$mdMedia = $mdMedia;
 

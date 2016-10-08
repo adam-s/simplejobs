@@ -23,17 +23,18 @@ module.exports = function(app) {
 // Access check.
 function checkAuthenticated(req, res, next) {
     // user is logged in and is authenticated
-    if (req.user && userHasRole('authenticated', req.user)) return next();
+    if (!req.user) return res.status(401).send({message: 'User is not authenticated'});
+    if (userHasRole('authenticated', req.user)) return next();
     return res.status(403).send({message: 'User is not authorized'});
 }
 
 function checkAdminOrOwn(req, res, next) {
-    var user = req.user;
     var jobListing = req.app.locals.jobListing;
-
     if (!jobListing) return res.status(400).send({message: 'Job listing doesn\'t exist'});
-    if (user && userHasRole('administrator', user)) return next();
-    if (user && jobListing.author.toString() === user._id.toString()) return next();
+
+    if (!req.user) return res.status(401).send({message: 'User is not authenticated'});
+    if (userHasRole('administrator', req.user)) return next();
+    if (jobListing.author.toString() === req.user._id.toString()) return next();
 
     return res.status(403).send({message: 'User is not authorized'});
 

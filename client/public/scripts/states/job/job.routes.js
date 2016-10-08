@@ -27,7 +27,17 @@
                 },
                 reloadOnSearch: true,
                 data: {
-                    title: 'My job listings'
+                    title: 'My job listings',
+                    permissions: {
+                        only: ['AUTHENTICATED'],
+                        redirectTo: {
+                            AUTHENTICATED: {
+                                state: 'home',
+                                options: { reload: true }
+                            },
+                            default: 'home'
+                        }
+                    }
                 }
             })
             .state('jobEdit', {
@@ -46,8 +56,14 @@
                 data: {
                     title: 'Job edit',
                     permissions: {
-                        only: ['addJob'],
-                        redirectTo: 'home'
+                        only: ['AUTHENTICATED'],
+                        redirectTo: {
+                            AUTHENTICATED: {
+                                state: 'home',
+                                options: { reload: true }
+                            },
+                            default: 'home'
+                        }
                     }
                 }
             })
