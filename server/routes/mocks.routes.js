@@ -7,10 +7,18 @@ var mongoose = require('mongoose'),
     async = require('async'),
     faker = require('faker'),
     values = require('../config/values.js'),
-    fs = require('fs-extra');
+    config = require('../config/config.js'),
+    fs = require('fs-extra'),
+    S3FS = require('s3fs');
+
+var s3fs = new S3FS(config.aws.s3.bucket + '/files/resumes/', {
+        accessKeyId: config.aws.s3.awsAccessKeyId,
+        secretAccessKey: config.aws.s3.awsSecretAccessKey
+    });
 
 module.exports = function(app) {
-    app.get('/delete-all-the-things', function(req, res) {
+    app.get('/delete-all-the-things/:token', function(req, res) {
+        if (req.params.token !== config.mockDataToken) return res.status(400).send({message: 'Nice try buddy'});
         async.parallel([
             function(callback) {
                 CrewListing.remove({}, function() {
@@ -34,7 +42,8 @@ module.exports = function(app) {
         })
     });
 
-    app.get('/make-all-the-things', function(req, res) {
+    app.get('/make-all-the-things/:token', function(req, res) {
+        if (req.params.token !== config.mockDataToken) return res.status(400).send({message: 'Nice try buddy'});
         var count = 5;
         async.whilst(
             function() { return count > 0},
@@ -52,36 +61,38 @@ module.exports = function(app) {
                     var files = ['test.doc', 'test.docx', 'test.odt', 'test.pdf', 'test.txt'];
                     var fileName = files[Math.floor(Math.random() * files.length)];
                     var path = 'files/resumes/' + user._id + '/' + fileName;
-                    fs.copy(__dirname + '/../tests/fixtures/' + fileName, 'client/' + path, function() {
-                        var profileData = {
-                            startDate: Date.now(),
-                            title: faker.lorem.words(5),
-                            description: faker.lorem.paragraph(),
-                            phone: faker.phone.phoneNumberFormat(),
-                            email: faker.internet.email(),
-                            name: faker.name.firstName() + ' ' + faker.name.lastName(),
-                            position: values.positions[Math.floor(Math.random() * values.positions.length)],
-                            languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
-                            active: true,
-                            location: {
-                                name: faker.lorem.words(3),
-                                locality: faker.address.city(),
-                                administrativeArea: faker.address.state(),
-                                country: faker.address.country(),
-                                coordinates: [faker.address.longitude(), faker.address.latitude()]
-                            },
-                            jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
-                            vesselType: values.vesselTypes[Math.floor(Math.random() * values.vesselTypes.length)],
-                            resume: path,
-                            author: user._id
-                        };
 
-                        var profile = new CrewListing(profileData);
+                    fs.readFile(__dirname + '/../tests/fixtures/' + fileName, function(err, data) {
+                        s3fs.writeFile(user._id + '/' + fileName, data, function(err) {
+                            var profileData = {
+                                startDate: Date.now(),
+                                title: faker.lorem.words(5),
+                                description: faker.lorem.paragraph(),
+                                phone: faker.phone.phoneNumberFormat(),
+                                email: faker.internet.email(),
+                                name: faker.name.firstName() + ' ' + faker.name.lastName(),
+                                position: values.positions[Math.floor(Math.random() * values.positions.length)],
+                                languages: [values.languages[Math.floor(Math.random() * values.languages.length)]],
+                                active: true,
+                                location: {
+                                    name: faker.lorem.words(3),
+                                    locality: faker.address.city(),
+                                    administrativeArea: faker.address.state(),
+                                    country: faker.address.country(),
+                                    coordinates: [faker.address.longitude(), faker.address.latitude()]
+                                },
+                                jobType: values.jobTypes[Math.floor(Math.random() * values.jobTypes.length)],
+                                vesselType: values.vesselTypes[Math.floor(Math.random() * values.vesselTypes.length)],
+                                resume: path,
+                                author: user._id
+                            };
 
-                        profile.save(function() {
-                            callback();
-                        })
+                            var profile = new CrewListing(profileData);
 
+                            profile.save(function() {
+                                callback();
+                            })
+                        });
                     });
                 });
             },

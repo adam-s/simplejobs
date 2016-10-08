@@ -10,7 +10,8 @@
         AnalyticsProvider
             .setAccount(window.values.googleAnalyticsId)
             .setDomainName('none')
-            .setPageEvent('$stateChangeSuccess');
+            .setPageEvent('$stateChangeSuccess')
+            .ignoreFirstPageLoad(true);;
     }
 
     function run(Analytics) {}

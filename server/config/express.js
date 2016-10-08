@@ -84,7 +84,6 @@ module.exports = function (db) {
     require('./passport.js')(app);
 
     // Load the routing files
-    require('../routes/download.routes')(app);
     require('../routes/auth.routes.js')(app);
     require('../routes/crew.listings.routes.js')(app);
     require('../routes/job.listings.routes.js')(app);

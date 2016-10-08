@@ -31,7 +31,7 @@ describe('/api/crew-listings', function() {
         });
     });
 
-    describe.only('/api/crew-listings/field?q=search_string', function() {
+    describe('/api/crew-listings/field?q=search_string', function() {
 
     });
 

@@ -24,11 +24,9 @@ module.exports = function(app) {
     app.route('/api/crew-listings/autocomplete/:field')
         .get(checkAuthenticated, crew.autocomplete);
 
-    // Get any profile by the user ID
-    app.route('/api/profile/:userIdForProfile')
-        .get(crew.detail);
-
-    app.param('userIdForProfile', crew.crewListingByUserId);
+    // // Get any profile by the user ID
+    // app.route('/api/profile/:userIdForProfile')
+    //     .get(crew.detail);
 
     // We have actions for all user's profile.
     app.route('/api/profile').all(checkAuthenticated, crew.crewListingBySession)
@@ -39,6 +37,12 @@ module.exports = function(app) {
         .all(checkAuthenticated, crew.crewListingBySession, crew.fileHandler) // file handling middle ware on crew
         .post(crew.createProfile, crew.create)
         .put(crew.updateProfile, crew.update);
+
+    // If the app ever needs to have file management this will get refactored into a 'file' resource. No biggie.
+    app.route('/files/resumes/:authorId/:fileName')
+        .get(checkAuthenticated, crew.crewListingByAuthorId, crew.downloadResume);
+
+    app.param('authorId', crew.crewListingByAuthorId);
 
 };
 

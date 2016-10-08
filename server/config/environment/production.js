@@ -11,6 +11,7 @@ module.exports = {
     dir: 'build/',
     fileDir: 'files/',
     sessionSecret: process.env.SESSION_SECRET || 'MEAN',
+    mockDataToken: process.env.MOCK_DATA_TOKEN || 'MOCK_DATA_TOKEN',
     admin: {
         accountEmail: process.env.ADMIN_ACCOUNT_EMAIL || 'admin@simpleyachtjobs.com',
         accountPassword: process.env.ADMIN_ACCOUNT_PASSWORD || 'password'
@@ -43,5 +44,12 @@ module.exports = {
     },
     facebook: {
         pixelId: process.env.FACEBOOK_PIXEL_ID || 'FACEBOOK_PIXEL_ID'
+    },
+    aws: {
+        s3: {
+            awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || 'AWS_ACCESS_KEY_ID',
+            awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || 'AWS_SECRET_ACCESS_KEY',
+            bucket: process.env.AWS_S3_BUCKET || 'AWS_S3_BUCKET'
+        }
     }
 };
