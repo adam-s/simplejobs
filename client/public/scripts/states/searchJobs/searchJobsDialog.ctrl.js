@@ -2,23 +2,20 @@
     angular.module('simplejobs')
         .controller('searchJobsDialogCtrl', searchJobsDialogCtrl);
 
-    searchJobsDialogCtrl.$inject = ['$window', '$mdDialog', 'Analytics', 'job'];
+    searchJobsDialogCtrl.$inject = ['$mdDialog', 'job', 'sjLogger'];
 
-    function searchJobsDialogCtrl($window, $mdDialog, Analytics, job) {
+    function searchJobsDialogCtrl($mdDialog, job, sjLogger) {
         var dialog = this;
 
         dialog.job = job;
 
-        // Track what people are looking at
-        Analytics.trackEvent('ViewListing', 'view', 'Job', 1, false, {
-            dimension1: job.position,
-            dimension2: job.jobType
-        });
-
-        $window.fbq('trackCustom', 'ViewListing', {
-            kind: 'Job',
+        sjLogger.logEvent({
+            action: 'ViewListing',
+            category: 'Job',
+            jobType: job.jobType,
             position: job.position,
-            jobType: job.jobType
+            locationName: job.location.name,
+            vesselType: job.vesselType
         });
 
         dialog.close = function() {

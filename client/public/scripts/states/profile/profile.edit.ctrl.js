@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('profileEditCtrl', profileEditCtrl);
 
-    profileEditCtrl.$inject = ['$scope', '$mdToast', 'Auth', '$state', 'profileApi', 'profile', 'errorHandler'];
+    profileEditCtrl.$inject = ['$scope', '$mdToast', 'Auth', '$state', 'profileApi', 'profile', 'errorHandler', 'sjLogger'];
 
-    function profileEditCtrl($scope, $mdToast, Auth, $state, profileApi, profile, errorHandler) {
+    function profileEditCtrl($scope, $mdToast, Auth, $state, profileApi, profile, errorHandler, sjLogger) {
         var vm = this;
         var user = Auth.getMe();
         var newProfile = !profile;
@@ -40,8 +40,21 @@
             var submitFn = newProfile ? profileApi.create.bind(profileApi) : profileApi.update.bind(profileApi);
             submitFn(vm.profile)
                 .then(function() {
+
+                    // Don't want to be passing private variables around to third party scripts. That is interesting :/
+                    // Probably an anti-pattern
+                    sjLogger.logEvent({
+                        action: 'EditListing',
+                        category: 'Resume',
+                        jobType: angular.copy(vm.profile.jobType),
+                        position: angular.copy(vm.profile.position),
+                        locationName: angular.copy(vm.profile.location.name),
+                        vesselType: angular.copy(vm.profile.vesselType)
+                    });
+
                     newProfile = false;
                     vm.submitDisabled = false;
+
                     var toast = $mdToast.simple().textContent('Your profile is updated');
                     $mdToast.show(toast);
                 }, function(response) {

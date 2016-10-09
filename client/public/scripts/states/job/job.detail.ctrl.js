@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('jobDetailCtrl', jobDetailCtrl);
 
-    jobDetailCtrl.$inject = ['$mdDialog', '$mdToast', '$state', 'jobApi', 'job', 'Auth'];
+    jobDetailCtrl.$inject = ['$mdDialog', '$mdToast', '$state', 'jobApi', 'job', 'Auth', 'sjLogger'];
 
-    function jobDetailCtrl($mdDialog, $mdToast, $state, jobApi, job, Auth) {
+    function jobDetailCtrl($mdDialog, $mdToast, $state, jobApi, job, Auth, sjLogger) {
         var vm = this;
         var user = Auth.getMe();
 
@@ -39,6 +39,18 @@
             var submitFn = add ? jobApi.create.bind(jobApi) : jobApi.update.bind(jobApi);
             submitFn(vm.job)
                 .then(function(response) {
+
+                    // Don't want to be passing private variables around to third party scripts. That is interesting :/
+                    // Probably an anti-pattern
+                    sjLogger.logEvent({
+                        action: 'EditListing',
+                        category: 'Job',
+                        jobType: angular.copy(vm.job.jobType),
+                        position: angular.copy(vm.job.position),
+                        locationName: angular.copy(vm.job.location ? vm.job.location.name : null),
+                        vesselType: angular.copy(vm.job.vesselType)
+                    });
+
                     vm.submitDisabled = false;
                     $state.go('jobEdit', {id: response._id});
                     var toast = $mdToast.simple().textContent('Job listing updated');

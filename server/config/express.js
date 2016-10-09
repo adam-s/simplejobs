@@ -50,11 +50,11 @@ module.exports = function (db) {
     app.use(cookieParser());
     app.use(session({
         saveUninitialized: true,
-        resave: true,
+        resave: false, // @see documentation this is best practice but not default. MongoDB has touch method required.
         secret: config.sessionSecret,
         cookie: {
-            // session expiration is set by default to 24 hours
-            maxAge: 24 * (60 * 60 * 1000),
+            // session expiration is set by default to 90 x 24 hours
+            maxAge: 90 * (24 * 60 * 60 * 1000),
             // httpOnly flag makes sure the cookie is only accessed
             // through the HTTP protocol and not JS/browser
             httpOnly: true,

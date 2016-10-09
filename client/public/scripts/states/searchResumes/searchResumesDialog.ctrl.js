@@ -2,22 +2,20 @@
     angular.module('simplejobs')
         .controller('searchResumesDialogCtrl', searchResumesDialogCtrl);
 
-    searchResumesDialogCtrl.$inject = ['$window', '$mdDialog', 'Analytics', 'resume'];
+    searchResumesDialogCtrl.$inject = ['$mdDialog', 'resume', 'sjLogger'];
 
-    function searchResumesDialogCtrl($window, $mdDialog, Analytics, resume) {
+    function searchResumesDialogCtrl($mdDialog, resume, sjLogger) {
         var dialog = this;
 
         dialog.resume = resume;
 
-        Analytics.trackEvent('ViewListing', 'view', 'Resume', 1, false, {
-            dimension1: resume.position,
-            dimension2: resume.jobType
-        });
-
-        $window.fbq('trackCustom', 'ViewListing', {
-            kind: 'Resume',
+        sjLogger.logEvent({
+            action: 'ViewListing',
+            category: 'Resume',
+            jobType: resume.jobType,
             position: resume.position,
-            jobType: resume.jobType
+            locationName: resume.location.name,
+            vesselType: resume.vesselType
         });
 
         dialog.close = function() {
@@ -26,6 +24,17 @@
 
         dialog.cancel = function() {
             $mdDialog.cancel();
+        };
+
+        dialog.trackDownload = function() {
+            sjLogger.logEvent({
+                action: 'DownloadResume',
+                category: 'Resume',
+                jobType: resume.jobType,
+                position: resume.position,
+                locationName: resume.location.name,
+                vesselType: resume.vesselType
+            });
         };
 
         dialog.downloadFile = function(uri) {
