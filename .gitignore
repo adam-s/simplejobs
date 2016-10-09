@@ -8,5 +8,5 @@
 /build
 /client/files
 #/server/config/environment/development.js
-/server/config/environment/test.js
+#/server/config/environment/test.js
 npm-debug.log

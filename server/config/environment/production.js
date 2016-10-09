@@ -5,6 +5,14 @@
  * @link http://docs.mongolab.com/migrating/
  */
 
+/**
+ *
+ * For reasons I don't yet understand GIT erases ignored files when changing branches.
+ * The solution: git update-index --assume-unchanged <file>
+ *
+ * @link http://stackoverflow.com/questions/6317169/using-gitignore-to-ignore-but-not-delete-files
+ * @link http://archive.robwilkerson.org/2010/03/02/git-tip-ignore-changes-to-tracked-files/
+ */
 module.exports = {
     db: process.env.MONGODB_URI,
     // set this to build
