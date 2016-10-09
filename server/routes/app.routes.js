@@ -13,7 +13,7 @@ module.exports = function(app) {
     // here. A 404 needs to be sent to the client because the catch all index.html hangs up the browser
     app.all('/:url(css|api|styles|bower_components|scripts|images|templates)/*', function(req, res) {
         res.status(404)
-            .send('Not found');
+            .send({message: 'File not found'});
     });
 
     app.all('*', appDefaultCtrl.index);
