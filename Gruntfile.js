@@ -134,6 +134,14 @@ module.exports = function(grunt) {
             'favicon': {
                 src: 'client/public/favicon.ico',
                 dest: 'build/public/favicon.ico'
+            },
+            'robots': {
+                src: 'client/public/robots.txt',
+                dest: 'build/public/robots.txt'
+            },
+            'sitemap': {
+                src: 'client/public/sitemap.xml',
+                dest: 'build/public/sitemap.xml'
             }
         },
         karma: {
