@@ -9,9 +9,8 @@
     function config(AnalyticsProvider) {
         AnalyticsProvider
             .setAccount(window.values.googleAnalyticsId)
-            .setDomainName('none')
             .setPageEvent('$stateChangeSuccess')
-            .ignoreFirstPageLoad(true);;
+            .ignoreFirstPageLoad(true);
     }
 
     function run(Analytics) {}

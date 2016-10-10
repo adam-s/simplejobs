@@ -9,14 +9,38 @@ var mongoose = require('mongoose'),
     values = require('../../config/values.js'),
     config = require('../../config/config'),
     fs = require('fs-extra'),
-    S3FS = require('s3fs');
+    S3FS = require('s3fs'),
+    request = require('request');
 
 var s3fs = new S3FS( config.aws.s3.bucket + '/files/resumes/', {
     accessKeyId: config.aws.s3.awsAccessKeyId,
     secretAccessKey: config.aws.s3.awsSecretAccessKey
 });
 
-describe.only('AWS S3', function() {
+describe.only('email MX validate', function() {
+    it('should validate an email address', function(done) {
+
+        var options = {
+            url: 'https://api.mailgun.net/v3/address/validate',
+            method: 'GET',
+            qs: {
+                address: 'adamsohn1@gmail.com'
+            },
+            auth: {
+                username: 'api',
+                password: 'key-7pwnqmm4xvvekhjmzi53ns1l-h6r4141'
+            }
+        };
+
+        request(options, function (err, res, body) {
+            if (err) return done(err);
+            console.log();
+            done();
+        });
+    })
+});
+
+describe('AWS S3', function() {
     var user;
     beforeEach(function(done) {
         s3fs.rmdirp('../../', done);

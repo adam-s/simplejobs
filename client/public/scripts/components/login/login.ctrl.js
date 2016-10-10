@@ -37,7 +37,7 @@
                     var toast = $mdToast.simple().textContent('Registration successful');
                     $mdToast.show(toast);
 
-                    $state.go('account', {}, {reload: true});
+                    $state.go('guideOverview', {}, {reload: true});
                     $mdDialog.hide();
                 }, function reject(response) {
                     // The first recaptcha needs to be refreshed so invalidate it.

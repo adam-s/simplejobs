@@ -10,7 +10,8 @@ var passport = require('passport'),
     crypto = require('crypto'),
     util = require('util'),
     request = require('request'),
-    validationErrorHandler = require('../lib/validationErrorHandler.js');
+    validationErrorHandler = require('../lib/validationErrorHandler.js'),
+    emailValidator = require('mailgun-validate-email')(config.mailgun.options.auth.email_validation_key);
 
 exports.register = function(req, res) {
     req.assert('password', 'You must enter a password').notEmpty();
@@ -21,31 +22,37 @@ exports.register = function(req, res) {
     var errors = req.validationErrors();
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
-    var payload = {
-        secret: config.recaptcha.secret,
-        response: req.body.recaptcha,
-        remoteip: req.app.locals.ipAddress
-    };
+    // Validate email here
+    emailValidator(req.body.email, function(err, result) {
+        console.log(result);
+        if (err || !result.is_valid) return res.status(400).send({message: "Email is not valid"});
 
-    request.post({url: config.recaptcha.url, form:payload}, function(err, response, body) {
-        body = JSON.parse(body);
+        var payload = {
+            secret: config.recaptcha.secret,
+            response: req.body.recaptcha,
+            remoteip: req.app.locals.ipAddress
+        };
 
-        if (!body.success) return res.status(400).send({message: 'The reCaptcha didn\'t validate'});
+        request.post({url: config.recaptcha.url, form:payload}, function(err, response, body) {
+            body = JSON.parse(body);
 
-        var user = new User();
-        user.email = req.body.email;
-        user.password = req.body.password;
+            if (!body.success) return res.status(400).send({message: 'The reCaptcha didn\'t validate'});
 
-        user.save(function(err) {
-            if (err) return res.status(400).send(validationErrorHandler(err, true));
+            var user = new User();
+            user.email = req.body.email;
+            user.password = req.body.password;
 
-            user.password = user.passwordConfirm = undefined;
-            user.salt = undefined;
+            user.save(function(err) {
+                if (err) return res.status(400).send(validationErrorHandler(err, true));
 
-            req.login(user, function(err) {
-                if (err) return res.status(400).send(err);
-                res.json(user);
-            })
+                user.password = user.passwordConfirm = undefined;
+                user.salt = undefined;
+
+                req.login(user, function(err) {
+                    if (err) return res.status(400).send(err);
+                    res.json(user);
+                })
+            });
         });
     });
 };

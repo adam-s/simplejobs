@@ -190,3 +190,52 @@ md-table-pagination {
     flex-basis: auto; /* default value */
     flex-grow: 1;
 }
+
+ol.sj-pretty-list {
+  counter-reset: li;
+  list-style: none;
+  padding: 0;
+
+  > li {
+    margin: 16px 0;
+    padding-left: 24px;
+    position: relative;
+
+    &:before {
+      content: counter(li);
+      box-sizing: border-box;
+      counter-increment: li;
+      left: 0;
+      position: absolute;
+      //top: 50%;
+      //transform: translateY(-50%);
+    }
+
+    &.link {
+      cursor: pointer;
+      color: #20252a;
+      font-weight: 400;
+      border-bottom: none;
+      -moz-transition: color .2s;
+      -o-transition: color .2s;
+      -webkit-transition: color .2s;
+      transition: color .2s;
+
+      &:hover {
+        color: rgba(32,37,42,.7);
+      }
+
+    }
+
+    img {
+      vertical-align: middle;
+    }
+
+    ul {
+      li {
+        margin: 16px 0;
+        list-style: disc;
+      }
+    }
+  }
+}

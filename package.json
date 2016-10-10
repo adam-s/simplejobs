@@ -39,6 +39,7 @@
     "http-errors": "^1.5.0",
     "jsonwebtoken": "^7.0.1",
     "lodash": "^4.13.1",
+    "mailgun-validate-email": "^2.1.0",
     "method-override": "^2.3.5",
     "mongoose": "^4.4.3",
     "mongoose-beautiful-unique-validation": "^3.0.0",
