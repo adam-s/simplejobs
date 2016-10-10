@@ -24,7 +24,7 @@ exports.register = function(req, res) {
 
     // Validate email here
     emailValidator(req.body.email, function(err, result) {
-        console.log(result);
+
         if (err || !result.is_valid) return res.status(400).send({message: "Email is not valid"});
 
         var payload = {

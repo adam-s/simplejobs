@@ -5,7 +5,8 @@ var config = require('./config');
 module.exports = function(app, db) {
     return new Promise(function(resolve) {
         var User = db.model('User');
-        User.findOne({ email: config.admin.accountEmail}, function(err, user) {
+        User.findWithDeleted({ email: config.admin.accountEmail}, function(err, users) {
+            var user = users[0];
             if (err) throw err;
             if (!user) {
                 var newAdmin = new User({
@@ -15,10 +16,15 @@ module.exports = function(app, db) {
                 });
                 newAdmin.save(function(err) {
                     if (err) throw err;
-                    resolve();
+                    return resolve();
+                })
+            } else if (user.deleted) {
+                // Weird I was just messing around and deleted it. Mayhem ensued.
+                user.restore(function() {
+                    return resolve();
                 })
             } else {
-                resolve();
+                return resolve();
             }
         })
     })
