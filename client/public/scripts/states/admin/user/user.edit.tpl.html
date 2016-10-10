@@ -53,12 +53,14 @@
                             <div ng-message="match"><span>The passwords do not match</span></div>
                         </div>
                     </md-input-container>
-                    <fieldset flex>
-                        <legend>User roles</legend>
-                        <div ng-repeat="role in vm.roles">
-                            <md-checkbox checklist-model="vm.user.roles" checklist-value="role">
-                                {{role}}
-                            </md-checkbox>
+                    <fieldset>
+                        <div flex>
+                            <legend>Administrator</legend>
+                            <div ng-repeat="role in vm.roles">
+                                <md-checkbox checklist-model="vm.user.roles" checklist-value="role">
+                                    {{role}}
+                                </md-checkbox>
+                            </div>
                         </div>
                     </fieldset>
                 </md-card>

@@ -15,7 +15,7 @@ module.exports = function(app, db) {
                 var newAdmin = new User({
                     email: config.admin.accountEmail,
                     password: config.admin.accountPassword,
-                    roles: ['administrator', 'authenticated', 'anonymous']
+                    roles: ['administrator', 'authenticated']
                 });
                 newAdmin.save(function(err) {
                     if (err) throw err;
