@@ -38,6 +38,7 @@ module.exports = {
         options: {
             auth: {
                 api_key: process.env.MAILGUN_API_KEY || 'MAILGUN_API_KEY',
+                email_validation_key: process.env.MAILGUN_EMAIL_VALIDATION_KEY  || 'MAILGUN_EMAIL_VALIDATION_KEY',
                 domain: process.env.MAILGUN_DOMAIN || 'MAILGUN_DOMAIN'
             }
         }
