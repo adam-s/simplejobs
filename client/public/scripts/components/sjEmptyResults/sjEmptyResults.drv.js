@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .directive('sjEmptyResults', sjEmptyResults);
 
-    sjEmptyResults.$inject = [];
+    sjEmptyResults.$inject = ['$mdMedia'];
 
-    function sjEmptyResults() {
+    function sjEmptyResults($mdMedia) {
         return {
             restrict: 'E',
             templateUrl: 'scripts/components/sjEmptyResults/sjEmptyResults.tpl.html',
@@ -12,7 +12,7 @@
                 resultSet: '='
             },
             link: function(scope, element, attrs) {
-
+                scope.$mdMedia = $mdMedia;
             }
         }
     }
