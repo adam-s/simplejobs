@@ -173,11 +173,12 @@ exports.forgotPassword = function(req, res) {
             });
         },
         function(user, token, done) {
+
             var mailOptions = {
                 from: config.mailer.from,
                 to: req.body.email,
                 subject: 'Resetting the password',
-                html: util.format('Reset your <a href="http://localhost:3000/forgot-password-reset/%s">Reset password</a>', token)
+                html: util.format('Reset your <a href="http://%s/forgot-password-reset/%s">Reset password</a>', req.get('host'), token)
             };
 
             var transport = nodemailer.createTransport(mailgun(config.mailgun.options));
