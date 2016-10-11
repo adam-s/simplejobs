@@ -7,7 +7,7 @@
     function policies(PermRoleStore, PermPermissionStore, Auth) {
 
         PermRoleStore
-            .defineRole('ADMINISTRATOR', function(roleName, transitionProperties) {
+            .defineRole('ADMINISTRATOR', function() {
                 var user = Auth.getMe();
                 if (!user) return false;
 
@@ -20,7 +20,7 @@
 
 
         PermRoleStore
-            .defineRole('AUTHENTICATED', function(roleName, transitionProperties) {
+            .defineRole('AUTHENTICATED', function() {
                 var user = Auth.getMe();
                 if (!user) return false;
 
