@@ -209,14 +209,14 @@
                     <div layout-gt-xs="row">
                         <md-input-container flex-gt-sm="50" flex>
                             <label>Latitude</label>
-                            <input name="latitude" ng-model="vm.profile.location.coordinates[1]" required disabled>
+                            <input name="latitude" ng-model="vm.profile.location.coordinates[1]" required readonly location-search-dirty-elem>
                             <div ng-messages="profileForm.latitude.$error" role="alert">
                                 <div ng-message="required">Latitude is required</div>
                             </div>
                         </md-input-container>
                         <md-input-container flex-gt-sm="50" flex>
                             <label>Longitude</label>
-                            <input name="longitude" ng-model="vm.profile.location.coordinates[0]" required disabled>
+                            <input name="longitude" ng-model="vm.profile.location.coordinates[0]" required readonly location-search-dirty-elem>
                             <div ng-messages="profileForm.longitude.$error" role="alert">
                                 <div ng-message="required">Longitude is required</div>
                             </div>

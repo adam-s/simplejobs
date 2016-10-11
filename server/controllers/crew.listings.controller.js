@@ -144,7 +144,7 @@ exports.update = function(req, res) {
                     return callback(null);
                 })
             },
-            // 2. Read file from local temp.
+            // 2. Read file from local .tmp
             function(callback) {
                 fs.readFile(req.file.path, function(err, data) {
                     if (err) return callback({message: 'System error uploading file'});
@@ -163,9 +163,9 @@ exports.update = function(req, res) {
 
                 // Attempt to upload to AWS S3
                 s3fs.writeFile(crewListing.resume, data, options, function(err, object) {
+
                     if (err) return callback({message: 'System error uploading file'});
 
-                    console.log(object);
                     // There is now a copy of the file on the remote AWS S3 bucket
                     callback(null, object)
                 })

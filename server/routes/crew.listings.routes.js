@@ -35,7 +35,7 @@ module.exports = function(app) {
 
     app.route('/api/profile')
         .all(checkAuthenticated, crew.crewListingBySession, crew.fileHandler) // file handling middle ware on crew
-        .post(crew.createProfile, crew.create)
+        .post(crew.createProfile, crew.update)
         .put(crew.updateProfile, crew.update);
 
     // If the app ever needs to have file management this will get refactored into a 'file' resource. No biggie.

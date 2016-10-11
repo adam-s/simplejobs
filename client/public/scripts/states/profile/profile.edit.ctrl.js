@@ -61,6 +61,12 @@
                     vm.submitDisabled = false;
                     errorHandler.handleValidationErrors(response);
                 })
+        };
+
+        vm.setDirty = function(event) {
+            console.log(event);console.log(this);
+
+            this.$setDirty();
         }
 
     }
