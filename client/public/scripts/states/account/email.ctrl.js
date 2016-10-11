@@ -2,9 +2,9 @@
     angular.module('simplejobs')
         .controller('emailCtrl', emailCtrl);
 
-    emailCtrl.$inject = ['$scope', '$mdToast', 'Auth', 'errorHandler'];
+    emailCtrl.$inject = ['$scope', '$state', '$mdToast', 'Auth', 'errorHandler'];
 
-    function emailCtrl($scope, $mdToast, Auth, errorHandler) {
+    function emailCtrl($scope, $state, $mdToast, Auth, errorHandler) {
         var vm = this;
         vm.me = angular.copy(Auth.getMe());
         vm.submit = submit;

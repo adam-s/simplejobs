@@ -41,3 +41,16 @@
     }
   }
 }
+
+#usermenu-dropdown {
+
+  .fade-to-white:before {
+    content:'';
+    width:50px;
+    height:100%;
+    position:absolute;
+    right:0;
+    top:0;
+    background:linear-gradient(90deg, transparent, white);
+  }
+}

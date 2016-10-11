@@ -16,6 +16,14 @@
                 </div>
             </md-button>
             <md-menu-content width="3" md-position-mode="target-right" id="usermenu-dropdown">
+                <md-menu-item class="user-menu-item">
+                    <div layout="row" layout-align="start center">
+                        <div style="position:relative">
+                            <div ng-class="{'fade-to-white': vm.getMe().email.length > 16}">{{vm.getMe().email | limitTo : 16}}</div>
+                        </div>
+                    </div>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
                 <md-menu-item class="user-menu-item" layout-align="start start">
                     <md-button ui-sref="account">
                         <md-icon md-font-icon="account_circle">account_circle</md-icon>
