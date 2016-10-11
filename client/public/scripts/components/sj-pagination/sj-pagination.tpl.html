@@ -2,11 +2,11 @@
     <md-card-actions layout="row" layout-align="start center">
         <md-button class="md-icon-button" aria-label="First page" ng-click="vm.firstPage()" ng-if="vm.page > 2">
             <md-icon md-font-icon="first_page">first_page</md-icon>
-            <md-tooltip md-direction="bottom">First page</md-tooltip>
+            <md-tooltip md-direction="top">First page</md-tooltip>
         </md-button>
         <md-button class="md-icon-button" aria-label="Previous" ng-click="vm.previousPage()" ng-if="vm.page > 1">
             <md-icon md-font-icon="chevron_left">chevron_left</md-icon>
-            <md-tooltip md-direction="bottom">Previous</md-tooltip>
+            <md-tooltip md-direction="top">Previous</md-tooltip>
         </md-button>
         <div class="info">
             <span ng-if="vm.page === 1">Next</span>
@@ -14,7 +14,7 @@
         </div>
         <md-button class="md-icon-button" aria-label="Next" ng-click="vm.nextPage()" ng-if="vm.page < vm.totalPages">
             <md-icon md-font-icon="chevron_right">chevron_right</md-icon>
-            <md-tooltip md-direction="bottom">Next</md-tooltip>
+            <md-tooltip md-direction="top">Next</md-tooltip>
         </md-button>
     </md-card-actions>
 </md-card>
