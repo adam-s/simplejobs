@@ -23,7 +23,7 @@
                     console.log(response);
                     Auth.setMe(response);
 
-                    $state.go('home');
+                    $state.go('home', {}, {reload: true});
                 }, function(response) {
                     errorHandler.handleValidationErrors(response);
                 })
