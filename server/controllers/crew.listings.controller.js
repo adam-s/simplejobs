@@ -111,80 +111,100 @@ exports.detail = function(req, res) {
     res.json(req.app.locals.crewListing);
 };
 
-exports.create = function(req, res) {
-    var crewListing = new CrewListing(req.body);
+exports.update = function(req, res) {
+    var crewListing;
 
-    crewListing.save(function(err) {
-        if (err) {
-            // Delete the req file
-            fs.unlink(req.file.path, function() {
-                return res.status(400).send(validationErrorHandler(err,true));
-            });
-        } else {
-            // Move the req file
-            fs.readFile(req.file.path, function(err, data) {
-                if (err) return res.status(400).send({message: 'Unexpected error has occurred'});
+    if (req.app.locals.crewListing) {
+        crewListing = req.app.locals.crewListing;
 
+        // Protect information
+        delete req.body.author;
+        delete req.body.__v;
+        delete req.body._id;
+        delete crewListing.kind;
+
+        // Merge objects
+        _.assignIn(crewListing, req.body);
+    } else {
+        crewListing = new CrewListing(req.body);
+    }
+    if (!req.file) {
+        // There is a reference to the file and a new file wasn't uploaded. Save the updated information and be done
+        crewListing.save({runValidators: true}, function (err, result) {
+            if (err) return res.status(400).send(validationErrorHandler(err, true));
+            return res.json(result);
+        })
+    } else {
+        // We have a new file that needs to be processed.
+        async.waterfall([
+            // 1. Validate object
+            function(callback) {
+                crewListing.validate(function(err) {
+                    if (err) return callback(validationErrorHandler(err, true));
+                    return callback(null);
+                })
+            },
+            // 2. Read file from local temp.
+            function(callback) {
+                fs.readFile(req.file.path, function(err, data) {
+                    if (err) return callback({message: 'System error uploading file'});
+                    return callback(null, data);
+                })
+            },
+            // 3. Move to AWS S3
+            function(data, callback) {
+                // We are pulling metadata from the request object rather than the data from the file system
+                // not sure if it makes a difference. It would seems that the data object should be a better source
+                // of the metadata. Look into that.
                 var options = {
                     encoding: req.file.encoding,
                     ContentType: req.file.mimetype
                 };
 
-                s3fs.writeFile(crewListing.resume, data, options, function(err) {
-                    if (err) return res.status(400).send({message: 'Unexpected error has occurred'});
+                // Attempt to upload to AWS S3
+                s3fs.writeFile(crewListing.resume, data, options, function(err, object) {
+                    if (err) return callback({message: 'System error uploading file'});
 
-                    fs.unlink(req.file.path, function() {
-                        res.json(crewListing);
-                    });
+                    console.log(object);
+                    // There is now a copy of the file on the remote AWS S3 bucket
+                    callback(null, object)
                 })
-            });
-        }
-    });
-};
+            },
+            // 4. Save object to database
+            function(object, callback) {
+                crewListing.save({runValidators: true, upsert: true}, function(err, result) {
+                    if (err) {
+                        // Oh no! We have an error and a dangling copy of the file on AWS S3
+                        // We have versioning set so check it deletes the correct version. It works by putting a market
+                        // above the deleted object but it doesn't remove the object. It will not load it unless specifically
+                        // requested.
+                        // @see http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObject-property
 
-exports.update = function(req, res) {
-    var crewListing = req.app.locals.crewListing;
+                        var params = {
+                            Bucket: config.aws.s3.bucket,
+                            Key: crewListing.resume,
+                            VersionId: object.VersionId
+                        };
 
-    // Protect information
-    delete req.body.author;
-    delete req.body.__v;
-    delete req.body._id;
-    delete crewListing.kind;
-
-    // Merge objects
-    _.assignIn(crewListing, req.body);
-
-    crewListing.save({runValidators: true}, function(err, result) {
-        if (req.file) {
-            if (err) {
-                // Delete the req file
-                fs.unlink(req.file.path, function() {
-                    return res.status(400).send(validationErrorHandler(err,true));
-                });
-            } else {
-                // Move the req file
-                fs.readFile(req.file.path, function(err, data) {
-                    if (err) return res.status(400).send({message: 'Unexpected error has occurred'});
-
-                    var options = {
-                        encoding: req.file.encoding,
-                        ContentType: req.file.mimetype
-                    };
-
-                    s3fs.writeFile(crewListing.resume, data, options, function(err) {
-                        if (err) return res.status(400).send({message: 'Unexpected error has occurred'});
-
-                        fs.unlink(req.file.path, function() {
-                            res.json(crewListing);
+                        // Just get a signed URL that expires in one minute and redirect.
+                        s3fs.s3.deleteObject(params, function() {
+                            return callback(validationErrorHandler(err, true))
                         });
-                    })
-                });
+
+                    } else {
+                        callback(null, result);
+                    }
+                })
             }
-        } else {
-            if (err) return res.status(400).send(validationErrorHandler(err, true));
-            return res.json(result);
-        }
-    })
+        ], function (err, result) {
+            // Don't care what has happened. Need to remove the file from .tmp regardless of success or error.
+            fs.unlink(req.file.path, function() {
+                // Handle err here
+                if (err) return res.status(400).send(err);
+                return res.json(result);
+            })
+        })
+    }
 };
 
 exports.remove = function(req, res) {
@@ -288,7 +308,16 @@ exports.fileHandler = function(req, res, next) {
         if (req.body.resume && typeof req.file === 'undefined') {
             s3fs.stat(req.body.resume, function(err, stats) {
                 if (err) {
-                    return res.status(400).send({message: 'Resume doesn\'t exist on file server. Please reattach.'});
+                    var message;
+                    switch(err.statusCode) {
+                        case 404:
+                            message = 'Resume doesn\'t exist on file server. Please reattach.';
+                            break;
+                        default:
+                            message = 'Server error. Contact admin';
+                            break;
+                    }
+                    return res.status(400).send({message: message});
                 } else {
                     return next();
                 }
@@ -358,34 +387,4 @@ exports.downloadResume = function(req, res) {
         res.redirect(url);
     });
 
-    // var file = s3fs.readFile(crewListing.resume);
-    //
-    // file
-    //     .then(function(data) {
-    //         console.log(data);
-    //         return res.send(data);
-    //     }, function() {
-    //         return res.status(404).send({message: 'File not found'});
-    //     });
-
-
-    // Here we can create an outgoing stream listening on the httpHeaders event. Leaving the idea here in case I want
-    // to start thinking serving data I want to transform and intercept.
-    // @see http://stackoverflow.com/questions/35782434/streaming-file-from-s3-with-express-including-information-on-length-and-filetype
-
-    // s3fs.s3.getObject({Bucket: config.aws.s3.bucket, Key: crewListing.resume})
-    //     .on('httpHeaders', function (statusCode, headers) {
-    //         console.log('shit');
-    //         res.set('Content-Length', headers['content-length']);
-    //         res.set('Content-Type', headers['content-type']);
-    //         this.response.httpResponse.createUnbufferedStream()
-    //             .on('data', function (chunk) {
-    //                 console.log(chunk);
-    //             })
-    //             .pipe(res);
-    //     })
-    //     .on('error', function(data) {
-    //         return res.status(404).send({message: 'File not found'});
-    //     })
-    //     .send();
 };

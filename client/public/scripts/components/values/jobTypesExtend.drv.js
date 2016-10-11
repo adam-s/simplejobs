@@ -12,8 +12,7 @@
             priority: 1,
             link: function(scope, element, attrs, ctrl) {
                 scope.jobTypes = angular.copy($window.values.jobTypes);
-                scope.jobTypes.unshift('Any type');
-
+                if (!attrs.required) scope.jobTypes.unshift('Any type');
 
                 ctrl.$parsers.push(function(viewValue) {
                     return viewValue === 'Any type' ? null : viewValue;

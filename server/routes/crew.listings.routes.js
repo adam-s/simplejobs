@@ -11,7 +11,7 @@ module.exports = function(app) {
 
     // Protect these routes with admin access only
     app.route('/api/crew-listings')
-        .post(checkAdministrator, crew.fileHandler, crew.create);
+        .post(checkAdministrator, crew.fileHandler, crew.update);
 
     app.route('/api/crew-listings/:crewListingId')
         .put(checkAdministrator, crew.fileHandler, crew.update)

@@ -12,8 +12,7 @@
             priority: 1,
             link: function(scope, element, attrs, ctrl) {
                 scope.vesselTypes = angular.copy($window.values.vesselTypes);
-                scope.vesselTypes.unshift('Any type');
-
+                if (!attrs.required) scope.vesselTypes.unshift('Any type');
 
                 ctrl.$parsers.push(function(viewValue) {
                     return viewValue === 'Any type' ? null : viewValue;
