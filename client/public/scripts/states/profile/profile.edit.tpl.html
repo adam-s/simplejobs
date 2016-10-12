@@ -173,9 +173,9 @@
                         <textarea name="description"
                                   ng-model="vm.profile.description"
                                   rows="5"
+                                  max-rows="10"
                                   md-maxlength="2500"
                                   required></textarea>
-
                         <div ng-messages="profileForm.description.$error" role="alert">
                             <div ng-message="required">Description is a required field</div>
                             <div ng-message="md-maxlength">The description must be shorter than 2500 characters</div>
