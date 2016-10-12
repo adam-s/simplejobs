@@ -15,7 +15,7 @@
                 if (!attrs.required) scope.positions.unshift('Any position');
 
                 ctrl.$parsers.push(function(viewValue) {
-                    return viewValue === 'Any position' ? null : viewValue;
+                    return viewValue === 'Any position' ? '' : viewValue;
                 });
             }
         }

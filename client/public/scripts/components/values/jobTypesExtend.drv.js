@@ -15,7 +15,7 @@
                 if (!attrs.required) scope.jobTypes.unshift('Any type');
 
                 ctrl.$parsers.push(function(viewValue) {
-                    return viewValue === 'Any type' ? null : viewValue;
+                    return viewValue === 'Any type' ? '' : viewValue;
                 });
             }
         };

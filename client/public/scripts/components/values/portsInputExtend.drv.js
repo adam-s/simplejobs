@@ -15,7 +15,7 @@
                 if (!attrs.required) scope.ports.unshift({name: 'Any location'});
 
                 ctrl.$parsers.push(function(viewValue) {
-                    return viewValue.name === 'Any location' ? null : viewValue;
+                    return viewValue.name === 'Any location' ? '' : viewValue;
                 });
             }
         }
