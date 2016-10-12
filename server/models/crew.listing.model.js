@@ -2,14 +2,19 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    BaseListing = require('./base.listing.model.js');
+    BaseListing = require('./base.listing.model.js'),
+    validators = require('./validators/validators.js');
 
 var options = {
     discriminatorKey: 'kind'
 };
 
 var CrewListingSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: [true, 'Name field is required'],
+        validate: validators.name
+    },
     resume: {
         type: String,
         required: [true, 'Resume file path is required']

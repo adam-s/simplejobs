@@ -11,8 +11,8 @@ var FLOAT = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
 exports.title = [
     validate({
         validator: 'isLength',
-        arguments: [0, 250],
-        message: 'Title field has to be shorter than 250 characters'
+        arguments: [0, 75],
+        message: 'Title field has to be shorter than 75 characters'
     }),
     validate({
         validator: function(value) {
@@ -20,6 +20,14 @@ exports.title = [
         },
         message: 'Title field is required'
     })
+];
+
+exports.name = [
+    validate({
+        validator: 'isLength',
+        arguments: [0, 75],
+        message: 'Name field has to be shorter than 75 characters'
+    }),
 ];
 
 exports.email = [

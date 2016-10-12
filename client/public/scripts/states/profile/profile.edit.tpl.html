@@ -19,11 +19,11 @@
                         <label>Title</label>
                         <input name="title"
                                required
-                               max="250"
+                               md-maxlength="75"
                                ng-model="vm.profile.title">
                         <div ng-messages="profileForm.title.$error" role="alert">
                             <div ng-message="required">Title is a required field</div>
-                            <div ng-message="md-maxlength">The title must be shorter than 250 characters</div>
+                            <div ng-message="md-maxlength">The title must be shorter than 75 characters</div>
                         </div>
                     </md-input-container>
                     <md-input-container>
@@ -45,13 +45,13 @@
                     </md-input-container>
                     <md-input-container flex>
                         <label>Name</label>
-                        <input name="Name"
+                        <input name="name"
                                required
-                               max="250"
+                               md-maxlength="75"
                                ng-model="vm.profile.name">
                         <div ng-messages="profileForm.name.$error" role="alert">
                             <div ng-message="required">Name is a required field</div>
-                            <div ng-message="md-maxlength">The name must be shorter than 250 characters</div>
+                            <div ng-message="md-maxlength">The name must be shorter than 75 characters</div>
                         </div>
                     </md-input-container>
                     <md-input-container flex>
