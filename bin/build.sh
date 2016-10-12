@@ -7,11 +7,11 @@ cp -rf server/config/environment ~/WebstormProjects/config
 git checkout master
 
 # Push latest commit to GitHub
-git add .
-printf "Commit message: "
-read -r message
-git commit -m "$message"
-git push origin master
+# git add .
+# printf "Commit message: "
+# read -r message
+# git commit -m "$message"
+# git push origin master
 
 # Move to staging local
 git checkout staging
