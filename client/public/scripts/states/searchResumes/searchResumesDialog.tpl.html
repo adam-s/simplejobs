@@ -29,7 +29,9 @@
             <div ng-if="dialog.resume.smoking"><span class="name md-body-2">Smoking allowed: </span> <span class="value md-body-1">Yes</span></div>
             <div>
                 <span class="name md-body-2">Phone: </span>
-                <span ng-if="dialog.resume.phone" class="value md-body-1">{{dialog.resume.phone}}</span>
+                <span ng-if="dialog.resume.phone" class="value md-body-1">
+                    {{dialog.resume.phone}}
+                </span>
                 <span ng-if="!dialog.resume.phone" class="login-link">
                     <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
                     <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
