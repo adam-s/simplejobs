@@ -38,7 +38,7 @@
             <div>
                 <span class="name md-body-2">Email: </span>
                 <span ng-if="dialog.job.email" class="value md-body-1">
-                    <a href="mailto:{{dialog.job.email}}?subject={{dialog.job.title}} | Simple Yacht Jobs" target="_blank">{{dialog.job.email}}</a>
+                    <a href="mailto:{{dialog.job.email}}?subject={{dialog.job.title | escapeURI}} | Simple Yacht Jobs" target="_blank">{{dialog.job.email}}</a>
                 </span>
                 <span ng-if="!dialog.job.email" class="login-link" ng-click="dialog.login($event)">
                     <a class="value md-body-1">Login required</a>
