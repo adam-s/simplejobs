@@ -26,6 +26,7 @@ exports.index = function(req, res) {
 
             query
                 .select('email updated roles _id')
+                .sort('-updated')
                 .exec(function(err, results) {
                     if (err) return callback(err);
                     callback(null, results);
