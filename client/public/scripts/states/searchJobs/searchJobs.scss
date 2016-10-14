@@ -43,4 +43,16 @@
       color: rgba(255,255,255,.9); //rgba(0,0,0,.80);
     }
   }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .login-link {
+    cursor: pointer;
+
+    md-icon {
+      font-size: 16px;
+    }
+  }
 }

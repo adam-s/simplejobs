@@ -20,22 +20,30 @@
         </div>
         <md-divider></md-divider>
         <div class="info" style="padding-bottom: 16px">
-            <div ng-if="dialog.job.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{dialog.job.startDate | date : 'longDate'}}</span></div>
-            <div ng-if="dialog.job.position"><span class="name md-body-2">Position: </span><span class="value md-body-1">{{dialog.job.position}}</span></div>
-            <div ng-if="dialog.job.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{dialog.job.jobType}}</span></div>
-            <div ng-if="dialog.job.flag"><span class="name md-body-2">Flag: </span><span class="value md-body-1">{{dialog.job.flag}}</span></div>
-            <div ng-if="dialog.job.length"><span class="name md-body-2">Vessel length: </span><span class="value md-body-1">{{dialog.job.length}} meters</span></div>
-            <div ng-if="dialog.job.papers"><span class="name md-body-2">Papers required: </span><span class="value md-body-1">Yes</span></div>
-            <div ng-if="dialog.job.smoking"><span class="name md-body-2">Smoking allowed: </span><span class="value md-body-1">Yes</span></div>
+            <div ng-if="dialog.job.startDate"><span class="name md-body-2">Start date: </span> <span class="value md-body-1">{{dialog.job.startDate | date : 'longDate'}}</span></div>
+            <div ng-if="dialog.job.position"><span class="name md-body-2">Position: </span> <span class="value md-body-1">{{dialog.job.position}}</span></div>
+            <div ng-if="dialog.job.jobType"><span class="name md-body-2">Job type: </span> <span class="value md-body-1">{{dialog.job.jobType}}</span></div>
+            <div ng-if="dialog.job.flag"><span class="name md-body-2">Flag: </span> <span class="value md-body-1">{{dialog.job.flag}}</span></div>
+            <div ng-if="dialog.job.length"><span class="name md-body-2">Vessel length: </span> <span class="value md-body-1">{{dialog.job.length}} meters</span></div>
+            <div ng-if="dialog.job.papers"><span class="name md-body-2">Papers required: </span> <span class="value md-body-1">Yes</span></div>
+            <div ng-if="dialog.job.smoking"><span class="name md-body-2">Smoking allowed: </span> <span class="value md-body-1">Yes</span></div>
             <div>
                 <span class="name md-body-2">Phone: </span>
                 <span ng-if="dialog.job.phone" class="value md-body-1">{{dialog.job.phone}}</span>
-                <span ng-if="!dialog.job.phone" class="value md-body-1">Login</span>
+                <span ng-if="!dialog.job.phone" class="login-link" ng-click="dialog.login($event)">
+                    <a class="value md-body-1">Login required</a>
+                    <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
+                </span>
             </div>
             <div>
                 <span class="name md-body-2">Email: </span>
-                <span ng-if="dialog.job.email"class="value md-body-1">{{dialog.job.email}}</span>
-                <span ng-if="!dialog.job.email" class="value md-body-1">Login</span>
+                <span ng-if="dialog.job.email" class="value md-body-1">
+                    <a href="mailto:{{dialog.job.email}}?subject={{dialog.job.title}} | Simple Yacht Jobs" target="_blank">{{dialog.job.email}}</a>
+                </span>
+                <span ng-if="!dialog.job.email" class="login-link" ng-click="dialog.login($event)">
+                    <a class="value md-body-1">Login required</a>
+                    <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
+                </span>
             </div>
         </div>
         <div layout-padding ng-if="dialog.job.description">

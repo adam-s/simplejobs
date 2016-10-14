@@ -2,12 +2,13 @@
     angular.module('simplejobs')
         .controller('searchJobsDialogCtrl', searchJobsDialogCtrl);
 
-    searchJobsDialogCtrl.$inject = ['$mdDialog', 'job', 'sjLogger'];
+    searchJobsDialogCtrl.$inject = ['$mdDialog', 'loginService', 'job', 'sjLogger'];
 
-    function searchJobsDialogCtrl($mdDialog, job, sjLogger) {
+    function searchJobsDialogCtrl($mdDialog, loginService, job, sjLogger) {
         var dialog = this;
 
         dialog.job = job;
+        dialog.login = loginService.open;
 
         sjLogger.logEvent({
             action: 'ViewListing',

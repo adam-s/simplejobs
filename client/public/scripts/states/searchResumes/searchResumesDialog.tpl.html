@@ -20,29 +20,40 @@
         </div>
         <md-divider></md-divider>
         <div class="info" style="padding-bottom: 16px">
-            <div ng-if="dialog.resume.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{dialog.resume.startDate | date : 'longDate'}}</span></div>
-            <div ng-if="dialog.resume.position"><span class="name md-body-2">Position: </span><span class="value md-body-1">{{dialog.resume.position}}</span></div>
-            <div ng-if="dialog.resume.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{dialog.resume.jobType}}</span></div>
-            <div ng-if="dialog.resume.flag"><span class="name md-body-2">Flag: </span><span class="value md-body-1">{{dialog.resume.flag}}</span></div>
-            <div ng-if="dialog.resume.length"><span class="name md-body-2">Vessel length: </span><span class="value md-body-1">{{dialog.resume.length}} meters</span></div>
-            <div ng-if="dialog.resume.papers"><span class="name md-body-2">Papers required: </span><span class="value md-body-1">Yes</span></div>
-            <div ng-if="dialog.resume.smoking"><span class="name md-body-2">Smoking allowed: </span><span class="value md-body-1">Yes</span></div>
+            <div ng-if="dialog.resume.startDate"><span class="name md-body-2">Start date: </span> <span class="value md-body-1">{{dialog.resume.startDate | date : 'longDate'}}</span></div>
+            <div ng-if="dialog.resume.position"><span class="name md-body-2">Position: </span> <span class="value md-body-1">{{dialog.resume.position}}</span></div>
+            <div ng-if="dialog.resume.jobType"><span class="name md-body-2">Job type: </span> <span class="value md-body-1">{{dialog.resume.jobType}}</span></div>
+            <div ng-if="dialog.resume.flag"><span class="name md-body-2">Flag: </span> <span class="value md-body-1">{{dialog.resume.flag}}</span></div>
+            <div ng-if="dialog.resume.length"><span class="name md-body-2">Vessel length: </span> <span class="value md-body-1">{{dialog.resume.length}} meters</span></div>
+            <div ng-if="dialog.resume.papers"><span class="name md-body-2">Papers required: </span> <span class="value md-body-1">Yes</span></div>
+            <div ng-if="dialog.resume.smoking"><span class="name md-body-2">Smoking allowed: </span> <span class="value md-body-1">Yes</span></div>
             <div>
                 <span class="name md-body-2">Phone: </span>
                 <span ng-if="dialog.resume.phone" class="value md-body-1">{{dialog.resume.phone}}</span>
-                <span ng-if="!dialog.resume.phone" class="value md-body-1">Login</span>
+                <span ng-if="!dialog.resume.phone" class="login-link">
+                    <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
+                    <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
+                </span>
             </div>
             <div>
                 <span class="name md-body-2">Email: </span>
-                <span ng-if="dialog.resume.email"class="value md-body-1">{{dialog.resume.email}}</span>
-                <span ng-if="!dialog.resume.email" class="value md-body-1">Login</span>
+                <span ng-if="dialog.resume.email" class="value md-body-1">
+                    <a href="mailto:{{dialog.resume.email}}?subject={{dialog.resume.title}} | Simple Yacht Jobs" target="_blank">{{dialog.resume.email}}</a>
+                </span>
+                <span ng-if="!dialog.resume.email" class="login-link">
+                    <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
+                    <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
+                </span>
             </div>
             <div>
                 <span class="name md-body-2">Resume: </span>
                 <span ng-if="dialog.resume.resume" class="value md-body-1">
                     <a href="/{{dialog.resume.resume}}" target="_blank" download ng-click="dialog.trackDownload()">Download</a>
                 </span>
-                <span ng-if="!dialog.resume.resume" class="value md-body-1">Login</span>
+                <span ng-if="!dialog.resume.resume" class="login-link">
+                    <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
+                    <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
+                </span>
             </div>
         </div>
         <div layout-padding ng-if="dialog.resume.description">

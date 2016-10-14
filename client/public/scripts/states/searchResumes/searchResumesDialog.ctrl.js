@@ -2,12 +2,13 @@
     angular.module('simplejobs')
         .controller('searchResumesDialogCtrl', searchResumesDialogCtrl);
 
-    searchResumesDialogCtrl.$inject = ['$mdDialog', 'resume', 'sjLogger'];
+    searchResumesDialogCtrl.$inject = ['$mdDialog', 'loginService', 'resume', 'sjLogger'];
 
-    function searchResumesDialogCtrl($mdDialog, resume, sjLogger) {
+    function searchResumesDialogCtrl($mdDialog, loginService, resume, sjLogger) {
         var dialog = this;
 
         dialog.resume = resume;
+        dialog.login = loginService.open;
 
         sjLogger.logEvent({
             action: 'ViewListing',
