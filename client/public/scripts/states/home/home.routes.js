@@ -13,7 +13,7 @@
                 controller: 'homeCtrl as vm',
                 data: {
                     title: 'Home',
-                    description: 'Why does getting a job on a yacht have to be so damn complicated?'
+                    description: 'Simple Yacht Jobs makes finding qualified crew in the marine industry simple.'
                 }
             })
     }
