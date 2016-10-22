@@ -32,8 +32,8 @@
                 <span ng-if="dialog.resume.phone" class="value md-body-1">
                     {{dialog.resume.phone}}
                 </span>
-                <span ng-if="!dialog.resume.phone" class="login-link">
-                    <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
+                <span ng-if="!dialog.resume.phone" class="login-link" ng-click="dialog.login($event)">
+                    <a class="value md-body-1">Login required</a>
                     <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
                 </span>
             </div>
@@ -42,8 +42,8 @@
                 <span ng-if="dialog.resume.email" class="value md-body-1">
                     <a href="mailto:{{dialog.resume.email}}?subject={{dialog.resume.title | escapeURI}} | Simple Yacht Jobs" target="_blank">{{dialog.resume.email}}</a>
                 </span>
-                <span ng-if="!dialog.resume.email" class="login-link">
-                    <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
+                <span ng-if="!dialog.resume.email" class="login-link" ng-click="dialog.login($event)">
+                    <a class="value md-body-1">Login required</a>
                     <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
                 </span>
             </div>
@@ -52,8 +52,8 @@
                 <span ng-if="dialog.resume.resume" class="value md-body-1">
                     <a href="/{{dialog.resume.resume}}" target="_blank" download ng-click="dialog.trackDownload()">Download</a>
                 </span>
-                <span ng-if="!dialog.resume.resume" class="login-link">
-                    <a class="value md-body-1" ng-click="dialog.login($event)">Login required</a>
+                <span ng-if="!dialog.resume.resume" class="login-link" ng-click="dialog.login($event)">
+                    <a class="value md-body-1">Login required</a>
                     <md-icon md-font-icon="open_in_new">open_in_new</md-icon>
                 </span>
             </div>

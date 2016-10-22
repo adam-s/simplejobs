@@ -128,6 +128,7 @@ exports.update = function(req, res) {
     } else {
         crewListing = new CrewListing(req.body);
     }
+
     if (!req.file) {
         // There is a reference to the file and a new file wasn't uploaded. Save the updated information and be done
         crewListing.save({runValidators: true}, function (err, result) {
@@ -223,8 +224,8 @@ exports.crewListingById = function(req, res, next, id) {
 
     query
         .exec(function(err, crewListing) {
-            if (!crewListing) return res.status(404).send({message: "File not found"});
             if (err) return res.status(400).send(err);
+            if (!crewListing) return res.status(404).send({message: "File not found"});
             req.app.locals.crewListing = crewListing;
             next();
         });

@@ -1,0 +1,5 @@
+
+                        <md-button class="md-icon-button zoom-in-button">
+                            <md-icon md-font-icon="zoom_in">zoom_in</md-icon>
+                            <md-tooltip md-direction="top">More information</md-tooltip>
+                        </md-button>

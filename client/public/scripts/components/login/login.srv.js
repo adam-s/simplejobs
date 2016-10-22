@@ -11,7 +11,7 @@
 
         function open($event) {
             var fullscreen = $mdMedia('xs');
-console.log($event);
+
             $mdDialog.show({
                 controller: 'loginCtrl as vm',
                 bindToController: true,

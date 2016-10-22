@@ -24,17 +24,22 @@
                  ng-mouseleave="hover = false"
                  layout-padding>
             <md-card-title>
-                <div layout="column" flex>
-                    <div layout="row" layout-align="space-between center">
-                        <div flex><h3 class="md-headline">{{job.title}}</h3></div>
-                        <md-button class="md-icon-button zoom-in-button">
-                            <md-icon md-font-icon="zoom_in">zoom_in</md-icon>
-                            <md-tooltip md-direction="top">More information</md-tooltip>
-                        </md-button>
+                <div layout="row" layout-align="space-between center" flex>
+                    <div layout="column">
+                        <div layout="row" layout-align="space-between center">
+                            <div flex><h3 class="md-title">{{job.title}}</h3></div>
+                        </div>
+                        <div class="sj-secondary-text md-subhead">
+                            <span ng-if="vm.proximity">{{vm.distanceFn(job.location.coordinates[1], job.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}} | </span>
+                            <span>{{job.location.locality}}, {{job.location.country}}</span>
+                        </div>
                     </div>
-                    <div class="sj-secondary-text md-subhead">
-                        <span ng-if="vm.proximity">{{vm.distanceFn(job.location.coordinates[1], job.location.coordinates[0]) | number: 1}}{{vm.distanceUnit}} | </span>
-                        <span>{{job.location.locality}}, {{job.location.country}}</span>
+                    <div show-gt-md hide>
+                        <md-button class="md-raised">
+                            <span>Learn more</span>
+                            <md-icon md-font-icon="zoom_in">zoom_in</md-icon>
+                            <md-tooltip md-direction="bottom">More information</md-tooltip>
+                        </md-button>
                     </div>
                 </div>
             </md-card-title>
@@ -45,13 +50,21 @@
                         <div ng-if="job.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{job.jobType}}</span></div>
                         <div ng-if="job.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{job.startDate | date : 'longDate'}}</span></div>
                     </div>
-                    <div class="description md-body-1" flex>
+                    <div hide-xs class="description md-body-1" flex>
                         <p>{{job.description | limitTo : 150}}{{job.description.length > 150 ? '...' : ''}}</p>
                     </div>
                 </div>
             </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-                <span class="md-caption updated">Updated: {{job.updated | date : 'longDate'}}</span>
+            <md-card-actions layout-gt-xs="row" layout-align-gt-xs="space-between end" layout="column">
+                <div layout-xs="column" layout-align-xs="center stretch">
+                    <md-button hide-gt-md class="md-raised zoom-in-button">
+                        <span>Learn more</span>
+                        <md-icon md-font-icon="zoom_in">zoom_in</md-icon>
+                    </md-button>
+                </div>
+                <div layout="row" layout-align="end end">
+                    <span class="md-caption updated">Updated: {{job.updated | date : 'longDate'}}</span>
+                </div>
             </md-card-actions>
         </md-card>
         <sj-pagination
