@@ -15,7 +15,7 @@
             meta.content = description;
             document.head.appendChild(meta);
 
-            $window.title = document.title = toState.data && toState.data.title ? toState.data.title + ' | Simple Yacht Jobs' :
+            $window.title = document.title = toState.data && toState.data.title && toState.data.title !== 'Home' ? toState.data.title + ' | Simple Yacht Jobs' :
                 'Simple Yacht Jobs';
         })
     }
