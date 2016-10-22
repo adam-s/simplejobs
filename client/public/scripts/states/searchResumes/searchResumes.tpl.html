@@ -50,7 +50,7 @@
                         <div ng-if="resume.jobType"><span class="name md-body-2">Job type: </span><span class="value md-body-1">{{resume.jobType}}</span></div>
                         <div ng-if="resume.startDate"><span class="name md-body-2">Start date: </span><span class="value md-body-1">{{resume.startDate | date : 'longDate'}}</span></div>
                     </div>
-                    <div hide-xs class="description md-body-1" flex>
+                    <div class="description dont-break-out md-body-1" flex>
                         <p>{{resume.description | limitTo : 150}}{{resume.description.length > 150 ? '...' : ''}}</p>
                     </div>
                 </div>
