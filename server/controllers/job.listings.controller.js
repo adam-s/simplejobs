@@ -53,7 +53,7 @@ exports.index = function(req, res) {
             }
         });
     } else {
-        query.sort(tableState.order || '-updated');
+        query.sort(tableState.order || '-checkIn');
     }
 
     query
