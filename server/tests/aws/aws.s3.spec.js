@@ -68,7 +68,7 @@ describe('AWS S3', function() {
         User.remove({}, done);
     });
 
-    it('should not blow up in my fucking face', function(done) {
+    it('should not blow up in my [remove swear words to seem professional] face', function(done) {
 
         // There needs to be readstream opened then write stream into the S3 bucket.
 
