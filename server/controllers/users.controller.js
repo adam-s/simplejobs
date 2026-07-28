@@ -110,7 +110,7 @@ exports.autocomplete = function(req, res) {
 };
 
 exports.detail = function(req, res) {
-    res.json(req.app.locals.user);
+    res.json(req.targetUser);
 };
 
 exports.create = function(req, res) {
@@ -122,7 +122,7 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var user = req.app.locals.user;
+    var user = req.targetUser;
 
     if (req.body.newEmail) {
         req.assert('email', 'You must enter a valid email address').isEmail();
@@ -151,7 +151,7 @@ exports.update = function(req, res) {
 };
 
 exports.remove = function(req, res) {
-    req.app.locals.user.delete(function(err) {
+    req.targetUser.delete(function(err) {
         if (err) return res.status(400).send(err);
         res.json(true);
     })
@@ -163,7 +163,7 @@ exports.userById = function(req, res, next, id) {
         .select('_id email updated roles profile')
         .exec(function(err, user) {
             if (err) return res.status(400).send(err);
-            req.app.locals.user = user;
+            req.targetUser = user;
             next();
         });
 };

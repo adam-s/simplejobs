@@ -10,3 +10,16 @@
 #/server/config/environment/development.js
 #/server/config/environment/test.js
 npm-debug.log
+# --- revival (2026) ---
+# Uploaded resumes and any other local storage-driver output.
+/.data
+# Playwright artifacts. Screenshots of an authenticated session are
+# credential-adjacent even though nothing here is secret.
+/e2e/.snapshots
+/e2e/test-results
+/e2e/playwright-report
+/e2e/node_modules
+# Compiled stylesheets — built by `npm run build:css`.
+/client/public/css
+# Multer's scratch space for in-flight uploads.
+/tmp

@@ -63,12 +63,12 @@ describe('/api/profile', function() {
                 .field('description', 'Quibusdam laudantium pariatur labore qui consequatur incidunt. Voluptatem quia laudantium. Assumenda quia labore veritatis eius aliquam et. Veritatis debitis quos quia sequi perspiciatis dolor est natus soluta. Ullam ipsam consequatur quaerat ipsa omnis. Nostrum necessitatibus perspiciatis sequi adipisci error.')
                 .field('phone', '934-182-8580')
                 .field('email', 'Sabrina.OKon@hotmail.com')
-                .field('position', 'Dayworker')
+                .field('position', 'Daywork')
                 .field('languages[0]', 'Russian')
                 .field('active', 'true')
                 .field('location[name]', 'ut nulla occaecati')
                 .field('location[locality]', 'Haagmouth')
-                .field('location[administrativeArea', 'Kentucky')
+                .field('location[administrativeArea]', 'Kentucky')
                 .field('location[country]', 'Turkmenistan')
                 .field('location[coordinates][0]', '-0.6660')
                 .field('location[coordinates][1]', '38.3562')
@@ -87,18 +87,16 @@ describe('/api/profile', function() {
         it('should update a profile', function(done) {
             var data = fakeProfileObject();
 
-            agent
-                .post('/api/profile')
-                .field(data)
-                .attach('file', __dirname + '/../fixtures/sidenav-bg.png')
+            multipartFields(agent.post('/api/profile'), data)
+                .attach('file', __dirname + '/../fixtures/test.pdf')
                 .end(function(err, response) {
                     expect(response.status).to.equal(200);
                     data = response.body;
                     data.active = false;
-                    agent
-                        .put('/api/profile')
-                        .send(data)
-                        .attach('file', __dirname + '/../fixtures/sidenav-bg.png')
+                    // superagent refuses to mix .send() with .attach(); the
+                    // update carries a file, so it has to be multipart too.
+                    multipartFields(agent.put('/api/profile'), data)
+                        .attach('file', __dirname + '/../fixtures/test.pdf')
                         .end(function(err, response) {
                             expect(response.status).to.equal(200);
                             expect(response.body.active).to.equal(false);
@@ -107,11 +105,22 @@ describe('/api/profile', function() {
                 })
         });
 
+        it('rejects a file that is not a resume format', function(done) {
+            // The filter allows doc/docx/odt/pdf/txt only. An image must be
+            // refused: this is the upload surface's only content check.
+            var data = fakeProfileObject();
+            multipartFields(agent.post('/api/profile'), data)
+                .attach('file', __dirname + '/../fixtures/sidenav-bg.png')
+                .end(function(err, response) {
+                    expect(response.status).to.equal(400);
+                    done();
+                });
+        });
+
         it('should remove a profile', function(done) {
             var data = fakeProfileObject();
-            agent
-                .post('/api/profile')
-                .send(data)
+            multipartFields(agent.post('/api/profile'), data)
+                .attach('file', __dirname + '/../fixtures/test.txt')
                 .end(function(err, response) {
                     expect(response.status).to.equal(200);
                     agent
@@ -130,6 +139,29 @@ describe('/api/profile', function() {
         });
     });
 });
+
+/**
+ * Flatten a profile object into the bracketed field names multipart uses.
+ * superagent's .field() only accepts strings — handing it a nested object or a
+ * number throws "source.on is not a function" from form-data, which is what
+ * these specs did before.
+ */
+function multipartFields(agentRequest, obj, prefix) {
+    Object.keys(obj).forEach(function(key) {
+        var name = prefix ? prefix + '[' + key + ']' : key;
+        var value = obj[key];
+        if (Array.isArray(value)) {
+            value.forEach(function(item, i) {
+                agentRequest.field(name + '[' + i + ']', String(item));
+            });
+        } else if (value !== null && typeof value === 'object') {
+            multipartFields(agentRequest, value, name);
+        } else {
+            agentRequest.field(name, String(value));
+        }
+    });
+    return agentRequest;
+}
 
 function fakeProfileObject() {
     return {

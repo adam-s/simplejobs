@@ -4,12 +4,19 @@
   "description": "Why does getting a job on a yacht have to be so damn complicated?",
   "main": "server.js",
   "engines": {
-    "node": "6.3.1"
+    "node": "12.x"
   },
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_ENV=test mocha --reporter spec server/tests/*.spec.js",
-    "postinstall": "./node_modules/bower/bin/bower install && sh ./bin/heroku.sh",
+    "seed": "node server/lib/seed.js",
+    "build": "npm run build:vendor && npm run build:css",
+    "build:vendor": "bower install --allow-root --config.interactive=false",
+    "build:css": "sass client/sass:client/public/css/sass client/public/scripts:client/public/css/scripts --no-source-map --quiet",
+    "test": "NODE_ENV=test PORT=3999 mocha --require mocha.conf.js --reporter spec --exit --timeout 8000 \"server/tests/**/*.spec.js\"",
+    "test:e2e": "playwright test",
+    "snapshot": "node scripts/snapshot-capture.mjs",
+    "trace": "node scripts/click-trace.mjs",
+    "verify:clone": "./scripts/verify-clone.sh",
     "setAdminAccount": "node ./server/lib/install.js"
   },
   "repository": {
@@ -58,7 +65,7 @@
   },
   "devDependencies": {
     "async": "^2.0.0-rc.6",
-    "chai": "^3.5.0",
+    "chai": "^4.3.10",
     "grunt": "^0.4.5",
     "grunt-angular-templates": "^1.0.3",
     "grunt-contrib-concat": "^0.5.1",
@@ -77,9 +84,10 @@
     "karma": "^0.13.21",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.7",
-    "mocha": "^2.4.5",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
-    "supertest": "^1.2.0"
+    "mocha": "^9.2.2",
+    "sass": "^1.49.9",
+    "sinon": "^9.2.4",
+    "sinon-chai": "^3.7.0",
+    "supertest": "^4.0.2"
   }
 }

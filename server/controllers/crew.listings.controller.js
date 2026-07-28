@@ -9,12 +9,11 @@ var mongoose = require('mongoose'),
     fs = require('fs-extra'),
     sanitizeFilename = require('sanitize-filename'),
     config = require('../config/config'),
-    S3FS = require('s3fs');
+    createStorage = require('../lib/storage.js');
 
-var s3fs = new S3FS( config.aws.s3.bucket, {
-    accessKeyId: config.aws.s3.awsAccessKeyId,
-    secretAccessKey: config.aws.s3.awsSecretAccessKey
-});
+// Was `new S3FS(bucket, ...)` at module load, which made the server
+// unbootable without AWS credentials. See server/lib/storage.js.
+var s3fs = createStorage();
 
 exports.index = function(req, res) {
 
@@ -108,14 +107,14 @@ exports.autocomplete = function(req, res) {
 };
 
 exports.detail = function(req, res) {
-    res.json(req.app.locals.crewListing);
+    res.json(req.crewListing);
 };
 
 exports.update = function(req, res) {
     var crewListing;
 
-    if (req.app.locals.crewListing) {
-        crewListing = req.app.locals.crewListing;
+    if (req.crewListing) {
+        crewListing = req.crewListing;
 
         // Protect information
         delete req.body.author;
@@ -209,7 +208,7 @@ exports.update = function(req, res) {
 };
 
 exports.remove = function(req, res) {
-    req.app.locals.crewListing.delete(function(err) {
+    req.crewListing.delete(function(err) {
         if (err) return res.status(400).send(err);
         res.json(true);
     })
@@ -226,7 +225,7 @@ exports.crewListingById = function(req, res, next, id) {
         .exec(function(err, crewListing) {
             if (err) return res.status(400).send(err);
             if (!crewListing) return res.status(404).send({message: "File not found"});
-            req.app.locals.crewListing = crewListing;
+            req.crewListing = crewListing;
             next();
         });
 };
@@ -244,20 +243,20 @@ exports.crewListingBySession = function(req, res, next) {
         .where('author', req.user._id)
         .exec(function(err, crewListing) {
             if (err) return res.status(400).send({message: 'An error occurred'});
-            req.app.locals.crewListing = crewListing;
+            req.crewListing = crewListing;
             next();
         });
 };
 
 exports.createProfile = function(req, res, next) {
-    var crewListing = req.app.locals.crewListing;
+    var crewListing = req.crewListing;
     if (!_.isEmpty(crewListing)) return res.status(400).send({message: 'Profile already exists'});
     req.body.author = req.user._id;
     next();
 };
 
 exports.updateProfile = function(req, res, next) {
-    var crewListing = req.app.locals.crewListing;
+    var crewListing = req.crewListing;
     if (_.isEmpty(crewListing)) return res.status(400).send({message: 'Profile doesn\'t exist'});
     next();
 };
@@ -362,13 +361,13 @@ exports.crewListingByAuthorId = function (req, res, next, authorId) {
             if (!crewListing) return res.status(404).send({message: "File not found"});
             if (err) return res.status(400).send({message: 'An error occurred'});
 
-            req.app.locals.crewListing = crewListing;
+            req.crewListing = crewListing;
             next();
         });
 };
 
 exports.downloadResume = function(req, res) {
-    var crewListing = req.app.locals.crewListing;
+    var crewListing = req.crewListing;
 
     // If a profile is deleted or not active people shouldn't have access to the resume file download.
     // If not active or if deleted check if the requesting user is the owner or an administrator.

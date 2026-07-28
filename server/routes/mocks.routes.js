@@ -9,12 +9,9 @@ var mongoose = require('mongoose'),
     values = require('../config/values.js'),
     config = require('../config/config.js'),
     fs = require('fs-extra'),
-    S3FS = require('s3fs');
+    createStorage = require('../lib/storage.js');
 
-var s3fs = new S3FS(config.aws.s3.bucket + '/files/resumes/', {
-        accessKeyId: config.aws.s3.awsAccessKeyId,
-        secretAccessKey: config.aws.s3.awsSecretAccessKey
-    });
+var s3fs = createStorage('files/resumes/');
 
 module.exports = function(app) {
     app.get('/delete-all-the-things/:token', function(req, res) {

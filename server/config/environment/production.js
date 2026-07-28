@@ -14,6 +14,12 @@
  * @link http://archive.robwilkerson.org/2010/03/02/git-tip-ignore-changes-to-tracked-files/
  */
 module.exports = {
+
+    // Third-party checks performed during registration.
+    verification: {
+        email: true,
+        recaptcha: true
+    },
     db: process.env.MONGODB_URI,
     // set this to build
     dir: 'build/',

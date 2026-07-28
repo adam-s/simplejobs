@@ -21,7 +21,7 @@ module.exports = function getClientIp() {
             ipAddress = req.connection.remoteAddress;
         }
 
-        req.app.locals.ipAddress = ipAddress;
+        req.ipAddress = ipAddress;
 
         return next();
     }

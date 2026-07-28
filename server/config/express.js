@@ -46,6 +46,17 @@ module.exports = function (db) {
         index: false
     }));
 
+    // Uploaded résumés, when the local storage driver is in use. S3 hands back
+    // a signed URL and the controller redirects to it; on disk the equivalent
+    // is this route, which server/lib/storage.js points getSignedUrl at.
+    if (!config.storage || config.storage.driver !== 's3') {
+        var storage = require('../lib/storage.js');
+        app.use(storage.LOCAL_URL_PREFIX, express.static(storage.LOCAL_ROOT, {
+            index: false,
+            dotfiles: 'deny'
+        }));
+    }
+
     // Configure and initialize session
     app.use(cookieParser());
     app.use(session({
@@ -75,7 +86,7 @@ module.exports = function (db) {
     app.use(expressValidator());
     app.use(customValidators());
 
-    // Get the client IP address and attach it at req.app.locals.ipAddress
+    // Get the client IP address and attach it at req.ipAddress
     app.use(getClientIp());
 
     // Load and initialize passport

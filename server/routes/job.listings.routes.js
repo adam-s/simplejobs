@@ -29,7 +29,7 @@ function checkAuthenticated(req, res, next) {
 }
 
 function checkAdminOrOwn(req, res, next) {
-    var jobListing = req.app.locals.jobListing;
+    var jobListing = req.jobListing;
     if (!jobListing) return res.status(400).send({message: 'Job listing doesn\'t exist'});
 
     if (!req.user) return res.status(401).send({message: 'User is not authenticated'});
