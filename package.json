@@ -11,7 +11,7 @@
     "seed": "node server/lib/seed.js",
     "build": "npm run build:vendor && npm run build:css",
     "build:vendor": "bower install --allow-root --config.interactive=false",
-    "build:css": "sass client/sass:client/public/css/sass client/public/scripts:client/public/css/scripts --no-source-map --quiet",
+    "build:css": "node scripts/build-css.js",
     "test": "NODE_ENV=test PORT=3999 mocha --require mocha.conf.js --reporter spec --exit --timeout 8000 \"server/tests/**/*.spec.js\"",
     "test:e2e": "playwright test",
     "snapshot": "node scripts/snapshot-capture.mjs",
