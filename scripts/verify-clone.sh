@@ -53,6 +53,9 @@ for _ in $(seq 1 30); do
 done
 
 # nvm is a shell function, not a binary, so it has to be sourced before use.
+# Its own scripts reference unset variables, so `set -u` has to come off around
+# anything that calls into it.
+set +u
 export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 # shellcheck disable=SC1091
 . "$NVM_DIR/nvm.sh"
@@ -69,6 +72,7 @@ npm start &
 # ----------------- END verbatim from Quickstart -----------------
 
 SERVER_PID=$!
+set -u
 
 echo
 echo "==> waiting for the API"
