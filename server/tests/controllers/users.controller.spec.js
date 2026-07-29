@@ -7,8 +7,26 @@ var app = require('../../../server.js'),
     values = require('../../config/values.js');
 
 var users;
+var agent = request.agent(app);
+var ADMIN = { email: 'admin-spec@example.com', password: 'password' };
 
 describe('User listing controller unit tests: ', function() {
+    before(function(done) {
+        // /api/users is administrator-only; without this the suite asserts
+        // against the body of a 401 and reads `undefined.length`.
+        User.remove({ email: ADMIN.email }, function() {
+            var admin = new User({
+                email: ADMIN.email,
+                password: ADMIN.password,
+                roles: ['administrator', 'authenticated']
+            });
+            admin.save(function(err) {
+                if (err) return done(err);
+                agent.post('/auth/login').send(ADMIN).expect(200).end(done);
+            });
+        });
+    });
+
     beforeEach(function(done) {
         setup(done);
     });
@@ -19,7 +37,7 @@ describe('User listing controller unit tests: ', function() {
 
     describe('GET /api/users', function() {
         it('Should not throw an error', function(done) {
-            request(app)
+            agent
                 .get('/api/users')
                 .end(function(err, response) {
                     if (err) return done(err);
@@ -33,7 +51,7 @@ describe('User listing controller unit tests: ', function() {
         it('Should save a user listing to the database', function(done) {
             var data = fakeUserObject();
 
-            request(app)
+            agent
                 .post('/api/users')
                 .type('form')
                 .send(data)
@@ -46,7 +64,7 @@ describe('User listing controller unit tests: ', function() {
     describe('GET /api/users/:userId', function() {
         it('Should load the first user listing by ID', function(done) {
             var testUser = users[0];
-            request(app)
+            agent
                 .get('/api/users/' + testUser._id)
                 .expect(200)
                 .end(function(err, response) {
@@ -59,11 +77,17 @@ describe('User listing controller unit tests: ', function() {
 
     describe('PUT /api/users/:userId', function() {
         it('Should update the first user listing document', function(done) {
-            var data = users[0];
-            data.email = 'different@example.com';
+            // users.update only moves the address when `newEmail` is set;
+            // assigning `email` was silently a no-op.
+            var target = users[0];
+            var data = {
+                newEmail: 'different@example.com',
+                email: 'different@example.com',
+                roles: target.roles
+            };
 
-            request(app)
-                .put('/api/users/' + data._id)
+            agent
+                .put('/api/users/' + target._id)
                 .send(data)
                 .expect(200)
                 .end(function(err, response) {
@@ -76,20 +100,29 @@ describe('User listing controller unit tests: ', function() {
     describe('DELETE /api/users/:userId', function() {
         it('Should delete the user listing document', function(done) {
             var data = users[0];
+            var baseline;
 
-            request(app)
+            agent.get('/api/users').end(function(err, response) {
+                if (err) return done(err);
+                baseline = response.body.metadata.totalCount;
+
+            agent
                 .del('/api/users/' + data._id)
                 .expect(200)
                 .end(function(err) {
                     if (err) return done(err);
-                    request(app)
+                    agent
                         .get('/api/users')
                         .end(function(err, response) {
                             if (err) return done(err);
-                            expect(response.body.records.length).to.equal(9);
+                            // Relative to the baseline: the spec's own admin
+                            // account is in this collection too, and the list
+                            // is paginated, so a hardcoded count is brittle.
+                            expect(response.body.metadata.totalCount).to.equal(baseline - 1);
                             done();
                         });
                 });
+            });
         });
     });
 
@@ -102,7 +135,7 @@ function setup(done) {
         user.push(fakeUserObject());
     }
 
-    User.remove(function() {
+    User.remove({ roles: { $ne: 'administrator' } }, function() {
         User.create(user, function(err, results) {
             if (err) return done(err);
             users = results;
@@ -112,7 +145,7 @@ function setup(done) {
 }
 
 function teardown(done) {
-    User.remove(function() {
+    User.remove({ roles: { $ne: 'administrator' } }, function() {
         done();
     });
 }

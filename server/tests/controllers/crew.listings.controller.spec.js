@@ -38,14 +38,14 @@ describe('/api/crew-listings', function() {
     describe('Admin control crew listings', function() {
         beforeEach(function(done) {
             var newAdmin = new User({
-                email: config.adminAccountEmail,
-                password: config.adminAccountPassword,
+                email: config.admin.accountEmail,
+                password: config.admin.accountPassword,
                 roles: ['administrator', 'authenticated', 'anonymous']
             });
             newAdmin.save(function() {
                 var data = {
-                    email: config.adminAccountEmail,
-                    password: config.adminAccountPassword
+                    email: config.admin.accountEmail,
+                    password: config.admin.accountPassword
                 };
 
                 agent
@@ -65,12 +65,12 @@ describe('/api/crew-listings', function() {
                 .field('description', 'Quibusdam laudantium pariatur labore qui consequatur incidunt. Voluptatem quia laudantium. Assumenda quia labore veritatis eius aliquam et. Veritatis debitis quos quia sequi perspiciatis dolor est natus soluta. Ullam ipsam consequatur quaerat ipsa omnis. Nostrum necessitatibus perspiciatis sequi adipisci error.')
                 .field('phone', '934-182-8580')
                 .field('email', 'Sabrina.OKon@hotmail.com')
-                .field('position', 'Dayworker')
+                .field('position', 'Daywork')
                 .field('languages[0]', 'Russian')
                 .field('active', 'true')
                 .field('location[name]', 'ut nulla occaecati')
                 .field('location[locality]', 'Haagmouth')
-                .field('location[administrativeArea', 'Kentucky')
+                .field('location[administrativeArea]', 'Kentucky')
                 .field('location[country]', 'Turkmenistan')
                 .field('location[coordinates][0]', '-0.6660')
                 .field('location[coordinates][1]', '38.3562')
@@ -95,12 +95,12 @@ describe('/api/crew-listings', function() {
                 .field('description', 'Quibusdam laudantium pariatur labore qui consequatur incidunt. Voluptatem quia laudantium. Assumenda quia labore veritatis eius aliquam et. Veritatis debitis quos quia sequi perspiciatis dolor est natus soluta. Ullam ipsam consequatur quaerat ipsa omnis. Nostrum necessitatibus perspiciatis sequi adipisci error.')
                 .field('phone', '934-182-8580')
                 .field('email', 'Sabrina.OKon@hotmail.com')
-                .field('position', 'Dayworker')
+                .field('position', 'Daywork')
                 .field('languages[0]', 'Russian')
                 .field('active', 'true')
                 .field('location[name]', 'ut nulla occaecati')
                 .field('location[locality]', 'Haagmouth')
-                .field('location[administrativeArea', 'Kentucky')
+                .field('location[administrativeArea]', 'Kentucky')
                 .field('location[country]', 'Turkmenistan')
                 .field('location[coordinates][0]', '-0.6660')
                 .field('location[coordinates][1]', '38.3562')
@@ -119,12 +119,12 @@ describe('/api/crew-listings', function() {
                         .field('description', 'Quibusdam laudantium pariatur labore qui consequatur incidunt. Voluptatem quia laudantium. Assumenda quia labore veritatis eius aliquam et. Veritatis debitis quos quia sequi perspiciatis dolor est natus soluta. Ullam ipsam consequatur quaerat ipsa omnis. Nostrum necessitatibus perspiciatis sequi adipisci error.')
                         .field('phone', '934-182-8580')
                         .field('email', 'Sabrina.OKon@hotmail.com')
-                        .field('position', 'Dayworker')
+                        .field('position', 'Daywork')
                         .field('languages[0]', 'Russian')
                         .field('active', 'true')
                         .field('location[name]', 'ut nulla occaecati')
                         .field('location[locality]', 'Haagmouth')
-                        .field('location[administrativeArea', 'Kentucky')
+                        .field('location[administrativeArea]', 'Kentucky')
                         .field('location[country]', 'Turkmenistan')
                         .field('location[coordinates][0]', '-0.6660')
                         .field('location[coordinates][1]', '38.3562')

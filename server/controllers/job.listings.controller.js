@@ -94,7 +94,7 @@ exports.autocomplete = function(req, res) {
 };
 
 exports.detail = function(req, res) {
-    res.json(req.app.locals.jobListing);
+    res.json(req.jobListing);
 };
 
 exports.create = function(req, res) {
@@ -110,7 +110,7 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var jobListing = req.app.locals.jobListing;
+    var jobListing = req.jobListing;
 
     // Protect information
     delete req.body.author;
@@ -127,7 +127,7 @@ exports.update = function(req, res) {
 };
 
 exports.remove = function(req, res) {
-    var jobListing = req.app.locals.jobListing;
+    var jobListing = req.jobListing;
 
     jobListing.delete(function(err) {
         if (err) return res.status(400).send(validationErrorHandler(err, true));
@@ -146,7 +146,7 @@ exports.jobListingById = function(req, res, next, id) {
     query
         .exec(function(err, jobListing) {
             if (err) return res.status(400).send(validationErrorHandler(err, true));
-            req.app.locals.jobListing = jobListing;
+            req.jobListing = jobListing;
             next();
         });
 };

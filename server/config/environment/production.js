@@ -14,12 +14,30 @@
  * @link http://archive.robwilkerson.org/2010/03/02/git-tip-ignore-changes-to-tracked-files/
  */
 module.exports = {
+
+    // Third-party checks performed during registration.
+    verification: {
+        email: true,
+        recaptcha: true
+    },
     db: process.env.MONGODB_URI,
     // set this to build
     dir: 'build/',
     fileDir: 'files/',
     sessionSecret: process.env.SESSION_SECRET || 'MEAN',
     mockDataToken: process.env.MOCK_DATA_TOKEN || 'MOCK_DATA_TOKEN',
+
+    // The Google Maps browser key, injected into client/index.html at render
+    // time rather than hardcoded in the markup.
+    //
+    // This key is NOT a secret and cannot be made one — a browser has to send
+    // it in the clear on every Maps request, so anyone can read it out of the
+    // page. What protects it is an HTTP-referrer restriction in the Google
+    // Cloud console, not being absent from this repo. It lives here so it can
+    // be rotated or replaced per environment without editing HTML.
+    googleMaps: {
+        apiKey: process.env.GOOGLE_MAPS_API_KEY || ''
+    },
     admin: {
         accountEmail: process.env.ADMIN_ACCOUNT_EMAIL || 'admin@simpleyachtjobs.com',
         accountPassword: process.env.ADMIN_ACCOUNT_PASSWORD || 'password'

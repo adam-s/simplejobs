@@ -38,7 +38,7 @@ describe('User auth controller unit tests: ', function() {
             };
 
             request(app)
-                .post('/api/auth/register')
+                .post('/auth/register')
                 .send(data)
                 .expect(200)
                 .end(function(err, response) {
@@ -55,7 +55,7 @@ describe('User auth controller unit tests: ', function() {
             };
 
             request(app)
-                .post('/api/auth/register')
+                .post('/auth/register')
                 .send(data)
                 .expect(400)
                 .end(function(err, response) {
@@ -67,7 +67,7 @@ describe('User auth controller unit tests: ', function() {
 
         it('Should not allow creation of account with existing email', function(done) {
             request(app)
-                .post('/api/auth/register')
+                .post('/auth/register')
                 .send(data)
                 .expect(400)
                 .end(function(err, response) {
@@ -85,19 +85,19 @@ describe('User auth controller unit tests: ', function() {
             };
 
             request(app)
-                .post('/api/auth/register')
+                .post('/auth/register')
                 .send(data)
                 .expect(200)
                 .end(function(err) {
                     if (err) return done(err);
                     request(app)
-                        .post('/api/auth/login')
+                        .post('/auth/login')
                         .send(data)
                         .expect(200)
                         .end(function(err) {
                             if (err) return done(err);
                             request(app)
-                                .get('/api/auth/logout')
+                                .get('/auth/logout')
                                 .expect(302)
                                 .end(function(err, reponse) {
                                     if (err) return done(err);

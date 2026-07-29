@@ -13,30 +13,60 @@ var passport = require('passport'),
     validationErrorHandler = require('../lib/validationErrorHandler.js'),
     emailValidator = require('mailgun-validate-email')(config.mailgun.options.auth.email_validation_key);
 
+/**
+ * Email deliverability check. Mailgun's validation API in production; a no-op
+ * locally, where there is no Mailgun account and the address is fake anyway.
+ */
+function verifyEmail(email, done) {
+    if (!config.verification.email) return done(null);
+    emailValidator(email, function(err, result) {
+        if (err || !result.is_valid) return done(new Error('invalid email'));
+        done(null);
+    });
+}
+
+/**
+ * reCAPTCHA verification against Google. Skipped locally — the client has no
+ * registered site key to produce a token with.
+ */
+function verifyRecaptcha(token, remoteip, done) {
+    if (!config.verification.recaptcha) return done(null);
+    var payload = {
+        secret: config.recaptcha.secret,
+        response: token,
+        remoteip: remoteip
+    };
+    request.post({ url: config.recaptcha.url, form: payload }, function(err, response, body) {
+        if (err) return done(err);
+        try {
+            body = JSON.parse(body);
+        } catch (e) {
+            return done(e);
+        }
+        if (!body.success) return done(new Error('recaptcha failed'));
+        done(null);
+    });
+}
+
 exports.register = function(req, res) {
     req.assert('password', 'You must enter a password').notEmpty();
     req.assert('passwordConfirm', 'Passwords must match').equals(req.body.password);
     req.assert('email', 'You must enter a valid email address').isEmail();
-    req.assert('recaptcha', 'reCaptcha is required').notEmpty();
+    if (config.verification.recaptcha) {
+        req.assert('recaptcha', 'reCaptcha is required').notEmpty();
+    }
 
     var errors = req.validationErrors();
     if (errors) return res.status(400).send(validationErrorHandler(errors));
 
-    // Validate email here
-    emailValidator(req.body.email, function(err, result) {
+    // Both of the checks below call a third-party API. Locally there is no
+    // Mailgun account and no reCAPTCHA registration, so config turns them off
+    // and registration works offline. Production leaves them on.
+    verifyEmail(req.body.email, function(emailErr) {
+        if (emailErr) return res.status(400).send({message: "Email is not valid"});
 
-        if (err || !result.is_valid) return res.status(400).send({message: "Email is not valid"});
-
-        var payload = {
-            secret: config.recaptcha.secret,
-            response: req.body.recaptcha,
-            remoteip: req.app.locals.ipAddress
-        };
-
-        request.post({url: config.recaptcha.url, form:payload}, function(err, response, body) {
-            body = JSON.parse(body);
-
-            if (!body.success) return res.status(400).send({message: 'The reCaptcha didn\'t validate'});
+        verifyRecaptcha(req.body.recaptcha, req.ipAddress, function(captchaErr) {
+            if (captchaErr) return res.status(400).send({message: 'The reCaptcha didn\'t validate'});
 
             var user = new User();
             user.email = req.body.email;

@@ -4,12 +4,19 @@
   "description": "Why does getting a job on a yacht have to be so damn complicated?",
   "main": "server.js",
   "engines": {
-    "node": "6.3.1"
+    "node": "12.x"
   },
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_ENV=test mocha --reporter spec server/tests/*.spec.js",
-    "postinstall": "./node_modules/bower/bin/bower install && sh ./bin/heroku.sh",
+    "seed": "node server/lib/seed.js",
+    "build": "npm run build:vendor && npm run build:css",
+    "build:vendor": "bower install --allow-root --config.interactive=false",
+    "build:css": "node scripts/build-css.js",
+    "test": "NODE_ENV=test PORT=3999 mocha --require mocha.conf.js --reporter spec --exit --timeout 8000 \"server/tests/**/*.spec.js\"",
+    "test:e2e": "cd e2e && npx playwright test",
+    "snapshot": "cd e2e && node scripts/snapshot-capture.mjs",
+    "trace": "node scripts/click-trace.mjs",
+    "verify:clone": "./scripts/verify-clone.sh",
     "setAdminAccount": "node ./server/lib/install.js"
   },
   "repository": {
@@ -25,7 +32,6 @@
   "dependencies": {
     "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.0",
-    "bower": "^1.7.7",
     "compression": "^1.6.1",
     "connect-mongo": "^1.2.1",
     "consolidate": "^0.14.1",
@@ -58,28 +64,12 @@
   },
   "devDependencies": {
     "async": "^2.0.0-rc.6",
-    "chai": "^3.5.0",
-    "grunt": "^0.4.5",
-    "grunt-angular-templates": "^1.0.3",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-cssmin": "^0.14.0",
-    "grunt-contrib-uglify": "^0.11.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-env": "^0.4.4",
-    "grunt-injector": "^0.6.1",
-    "grunt-karma": "^0.12.1",
-    "grunt-mocha-test": "^0.12.7",
-    "grunt-sass": "^1.1.0",
-    "grunt-usemin": "^3.1.1",
-    "grunt-wiredep": "^2.0.0",
-    "jasmine-core": "^2.4.1",
-    "karma": "^0.13.21",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-jasmine": "^0.3.7",
-    "mocha": "^2.4.5",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
-    "supertest": "^1.2.0"
+    "bower": "^1.8.14",
+    "chai": "^4.3.10",
+    "mocha": "^9.2.2",
+    "sass": "^1.49.9",
+    "sinon": "^9.2.4",
+    "sinon-chai": "^3.7.0",
+    "supertest": "^4.0.2"
   }
 }

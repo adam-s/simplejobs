@@ -166,7 +166,7 @@
     <!-- Include the JS ReCaptcha API -->
     <!-- endbuild -->
     <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDagVt-mdNAQX_8srijJppnz-jluAv5pMU&libraries=places"></script>
+    {% if googleMapsApiKey %}<script src="https://maps.googleapis.com/maps/api/js?key={{ googleMapsApiKey }}&libraries=places"></script>{% endif %}
     <script>
         !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;

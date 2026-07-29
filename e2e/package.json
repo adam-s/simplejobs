@@ -1,0 +1,16 @@
+{
+  "name": "simplejobs-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-driven verification for simplejobs. Separate from the server package because the server runs on Node 12 (its original runtime) and Playwright needs a current Node.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "snapshot": "node scripts/snapshot-capture.mjs",
+    "trace": "node scripts/click-trace.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "playwright": "^1.49.0"
+  }
+}

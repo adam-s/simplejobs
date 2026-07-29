@@ -39,7 +39,10 @@ describe('Job listing controller unit tests: ', function() {
             it('Should deny access for unathenticated users', function(done) {
                 request(app)
                     .post('/api/job-listings')
-                    .expect(403)
+                    // 401, not 403: the request carries no identity at all.
+                    // checkAuthenticated answers 403 only for a logged-in user
+                    // who lacks the required role.
+                    .expect(401)
                     .end(done);
             });
         });
