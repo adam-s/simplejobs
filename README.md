@@ -5,8 +5,7 @@ résumés, both sides search.
 
 ![The job search at desktop width and the home page at phone width](docs/media/hero.png)
 
-An Angular 1.5 client on an Express + MongoDB API, written in 2016. It runs on
-a laptop and is not deployed anywhere — treat it as a demo, not a product.
+An Angular 1.5 client on an Express + MongoDB API demo, written in 2014.
 
 ## Running It
 
