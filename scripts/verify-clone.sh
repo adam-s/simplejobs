@@ -36,6 +36,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
+fail() { echo "❌ $1"; exit 1; }
+
 echo "verify-clone"
 echo "  source: $REMOTE"
 echo "  temp:   $TMP"
@@ -64,7 +66,7 @@ export MONGODB_URI="mongodb://127.0.0.1:27018/simplejobs-verify"
 export PORT="$PORT"
 
 # ---------- BEGIN verbatim from README.md § Quickstart ----------
-nvm install
+nvm install && nvm use
 npm install
 npm run build
 npm run seed
@@ -74,6 +76,15 @@ npm start &
 SERVER_PID=$!
 set -u
 
+# The whole point of the nvm line above is that this code runs on the Node it
+# was written for. Assert it, so a broken .nvmrc surfaces here rather than as a
+# baffling syntax error three steps later.
+ACTIVE_NODE="$(node --version | sed 's/^v//')"
+PINNED_NODE="$(tr -d '[:space:]' < .nvmrc)"
+[[ "$ACTIVE_NODE" == "$PINNED_NODE" ]] \
+  || fail "expected Node $PINNED_NODE from .nvmrc, got $ACTIVE_NODE"
+echo "  ✓ running on Node $ACTIVE_NODE, as .nvmrc pins" 
+
 echo
 echo "==> waiting for the API"
 for _ in $(seq 1 40); do
@@ -81,7 +92,6 @@ for _ in $(seq 1 40); do
   sleep 1
 done
 
-fail() { echo "❌ $1"; exit 1; }
 
 echo "==> checking"
 

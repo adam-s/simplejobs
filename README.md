@@ -28,10 +28,10 @@ npm start               # → http://localhost:3000
 Sign in as `demo@example.com` / `demo-password`. Seeded, local-only, recreated
 by every `npm run seed`.
 
-`./scripts/verify-clone.sh` clones the repo into a temp directory and runs the
-install/build/seed/start sequence above against it, then checks the API and the
-client actually answer — so the block above cannot quietly rot. It uses whatever
-Node you invoke it with, so `nvm use` first.
+`./scripts/verify-clone.sh` clones the repo into a temp directory and runs every
+command above against it — including the `nvm` line, and it asserts the active
+Node really is the pinned one — then checks that the API and the client answer.
+The block above cannot quietly rot.
 
 ## Tests
 
@@ -49,6 +49,12 @@ a current one. Switch with `nvm use` between them.
 Résumés are stored on local disk rather than S3, and the Mailgun and reCAPTCHA
 calls in registration are behind config flags that are off locally — so no
 account anywhere is needed to run it.
+
+Location autocomplete needs a Google Maps browser key. Set
+`GOOGLE_MAPS_API_KEY` and it is injected into the page at render time;
+without one, that script is simply not loaded and the rest of the app works.
+Such a key is never secret — the browser sends it in the clear — so restrict
+it by HTTP referrer rather than trying to hide it.
 
 The Mocha suite reported green for eight years while running a single file,
 because of a `describe.only` left in an AWS spec. Removing it exposed years of
