@@ -28,8 +28,10 @@ npm start               # → http://localhost:3000
 Sign in as `demo@example.com` / `demo-password`. Seeded, local-only, recreated
 by every `npm run seed`.
 
-`./scripts/verify-clone.sh` runs exactly those commands against a fresh clone in
-a temp directory and checks the result, so the block above cannot quietly rot.
+`./scripts/verify-clone.sh` clones the repo into a temp directory and runs the
+install/build/seed/start sequence above against it, then checks the API and the
+client actually answer — so the block above cannot quietly rot. It uses whatever
+Node you invoke it with, so `nvm use` first.
 
 ## Tests
 
