@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import { test, expect } from '@playwright/test';
 
 /**
@@ -5,6 +6,16 @@ import { test, expect } from '@playwright/test';
  * this covers the thing Mocha cannot see — whether Angular 1.5 actually
  * bootstraps, routes, and renders against a modern browser.
  */
+
+/**
+ * How many job listings a seeded database holds, read from the fixtures rather
+ * than written down here. The literal that used to sit in these tests drifted
+ * when the fixture set was trimmed, and the tests kept asserting the old
+ * number — the seeder is the source of truth, so ask it.
+ */
+const SEEDED_JOB_COUNT = createRequire(import.meta.url)(
+  '../../server/lib/fixtures.js',
+).JOB_LISTINGS.length;
 
 test.describe('simplejobs · client', () => {
 
@@ -68,7 +79,7 @@ test.describe('simplejobs · api', () => {
     const response = await request.get('/api/job-listings');
     expect(response.status()).toBe(200);
     const body = await response.json();
-    expect(body.metadata.totalCount).toBe(25);
+    expect(body.metadata.totalCount).toBe(SEEDED_JOB_COUNT);
     expect(body.records.length).toBeGreaterThan(0);
   });
 
@@ -83,7 +94,7 @@ test.describe('simplejobs · api', () => {
     expect(response.status()).toBe(400);
 
     const after = await (await request.get('/api/job-listings')).json();
-    expect(after.metadata.totalCount).toBe(25);
+    expect(after.metadata.totalCount).toBe(SEEDED_JOB_COUNT);
   });
 
   test('10 concurrent updates by different users do not cross over', async ({ playwright }) => {

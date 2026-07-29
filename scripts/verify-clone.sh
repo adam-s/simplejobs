@@ -85,10 +85,15 @@ fail() { echo "❌ $1"; exit 1; }
 
 echo "==> checking"
 
+# Read the expected count from the fixtures rather than hardcoding it. A
+# literal here drifted once already — the fixture set was trimmed and this
+# check kept asserting the old number, so the gate that exists to catch drift
+# was itself broken.
+EXPECTED="$(node -e "console.log(require('./server/lib/fixtures.js').JOB_LISTINGS.length)")"
 COUNT="$(curl -fsS "http://localhost:$PORT/api/job-listings" \
   | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s).metadata.totalCount))")"
-[[ "$COUNT" == "25" ]] || fail "expected 25 seeded job listings, got '$COUNT'"
-echo "  ✓ API serves 25 seeded job listings"
+[[ "$COUNT" == "$EXPECTED" ]] || fail "expected $EXPECTED seeded job listings, got '$COUNT'"
+echo "  ✓ API serves $EXPECTED seeded job listings"
 
 curl -fsS "http://localhost:$PORT/api/crew-listings" >/dev/null || fail "crew listings endpoint failed"
 echo "  ✓ API serves crew listings"

@@ -13,8 +13,8 @@
     "build:vendor": "bower install --allow-root --config.interactive=false",
     "build:css": "node scripts/build-css.js",
     "test": "NODE_ENV=test PORT=3999 mocha --require mocha.conf.js --reporter spec --exit --timeout 8000 \"server/tests/**/*.spec.js\"",
-    "test:e2e": "playwright test",
-    "snapshot": "node scripts/snapshot-capture.mjs",
+    "test:e2e": "cd e2e && npx playwright test",
+    "snapshot": "cd e2e && node scripts/snapshot-capture.mjs",
     "trace": "node scripts/click-trace.mjs",
     "verify:clone": "./scripts/verify-clone.sh",
     "setAdminAccount": "node ./server/lib/install.js"
