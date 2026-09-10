@@ -53,7 +53,7 @@
     "mongoose-validator": "^1.2.5",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
-    "nodemailer": "^2.6.1",
+    "nodemailer": "^9.1.1",
     "nodemailer-mailgun-transport": "^1.2.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
